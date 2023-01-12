@@ -3,6 +3,8 @@ import { Box, styled, useTheme } from '@mui/system';
 import { MatxSuspense } from 'app/components';
 import useSettings from 'app/hooks/useSettings';
 import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant';
+import AutocompleteCombo from 'app/views/registration/AutocompleteCombo';
+import PaginationTable from 'app/views/registration/PaginationTable';
 import React, { useEffect, useRef } from 'react';
 import Scrollbar from 'react-perfect-scrollbar';
 import { Outlet } from 'react-router-dom';
@@ -86,59 +88,75 @@ const Layout1 = () => {
   }, [isMdScreen]);
 
   return (
-    <Layout1Root className={layoutClasses}>
-      {showSidenav && sidenavMode !== 'close' && (
-        <SidenavTheme>
-          <Layout1Sidenav />
-        </SidenavTheme>
-      )}
-
-      <LayoutContainer width={sidenavWidth} secondarySidebar={secondarySidebar}>
-        {layout1Settings.topbar.show && layout1Settings.topbar.fixed && (
-          <ThemeProvider theme={topbarTheme}>
-            <Layout1Topbar fixed={true} className="elevation-z8" />
-          </ThemeProvider>
+    <>
+      <Layout1Root className={layoutClasses}>
+        {showSidenav && sidenavMode !== 'close' && (
+          <SidenavTheme>
+            <Layout1Sidenav />
+          </SidenavTheme>
         )}
+        <LayoutContainer width={sidenavWidth} secondarySidebar={secondarySidebar}>
+          {layout1Settings.topbar.show && layout1Settings.topbar.fixed && (
+            <ThemeProvider theme={topbarTheme}>
+              <Layout1Topbar fixed={true} className="elevation-z8" />
+            </ThemeProvider>
+          )}
 
-        {settings.perfectScrollbar && (
-          <StyledScrollBar>
-            {layout1Settings.topbar.show && !layout1Settings.topbar.fixed && (
-              <ThemeProvider theme={topbarTheme}>
-                <Layout1Topbar />
-              </ThemeProvider>
-            )}
-            <Box flexGrow={1} position="relative">
-              <MatxSuspense>
-                <Outlet />
-              </MatxSuspense>
-            </Box>
+          {/* {settings.perfectScrollbar && (
+            <StyledScrollBar>
+              {layout1Settings.topbar.show && !layout1Settings.topbar.fixed && (
+                <ThemeProvider theme={topbarTheme}>
+                  <Layout1Topbar />
+                </ThemeProvider>
+              )}
+              <Box flexGrow={1} position="relative">
+                <MatxSuspense>
+                  <Outlet />
+                </MatxSuspense>
+              </Box>
 
-            {settings.footer.show && !settings.footer.fixed && <Footer />}
-          </StyledScrollBar>
-        )}
+              {settings.footer.show && !settings.footer.fixed && <Footer />}
+            </StyledScrollBar>
+          )} */}
 
-        {!settings.perfectScrollbar && (
-          <ContentBox>
-            {layout1Settings.topbar.show && !layout1Settings.topbar.fixed && (
-              <ThemeProvider theme={topbarTheme}>
-                <Layout1Topbar />
-              </ThemeProvider>
-            )}
+          {!settings.perfectScrollbar && (
+            <ContentBox>
+              {layout1Settings.topbar.show && !layout1Settings.topbar.fixed && (
+                <ThemeProvider theme={topbarTheme}>
+                  <Layout1Topbar />
+                </ThemeProvider>
+              )}
 
-            <Box flexGrow={1} position="relative">
-              <MatxSuspense>
-                <Outlet />
-              </MatxSuspense>
-            </Box>
+              <Box flexGrow={1} position="relative">
+                <MatxSuspense>
+                  <Outlet />
+                  <box
+                    sx={{
+                      backgroundColor: 'blue',
+                      border: '2px solid black',
+                      '& th': {
+                        fontSize: '1.25rem',
+                        // color: 'rgba(96, 96, 96)',
+                        color: 'white',
+                      },
+                    }}
+                  >
+                  
+                    REGISTRATION
+                  </box>
+                  <AutocompleteCombo />
+                  <PaginationTable />
+                </MatxSuspense>
+              </Box>
 
-            {settings.footer.show && !settings.footer.fixed && <Footer />}
-          </ContentBox>
-        )}
-
-        {settings.footer.show && settings.footer.fixed && <Footer />}
-      </LayoutContainer>
-      {settings.secondarySidebar.show && <SecondarySidebar />}
-    </Layout1Root>
+              {settings.footer.show && !settings.footer.fixed && <Footer />}
+            </ContentBox>
+          )}
+          {settings.footer.show && settings.footer.fixed && <Footer />}
+        </LayoutContainer>
+        {settings.secondarySidebar.show && <SecondarySidebar />}
+      </Layout1Root>
+    </>
   );
 };
 

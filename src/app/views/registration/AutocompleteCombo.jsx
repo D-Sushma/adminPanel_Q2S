@@ -1,4 +1,4 @@
-import { Autocomplete, styled, TextField } from '@mui/material';
+import { Autocomplete, Grid, styled, TextField } from '@mui/material';
 // import { createFilterOptions } from '@mui/material/Autocomplete';
 import React, { Fragment } from 'react';
 
@@ -7,7 +7,7 @@ const AutoComplete = styled(Autocomplete)(() => ({
   marginBottom: '16px',
 }));
 
-const suggestions = [{ label: 'English' }, { label: 'GK' },{label:'All'}];
+const suggestions = [{ label: 'English' }, { label: 'GK' }, { label: 'All' }];
 
 // const filter = createFilterOptions();
 
@@ -33,16 +33,29 @@ const AutocompleteCombo = () => {
   return (
     <>
       <Fragment>
-      <AutoComplete
-        sx={{ ml: 2 }}
-        options={suggestions}
-        getOptionLabel={(option) => option.label}
-        renderInput={(params) => (
-          <TextField {...params} label="Combo box" variant="outlined" fullWidth />
-        )}
-      />
+        <Grid container justifyContent="center">
+          <AutoComplete
+          sx={{
+            padding: '0px 0px',
+            // borderRight: '2px solid black',
+            // borderLeft: '2px solid black',
+            backgroundColor: 'lightgreen',
+            fontSize: '1.1rem',
+            marginTop:'2px',
+          }}
+            container
+            justifyContent="center"
+            // sx={{ mt: 2 }}
+            options={suggestions}
+            getOptionLabel={(option) => option.label}
+            renderInput={(params) => (
+              <TextField {...params} label="Choose Subject" variant="outlined" fullWidth />
+            )}
+            
+          />
+        </Grid>
 
-      {/* <AutoComplete
+        {/* <AutoComplete
         value={value}
         options={suggestions}
         onChange={handleChange}
@@ -65,7 +78,7 @@ const AutocompleteCombo = () => {
         )}
       /> */}
 
-      {/* <AutoComplete
+        {/* <AutoComplete
         options={suggestions}
         getOptionLabel={(option) => option.label}
         getOptionDisabled={(option) => option === suggestions[0] || option === suggestions[2]}

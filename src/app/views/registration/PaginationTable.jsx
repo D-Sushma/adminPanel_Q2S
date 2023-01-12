@@ -121,9 +121,19 @@ const PaginationTable = () => {
 
   return (
     <Box width="98%" overflow="auto" marginLeft="15px" border="1px dotted black">
-      <StyledTable>
+      <StyledTable sx={{ tableLayout: 'auto' }}>
         <TableHead>
-          <TableRow>
+          <TableRow
+            sx={{
+              backgroundColor: 'blue',
+              border: '2px solid black',
+              '& th': {
+                fontSize: '1.25rem',
+                // color: 'rgba(96, 96, 96)',
+                color: 'white',
+              },
+            }}
+          >
             <TableCell align="center">SNO</TableCell>
             <TableCell align="center">NAME</TableCell>
             <TableCell align="center">SUBJECT</TableCell>
@@ -137,7 +147,16 @@ const PaginationTable = () => {
           {subscribarList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => (
-              <TableRow key={index}>
+              <TableRow
+                key={index}
+                sx={{
+                  padding: '0px 0px',
+                  borderRight: '2px solid black',
+                  borderLeft: '2px solid black',
+                  backgroundColor: 'lightblue',
+                  fontSize: '1.1rem',
+                }}
+              >
                 <TableCell align="center">{subscriber.id}</TableCell>
                 <TableCell align="center">{subscriber.name}</TableCell>
                 <TableCell align="center">{subscriber.subject}</TableCell>
@@ -165,6 +184,12 @@ const PaginationTable = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         nextIconButtonProps={{ 'aria-label': 'Next Page' }}
         backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        sx={{
+          padding: '0px 0px',
+          border: '2px solid black',
+          backgroundColor: 'lightcoral',
+          fontSize: '1.1rem',
+        }}
       />
     </Box>
   );
