@@ -35,14 +35,6 @@ const AutocompleteCombo = () => {
       <Fragment>
         <Grid container justifyContent="center">
           <AutoComplete
-          sx={{
-            padding: '0px 0px',
-            // borderRight: '2px solid black',
-            // borderLeft: '2px solid black',
-            backgroundColor: 'lightgreen',
-            fontSize: '1.1rem',
-            marginTop:'2px',
-          }}
             container
             justifyContent="center"
             // sx={{ mt: 2 }}
@@ -51,7 +43,6 @@ const AutocompleteCombo = () => {
             renderInput={(params) => (
               <TextField {...params} label="Choose Subject" variant="outlined" fullWidth />
             )}
-            
           />
         </Grid>
 

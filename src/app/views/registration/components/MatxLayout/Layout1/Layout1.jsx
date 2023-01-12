@@ -130,20 +130,7 @@ const Layout1 = () => {
               <Box flexGrow={1} position="relative">
                 <MatxSuspense>
                   <Outlet />
-                  <box
-                    sx={{
-                      backgroundColor: 'blue',
-                      border: '2px solid black',
-                      '& th': {
-                        fontSize: '1.25rem',
-                        // color: 'rgba(96, 96, 96)',
-                        color: 'white',
-                      },
-                    }}
-                  >
-                  
-                    REGISTRATION
-                  </box>
+                  <box>REGISTRATION</box>
                   <AutocompleteCombo />
                   <PaginationTable />
                 </MatxSuspense>
