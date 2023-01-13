@@ -1,4 +1,4 @@
-import { Autocomplete, styled, TextField } from '@mui/material';
+import { Autocomplete, Grid, styled, TextField } from '@mui/material';
 // import { createFilterOptions } from '@mui/material/Autocomplete';
 import React, { Fragment } from 'react';
 
@@ -33,16 +33,18 @@ const AutocompleteCombo = () => {
   return (
     <>
       <Fragment>
-      <AutoComplete
-        sx={{ ml: 2 }}
-        options={suggestions}
-        getOptionLabel={(option) => option.label}
-        renderInput={(params) => (
-          <TextField {...params} label="Combo box" variant="outlined" fullWidth />
-        )}
-      />
+        <Grid container justifyContent="center">
+          <AutoComplete
+            // sx={{ ml: 2 }}
+            options={suggestions}
+            getOptionLabel={(option) => option.label}
+            renderInput={(params) => (
+              <TextField {...params} label="Date/Subject" variant="outlined" fullWidth />
+            )}
+          />
+        </Grid>
 
-      {/* <AutoComplete
+        {/* <AutoComplete
         value={value}
         options={suggestions}
         onChange={handleChange}
@@ -65,7 +67,7 @@ const AutocompleteCombo = () => {
         )}
       /> */}
 
-      {/* <AutoComplete
+        {/* <AutoComplete
         options={suggestions}
         getOptionLabel={(option) => option.label}
         getOptionDisabled={(option) => option === suggestions[0] || option === suggestions[2]}

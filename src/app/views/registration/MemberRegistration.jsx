@@ -13,7 +13,7 @@ export default function MemberRegistration() {
   return (
     <>
       {/* <Button
-        fullWidth
+        // fullWidth
         color="primary"
         variant="outlined"
         onClick={() => navigate(-1)}

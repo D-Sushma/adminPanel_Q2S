@@ -143,9 +143,12 @@ const PaginationTable = () => {
   };
 
   return (
-    <Box width="98%" overflow="auto" marginLeft="10px" border="1px dashed black">
-      <StyledTable bgcolor="#d0ebf4">
-        <TableHead bgcolor="lightgreen">
+    <Box width="100%" overflow="auto" >
+      {/* marginLeft="10px" border="1px dashed black" */}
+      {/* #d0ebf4 */}
+      {/* lightgreen #ccff90*/}
+      <StyledTable bgcolor="#fafafa">
+        <TableHead bgcolor="#e0f7fa">
           <TableRow>
             <TableCell align="center">SNO</TableCell>
             <TableCell align="center">COMPETITION GROUP NAME</TableCell>

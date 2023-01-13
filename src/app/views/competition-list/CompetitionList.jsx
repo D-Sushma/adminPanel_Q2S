@@ -14,17 +14,18 @@
 // }
 //============================================================================================================
 
-import AutocompleteCombo from './AutocompleteCombo';
-import PaginationTable from './PaginationTable';
-import {Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+// import AutocompleteCombo from './AutocompleteCombo';
+// import PaginationTable from './PaginationTable';
+// import {Button } from '@mui/material';
+// import { useNavigate } from 'react-router-dom';
+import Layout1 from "./components/MatxLayout/Layout1/Layout1";
 
 const CompetitionList = () => {
   // -------------FOR BACK BUTTON--------------------
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <>
-      <Button
+      {/* <Button
         // fullWidth
         color="success"
         variant="outlined"
@@ -32,14 +33,15 @@ const CompetitionList = () => {
         sx={{ mt: 2, mb: 2, ml: 2 }}
       >
         Go Back
-      </Button>
+      </Button> */}
 
-      <div>CompetitionList</div>
+      <Layout1/>
+      {/* <div>CompetitionList</div> */}
       {/* --------------COMBO BOX-------------------- */}
-      <AutocompleteCombo />
+      {/* <AutocompleteCombo /> */}
 
       {/*------------PAGINATITION TABLE---------------*/}
-      <PaginationTable />
+      {/* <PaginationTable /> */}
     </>
   );
 };
