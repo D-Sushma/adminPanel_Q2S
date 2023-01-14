@@ -147,7 +147,7 @@ const PaginationTable = () => {
       {/* marginLeft="10px" border="1px dashed black" */}
       {/* #d0ebf4 */}
       {/* lightgreen #ccff90*/}
-      <StyledTable bgcolor="#fafafa">
+      <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
         <TableHead bgcolor="#e0f7fa">
           <TableRow>
             <TableCell align="center">SNO</TableCell>

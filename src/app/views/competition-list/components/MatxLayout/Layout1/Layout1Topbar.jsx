@@ -157,8 +157,10 @@ const Layout1Topbar = () => {
             </StyledItem>
 
             <StyledItem onClick={logout}>
-              <Icon> power_settings_new </Icon>
-              <Span> Logout </Span>
+              <Link to="/">
+                <Icon> power_settings_new </Icon>
+                <Span> Logout </Span>
+              </Link>
             </StyledItem>
           </MatxMenu>
         </Box>
