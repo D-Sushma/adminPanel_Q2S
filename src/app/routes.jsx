@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom';
 import MatxLayout from './components/MatxLayout/MatxLayout';
 import CompetitionListRoutes from './views/competition-list/CompetitionListRoutes';
 import MemberRegistrationRoutes from './views/registration/MemberRegistrationRoutes';
+import CompititionGroupRoutes from './views/competition-group/CompetitionGroupRoutes';
 
 
 
@@ -29,6 +30,7 @@ const routes = [
   // MEMBER REGISTRATION  or COMPETITION-LIST------------------------------------------
   ...MemberRegistrationRoutes,
   ...CompetitionListRoutes,
+  ...CompititionGroupRoutes,
 ];
 
 export default routes;

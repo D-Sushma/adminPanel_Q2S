@@ -2,6 +2,7 @@ export const navigations = [
   { name: 'Dashboard', path: '/dashboard/default', icon: 'dashboard' },
   { name: 'Registration', path: '/registration/MemberRegistration', icon: 'streetview' },
   { name: 'Competition-List', path: '/competition-list/CompetitionList', icon: 'format_list_numbered' },
+  { name: 'Competition-Group', path: '/competition-group/CompetitionGroup', icon: 'bubble_chart' },
   { label: 'PAGES', type: 'label' },
   {
     name: 'Session/Auth',

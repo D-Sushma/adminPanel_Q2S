@@ -3,8 +3,8 @@ import { Box, styled, useTheme } from '@mui/system';
 import { MatxSuspense } from 'app/components';
 import useSettings from 'app/hooks/useSettings';
 import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant';
-import AutocompleteCombo from 'app/views/competition-list/AutocompleteCombo';
-import PaginationTable from 'app/views/competition-list/PaginationTable';
+import AutocompleteCombo from 'app/views/competition-group/AutocompleteCombo';
+import PaginationTable from 'app/views/competition-group/PaginationTable';
 import React, { useEffect, useRef } from 'react';
 import Scrollbar from 'react-perfect-scrollbar';
 import { Outlet } from 'react-router-dom';
@@ -14,9 +14,10 @@ import SecondarySidebar from '../../SecondarySidebar/SecondarySidebar';
 import Layout1Sidenav from './Layout1Sidenav';
 import Layout1Topbar from './Layout1Topbar';
 import { Breadcrumb, SimpleCard } from 'app/components';
+// import DialogTransition from '../../../DialogTransition';
 
 // FOR BACK BUTTON...........................................
-import {Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Layout1Root = styled(Box)(({ theme }) => ({
@@ -55,8 +56,7 @@ const LayoutContainer = styled(Box)(({ width, secondarySidebar }) => ({
 }));
 
 const Layout1 = () => {
-
-   // -------------FOR BACK BUTTON--------------------
+  // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
   const { settings, updateSettings } = useSettings();
@@ -152,29 +152,33 @@ const Layout1 = () => {
 
                   <Container>
                     <Box className="breadcrumb" display="flex" justifyContent="space-between">
-                      <Breadcrumb routeSegments={[{ name: 'competition-list', path: '/competition-list' },{ name: 'Table' },]}/>
+                      <Breadcrumb
+                        routeSegments={[
+                          { name: 'competition-group', path: '/competition-group' },
+                          { name: 'Table' },
+                        ]}
+                      />
                       {/* // -------------FOR BACK BUTTON-------------------- */}
-                      <div>
-                        <Button
-                            color="secondary"
-                            variant="outlined"
-                            onClick={() => navigate(-1)}
-                            // sx={{ mt: 2, mb: 2, ml: 2 }}
-                         >
-                           Go Back
-                         </Button>
-                      </div>
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        onClick={() => navigate(-1)}
+                        // sx={{ ml: 85 }}
+                        // sx={{ mt: 2, mb: 2, ml: 2 }}
+                      >
+                        Go Back
+                      </Button>
+                      {/* <DialogTransition /> */}
                     </Box>
-                    
-                    <SimpleCard title="COMPETITION-LIST">
-                     <AutocompleteCombo />
-                      {/* <PaginationTable /> */}
-                    </SimpleCard>
-                    <SimpleCard>
+                  
+                    <SimpleCard title="COMPETITION-GROUP">
+                      {/* <AutocompleteCombo /> */}
                       <PaginationTable />
                     </SimpleCard>
+                    {/* <SimpleCard>
+                      <PaginationTable />
+                    </SimpleCard> */}
                   </Container>
-
                 </MatxSuspense>
               </Box>
 
