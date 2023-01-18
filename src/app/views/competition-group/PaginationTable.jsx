@@ -11,8 +11,11 @@ import {
   TableRow,
 } from '@mui/material';
 import { useState } from 'react';
+// FOR BACK BUTTON...........................................
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import MoreDetailsTable from './MoreDetailsTable';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -33,10 +36,11 @@ const subscribarList = [
     player2: '---',
     competition_date: '18 january, 2019',
     winner: 'Yes',
-    more_detail: '---',
+    more_detail: 'More-Details',
     slotEnd: '---',
     status: 'close',
   },
+  
   {
     id: 2,
     group_id: 'kessy bryan',
@@ -132,8 +136,14 @@ const subscribarList = [
 ];
 
 const PaginationTable = () => {
+  // -------------FOR BACK BUTTON--------------------
+  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const navigateTo = () => {navigate('</MoreDetailsTable>')};
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
 
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
@@ -171,22 +181,30 @@ const PaginationTable = () => {
                 <TableCell align="center">{subscriber.total_competition}</TableCell>
                 <TableCell align="center">{subscriber.competition_date}</TableCell>
                 <TableCell align="center">{subscriber.winner}</TableCell>
-                {/* <TableCell align="center">{subscriber.more_detail}</TableCell> */}
+                {/* render: rowData => <a href={'/path/view_note/' + rowData.note_id}>Test Link</a> */}
+                {/* <TableCell align="center"><Link to="/">{subscriber.more_detail}</Link></TableCell> */}
+                {/* <TableCell align="center" onClick={navigateTo}>{subscriber.more_detail}</TableCell> */}
+                
+                <Link to='/' >
+                <TableCell align="center">{subscriber.more_detail}</TableCell>
+                </Link>
 
-                <TableCell align="center">
+                {/* <TableCell align="center"> */}
                   {/* // -------------FOR BACK BUTTON-------------------- */}
                   {/* <Link to="/MoreDetailsTable.jsx"> */}
-                  <Button
-                    // component={Link}
-                    // to="./MoreDetailsTable.jsx"
-                    color="primary"
-                    variant="outlined"
-                    sx={{ width: 100, padding: 0, margin: 0 }}
-                  >
-                    More-Details
-                  </Button>
+                    {/* <Button
+                      // component={Link}
+                      // to="./MoreDetailsTable.jsx"
+                      // onClick={() => navigation.navigate('MoreDetailsTable')}
+                      onClick={() => navigate(-1)}
+                      color="primary"
+                      variant="outlined"
+                      sx={{ width: 100, padding: 0, margin: 0 }}
+                    >
+                      More-Details
+                    </Button> */}
                   {/* </Link> */}
-                </TableCell>
+                {/* </TableCell> */}
               </TableRow>
             ))}
         </TableBody>

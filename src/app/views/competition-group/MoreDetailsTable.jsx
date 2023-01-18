@@ -129,7 +129,7 @@ const subscribarList = [
   },
 ];
 
-const PaginationTable = () => {
+const MoreDetailsTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -143,11 +143,11 @@ const PaginationTable = () => {
   };
 
   return (
-    <Box width="100%" overflow="auto" >
+    <Box width="100%" overflow="auto">
       {/* marginLeft="10px" border="1px dashed black" */}
       {/* #d0ebf4 */}
       {/* lightgreen #ccff90*/}
-      
+
       <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
         <TableHead bgcolor="#e0f7fa">
           <TableRow>
@@ -175,7 +175,7 @@ const PaginationTable = () => {
                 <TableCell align="center">{subscriber.competition_date}</TableCell>
                 <TableCell align="center">{subscriber.winner}</TableCell>
                 <TableCell align="center">{subscriber.more_detail}</TableCell>
-    
+
                 {/* <TableCell align="right">
                   <IconButton>
                     <Icon color="error">close</Icon>
@@ -205,4 +205,4 @@ const PaginationTable = () => {
   );
 };
 
-export default PaginationTable;
+export default MoreDetailsTable;
