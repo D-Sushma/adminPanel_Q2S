@@ -1,33 +1,62 @@
-import React from 'react';
-// import { Button } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
-// import AutocompleteCombo from './AutocompleteCombo';
-// import PaginationTable from './PaginationTable';
-import Layout1 from './components/MatxLayout/Layout1/Layout1';
+// -----------------------------------------------------------------
+import { Card, Grid, styled, useTheme } from '@mui/material';
+import { Fragment } from 'react';
+import AutocompleteCombo from './AutocompleteCombo';
+import PaginationTable from './PaginationTable';
 
+const ContentBox = styled('div')(({ theme }) => ({
+  margin: '30px',
+  [theme.breakpoints.down('sm')]: { margin: '16px' },
+}));
 
+const Title = styled('span')(() => ({
+  fontSize: '1rem',
+  fontWeight: '500',
+  marginRight: '.5rem',
+  textTransform: 'capitalize',
+}));
 
-export default function MemberRegistration() {
-  // -------------FOR BACK BUTTON--------------------
-  // const navigate = useNavigate();
+const SubTitle = styled('span')(({ theme }) => ({
+  fontSize: '0.875rem',
+  color: theme.palette.text.secondary,
+}));
+
+const H4 = styled('h4')(({ theme }) => ({
+  fontSize: '1rem',
+  fontWeight: '500',
+  marginBottom: '16px',
+  textTransform: 'capitalize',
+  color: theme.palette.text.secondary,
+}));
+
+const MemberRegistration = () => {
+  const { palette } = useTheme();
+
   return (
-    <>
-      {/* <Button
-        // fullWidth
-        color="primary"
-        variant="outlined"
-        onClick={() => navigate(-1)}
-        sx={{ mt: 2, mb: 2, ml: 2 }}
-        >
-        Go Back
-      </Button> */}
+    <Fragment>
+      <ContentBox className="analytics">
+        <Grid container spacing={3}>
+          <Grid item lg={8} md={8} sm={12} xs={12}>
+           
+            <H4>Ongoing Projects</H4>
+            <AutocompleteCombo/>
+           
+          </Grid>
+          <PaginationTable/>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
+            <Card sx={{ px: 3, py: 2, mb: 3 }}>
+              <Title>Traffic Sources</Title>
+              <SubTitle>Last 30 days</SubTitle>
 
-      <Layout1/>
-      {/* <div>MemberRegistration</div> */}
-      {/* ---------------FOR COMBO BOX------------------------------------ */}
-      {/* <AutocompleteCombo /> */}
-      {/* ------------PAGINATION TABLE--------------------------------- */}
-      {/* <PaginationTable /> */}
-    </>
+            
+            </Card> 
+
+            
+          </Grid>
+        </Grid>
+      </ContentBox>
+    </Fragment>
   );
-}
+};
+
+export default MemberRegistration;
