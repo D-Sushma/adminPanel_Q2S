@@ -24,7 +24,12 @@ export default function AlertDialogSlide() {
 
   return (
     <div>
-      <Button variant="outlined" color="success" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="success"
+        onClick={handleClickOpen}
+        sx={{ width: 50, padding: 0, margin: 0 }}
+      >
         RESULT
       </Button>
       <Dialog

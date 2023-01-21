@@ -3,8 +3,8 @@ import { Box, styled, useTheme } from '@mui/system';
 import { MatxSuspense } from 'app/components';
 import useSettings from 'app/hooks/useSettings';
 import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant';
-import AutocompleteCombo from 'app/views/registration/AutocompleteCombo';
-import PaginationTable from 'app/views/registration/PaginationTable';
+import AutocompleteCombo from 'app/views/registration/Shared/AutocompleteCombo';
+import PaginationTable from 'app/views/registration/Shared/PaginationTable';
 import React, { useEffect, useRef } from 'react';
 import Scrollbar from 'react-perfect-scrollbar';
 import { Outlet } from 'react-router-dom';
@@ -120,7 +120,7 @@ const Layout1 = () => {
             </ThemeProvider>
           )}
 
-          {/* {settings.perfectScrollbar && (
+          {settings.perfectScrollbar && (
             <StyledScrollBar>
               {layout1Settings.topbar.show && !layout1Settings.topbar.fixed && (
                 <ThemeProvider theme={topbarTheme}>
@@ -135,7 +135,7 @@ const Layout1 = () => {
 
               {settings.footer.show && !settings.footer.fixed && <Footer />}
             </StyledScrollBar>
-          )} */}
+          )}
 
           {!settings.perfectScrollbar && (
             <ContentBox>
@@ -151,27 +151,31 @@ const Layout1 = () => {
 
                   <Container>
                     <Box className="breadcrumb" display="flex" justifyContent="space-between">
-                      <Breadcrumb routeSegments={[{ name: 'Registration', path: '/registration' },{ name: 'Table' },]}/>
+                      <Breadcrumb
+                        routeSegments={[
+                          { name: 'Registration', path: '/registration' },
+                          { name: 'Table' },
+                        ]}
+                      />
                       {/* // -------------FOR BACK BUTTON-------------------- */}
                       <Button
-                          color="primary"
-                          variant="outlined"
-                          onClick={() => navigate(-1)}
-                          // sx={{ mt: 2, mb: 2 }}
-                          >
-                          Go Back
+                        color="primary"
+                        variant="outlined"
+                        onClick={() => navigate(-1)}
+                        // sx={{ mt: 2, mb: 2 }}
+                      >
+                        Go Back
                       </Button>
                     </Box>
-                    
-                  <SimpleCard title="MEMBER REGISTRATION">
-                    <AutocompleteCombo />
-                    {/* <PaginationTable /> */}
-                  </SimpleCard>
-                  <SimpleCard>
-                    <PaginationTable />
-                  </SimpleCard>
-                  </Container>
 
+                    <SimpleCard title="MEMBER REGISTRATION">
+                      <AutocompleteCombo />
+                      {/* <PaginationTable /> */}
+                    </SimpleCard>
+                    <SimpleCard>
+                      <PaginationTable />
+                    </SimpleCard>
+                  </Container>
                 </MatxSuspense>
               </Box>
 

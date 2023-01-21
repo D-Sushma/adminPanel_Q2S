@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 import MatxLayout from './components/MatxLayout/MatxLayout';
 import CompetitionListRoutes from './views/competition-list/CompetitionListRoutes';
 import MemberRegistrationRoutes from './views/registration/MemberRegistrationRoutes';
-import CompititionGroupRoutes from './views/competition-group/CompetitionGroupRoutes';
+import CompetitionGroupRoutes from './views/competition-group/CompetitionGroupRoutes';
 
 
 
@@ -17,20 +17,20 @@ const routes = [
     element: (
       <AuthGuard>
         <MatxLayout />
-
         {/* <Registration /> */}
       </AuthGuard>
     ),
-    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes],
+    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, ...MemberRegistrationRoutes, ...CompetitionListRoutes, ...CompetitionGroupRoutes],
   },
   ...sessionRoutes,
   { path: '/', element: <Navigate to="dashboard/default" /> },
   { path: '*', element: <NotFound /> },
   
   // MEMBER REGISTRATION  or COMPETITION-LIST------------------------------------------
-  ...MemberRegistrationRoutes,
-  ...CompetitionListRoutes,
-  ...CompititionGroupRoutes,
+  { path: '/registration/MemberRegistration', element: <Navigate to="/registration/MemberRegistration" /> },
+  // ...MemberRegistrationRoutes,
+  // ...CompetitionListRoutes,
+  // ...CompititionGroupRoutes,
 ];
 
 export default routes;

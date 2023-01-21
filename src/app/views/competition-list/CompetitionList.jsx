@@ -1,8 +1,6 @@
 // import React from 'react';
-// // import AutocompleteCombo from '../material-kit/auto-complete/AutocompleteCombo';
 // import AutocompleteCombo from './AutocompleteCombo';
 // import PaginationTable from './PaginationTable';
-
 // export default function CompetitionList() {
 //   return (
 //     <>
@@ -13,35 +11,56 @@
 //   );
 // }
 //============================================================================================================
-
-// import AutocompleteCombo from './AutocompleteCombo';
-// import PaginationTable from './PaginationTable';
-// import {Button } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
-import Layout1 from "./components/MatxLayout/Layout1/Layout1";
+// import Layout1 from "./components/MatxLayout/Layout1/Layout1";
+import { Button, Box, styled } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Breadcrumb, SimpleCard } from 'app/components';
+import AutocompleteCombo from './Shared/AutocompleteCombo';
+import PaginationTable from './Shared/PaginationTable';
 
 const CompetitionList = () => {
   // -------------FOR BACK BUTTON--------------------
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  // ...............FOR BREADCRUMB CONNTAINER COMPONENT.........................
+  const Container = styled('div')(({ theme }) => ({
+    margin: '30px',
+    [theme.breakpoints.down('sm')]: { margin: '16px' },
+    '& .breadcrumb': {
+      marginBottom: '30px',
+      [theme.breakpoints.down('sm')]: { marginBottom: '16px' },
+    },
+  }));
   return (
     <>
-      {/* <Button
-        // fullWidth
-        color="success"
-        variant="outlined"
-        onClick={() => navigate(-1)}
-        sx={{ mt: 2, mb: 2, ml: 2 }}
-      >
-        Go Back
-      </Button> */}
+      <Container>
+        <Box className="breadcrumb" display="flex" justifyContent="space-between">
+          <Breadcrumb
+            routeSegments={[
+              { name: 'Competition-List', path: '/competition-list' },
+              { name: 'Table' },
+            ]}
+          />
+          {/* // -------------FOR BACK BUTTON-------------------- */}
+          <Button
+            // fullWidth
+            color="primary"
+            variant="outlined"
+            onClick={() => navigate(-1)}
+            // sx={{ mt: 2, mb: 2, ml: 2 }}
+          >
+            Go Back
+          </Button>
+        </Box>
+        <SimpleCard title="COMPETITION - LIST">
+          <AutocompleteCombo />
+          {/* <PaginationTable /> */}
+        </SimpleCard>
+        <SimpleCard>
+          <PaginationTable />
+        </SimpleCard>
+      </Container>
 
-      <Layout1/>
-      {/* <div>CompetitionList</div> */}
-      {/* --------------COMBO BOX-------------------- */}
-      {/* <AutocompleteCombo /> */}
-
-      {/*------------PAGINATITION TABLE---------------*/}
-      {/* <PaginationTable /> */}
+      {/* <Layout1/> */}
     </>
   );
 };

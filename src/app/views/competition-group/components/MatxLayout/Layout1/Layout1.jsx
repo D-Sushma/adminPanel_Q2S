@@ -3,8 +3,7 @@ import { Box, styled, useTheme } from '@mui/system';
 import { MatxSuspense } from 'app/components';
 import useSettings from 'app/hooks/useSettings';
 import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant';
-import AutocompleteCombo from 'app/views/competition-group/AutocompleteCombo';
-import PaginationTable from 'app/views/competition-group/PaginationTable';
+import PaginationTable from 'app/views/competition-group/Shared/PaginationTable';
 import React, { useEffect, useRef } from 'react';
 import Scrollbar from 'react-perfect-scrollbar';
 import { Outlet } from 'react-router-dom';
@@ -170,14 +169,10 @@ const Layout1 = () => {
                       </Button>
                       {/* <DialogTransition /> */}
                     </Box>
-                  
+
                     <SimpleCard title="COMPETITION-GROUP">
-                      {/* <AutocompleteCombo /> */}
                       <PaginationTable />
                     </SimpleCard>
-                    {/* <SimpleCard>
-                      <PaginationTable />
-                    </SimpleCard> */}
                   </Container>
                 </MatxSuspense>
               </Box>

@@ -11,6 +11,9 @@ import {
   TableRow,
 } from '@mui/material';
 import { useState } from 'react';
+// FOR BACK BUTTON...........................................
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -27,109 +30,81 @@ const subscribarList = [
     id: 1,
     group_id: 'john doe',
     total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '18 january, 2019',
     winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'close',
+    more_detail: 'More-Details',
   },
+
   {
     id: 2,
     group_id: 'kessy bryan',
     total_competition: 'My Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '10 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
   {
     id: 3,
     total_competition: 'My Fintech LTD.',
     group_id: 'kessy bryan',
-    player1: '---',
-    player2: '---',
     competition_date: '10 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
   {
     id: 4,
     group_id: 'james cassegne',
     total_competition: 'Collboy Tech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '8 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'close',
   },
   {
     id: 5,
     group_id: 'lucy brown',
     total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '1 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
   {
     id: 6,
     group_id: 'lucy brown',
     total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '1 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
   {
     id: 7,
     group_id: 'lucy brown',
     total_competition: 'ABC Fintech LTD.',
     competition_date: '1 january, 2019',
-    amount: 89000,
-    status: 'open',
+    winner: 'Yes',
+    more_detail: '---',
   },
   {
     id: 8,
     group_id: 'lucy brown',
     total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '1 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
   {
     id: 9,
     group_id: 'lucy brown',
     total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
     competition_date: '1 january, 2019',
     winner: 'Yes',
     more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
   },
 ];
 
-const MoreDetailsTable = () => {
+const PaginationTable = () => {
+  // -------------FOR BACK BUTTON--------------------
+  const navigate = useNavigate();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -145,23 +120,17 @@ const MoreDetailsTable = () => {
   return (
     <Box width="100%" overflow="auto">
       {/* marginLeft="10px" border="1px dashed black" */}
-      {/* #d0ebf4 */}
-      {/* lightgreen #ccff90*/}
+      {/* lightgreen #ccff90  #d0ebf4*/}
 
       <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
         <TableHead bgcolor="#e0f7fa">
           <TableRow>
             <TableCell align="center">SNO</TableCell>
-            <TableCell align="center">PLAYER 1</TableCell>
-            <TableCell align="center">PLAYER 2</TableCell>
-            <TableCell align="center">MARK PLAYER 1</TableCell>
-            <TableCell align="center">MARK PLAYER 2</TableCell>
-            <TableCell align="center">PLAYER 1 TIME</TableCell>
-            <TableCell align="center">PLAYER 2 TIME</TableCell>
+            <TableCell align="center">COMPETITION GROUP ID</TableCell>
+            <TableCell align="center">TOTAL COMPETITION</TableCell>
+            <TableCell align="center">COMPETITION-DATE</TableCell>
             <TableCell align="center">WINNER</TableCell>
-            <TableCell align="center">SLOT START</TableCell>
-            <TableCell align="center">SLOT END </TableCell>
-            <TableCell align="center">WALK OVER</TableCell>
+            <TableCell align="center">MORE_DETAIL</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -174,13 +143,17 @@ const MoreDetailsTable = () => {
                 <TableCell align="center">{subscriber.total_competition}</TableCell>
                 <TableCell align="center">{subscriber.competition_date}</TableCell>
                 <TableCell align="center">{subscriber.winner}</TableCell>
-                <TableCell align="center">{subscriber.more_detail}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    onClick={() => navigate('/competition-group/MoreDetailsTable')}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ width: 100, padding: 0, margin: 0 }}
+                  >
+                    More-Details
+                  </Button>
+                </TableCell>
 
-                {/* <TableCell align="right">
-                  <IconButton>
-                    <Icon color="error">close</Icon>
-                  </IconButton>
-                </TableCell> */}
               </TableRow>
             ))}
         </TableBody>
@@ -205,4 +178,4 @@ const MoreDetailsTable = () => {
   );
 };
 
-export default MoreDetailsTable;
+export default PaginationTable;

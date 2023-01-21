@@ -14,7 +14,7 @@ import { useTheme } from '@mui/system';
 import { H6 } from 'app/components/Typography';
 import React from 'react';
 
-import MoreDetailsTable from './MoreDetailsTable'
+import MoreDetailsTable from './MoreDetailsTable';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -34,7 +34,7 @@ export default function FullScreenDialog() {
   return (
     <Box>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-       More-Detail
+        Full Screen
       </Button>
 
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
