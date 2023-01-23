@@ -3,6 +3,7 @@ export const navigations = [
   { name: 'Registration', path: '/registration/MemberRegistration', icon: 'streetview' },
   { name: 'Competition-List', path: '/competition-list/CompetitionList', icon: 'format_list_numbered' },
   { name: 'Competition-Group', path: '/competition-group/CompetitionGroup', icon: 'bubble_chart' },
+  { name: 'Filter Record', path: '/filter/FilterRecord', icon: 'filter_frames' },
   { label: 'PAGES', type: 'label' },
   {
     name: 'Session/Auth',

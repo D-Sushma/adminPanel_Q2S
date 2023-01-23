@@ -9,6 +9,7 @@ import MatxLayout from './components/MatxLayout/MatxLayout';
 import CompetitionListRoutes from './views/competition-list/CompetitionListRoutes';
 import MemberRegistrationRoutes from './views/registration/MemberRegistrationRoutes';
 import CompetitionGroupRoutes from './views/competition-group/CompetitionGroupRoutes';
+import FilterRecordRoutes from './views/filter/FilterRecordRoutes';
 
 
 
@@ -20,7 +21,7 @@ const routes = [
         {/* <Registration /> */}
       </AuthGuard>
     ),
-    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, ...MemberRegistrationRoutes, ...CompetitionListRoutes, ...CompetitionGroupRoutes],
+    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, ...MemberRegistrationRoutes, ...CompetitionListRoutes, ...CompetitionGroupRoutes, ...FilterRecordRoutes],
   },
   ...sessionRoutes,
   { path: '/', element: <Navigate to="dashboard/default" /> },
