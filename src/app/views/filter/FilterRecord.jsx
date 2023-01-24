@@ -1,11 +1,18 @@
 import React from 'react';
-import SubjectRecord from './Shared/SubjectRecord';
+// import SubjectRecord from './Shared/SubjectRecord';
 import { Breadcrumb, SimpleCard } from 'app/components';
-import { styled, Button, Box, Icon } from '@mui/material';
+import { styled, Button, Box } from '@mui/material';
+// import { Icon } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import WeeklyRecord from './Shared/WeeklyRecord';
+// import WeeklyRecord from './Shared/WeeklyRecord';
+// import CalendarComp from './Shared/CalendarComp'
+// import DateRangeComp from './Shared/DateRangeComp';
+// import DateRangePickerComp from './Shared/DateRangePickerComp';
+import SubjectAndDateRecord from './Shared/SubjectAndDateRecord';
+import TotalRecord from './Shared/TotalRecord';
+
 // validation---------------
-import { Span } from "app/components/Typography";
+// import { Span } from 'app/components/Typography';
 
 export default function FilterRecord() {
   // -------------FOR BACK BUTTON--------------------
@@ -21,7 +28,6 @@ export default function FilterRecord() {
     },
   }));
 
-  
   return (
     <>
       <Container>
@@ -40,21 +46,41 @@ export default function FilterRecord() {
           </Button>
         </Box>
 
-        
-          <Box display="flex" justifyContent="space-evenly">
+        <SimpleCard>
+          <SubjectAndDateRecord />
+        </SimpleCard>
+        <Box sx={{ mt: 1 }}>
+          <SimpleCard>
+            <TotalRecord />
+          </SimpleCard>
+        </Box>
+
+        {/* <Box display="flex" justifyContent="space-evenly" sx={{ mt:10}}>
+          <Box sx={{ height: 150 }}>
             <SimpleCard title="SUBJECT">
               <SubjectRecord />
             </SimpleCard>
-
+          </Box>
+          <Box>
             <SimpleCard title="WEEKLY">
               <WeeklyRecord />
+              <CalendarComp />
+              <DateRangeComp />
+              <DateRangePickerComp />
             </SimpleCard>
           </Box>
+        </Box> */}
 
-          <Button color="primary" variant="contained" type="submit" sx={{  ml:130}}>
+        {/* <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          sx={{ ml: 134, mt: 15 }}
+          position="fixed"
+        >
           <Icon>send</Icon>
-          <Span sx={{ pl: 1, textTransform: "capitalize"}}>Submit</Span>
-        </Button>
+          <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>
+        </Button> */}
       </Container>
     </>
   );
