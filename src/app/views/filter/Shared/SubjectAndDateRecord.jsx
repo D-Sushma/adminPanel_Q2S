@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { SimpleCard } from 'app/components';
 // FOR SUBJECT RECORD.............................................
 import { List, ListItem, ListItemText, Menu, MenuItem } from '@mui/material';
@@ -92,10 +93,10 @@ export default function DateRangePickerComp() {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
         {/* // FOR SUBJECT RECORD................................................... */}
-        <SimpleCard title="SUBJECT">
-          <MenuRoot sx={{ height: 100 }}>
+        <SimpleCard title="GK/ENGLISH">
+          <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
                 button
@@ -103,6 +104,7 @@ export default function DateRangePickerComp() {
                 aria-controls="lock-menu"
                 aria-label="When device is locked"
                 onClick={handleClickListItem}
+                sx={{ width: 250, marginTop: [-3], padding: 0 }}
               >
                 <ListItemText
                   primary="Record Basis of Subject"
@@ -134,11 +136,21 @@ export default function DateRangePickerComp() {
 
         {/* // FOR WEEKLY RECORD..................................................... */}
         <SimpleCard title="WEEKLY">
-          <div className="calendarWrap">
-            <div>
+          {/* margin="40px 0px 0px 60px" */}
+          <Box sx={{ width: 300, height: 20 }}>
+            <Box display="flex" border="1px solid gray" justifyContent="space-evenly">
+              <Box>{moment().format('MM/DD/YYYY')}</Box>
+              &nbsp; To &nbsp;
+              {/* <Box border="1px solid gray" padding="3px" width="100px" height="30px" textAlign="center"> */}
+              <Box>{moment().add(7, 'days').format('MM/DD/YYYY')}</Box>
+            </Box>
+          </Box>
+
+          {/* <div className="calendarWrap"> */}
+          {/* <div>
               <input
-                //   value={` ${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")} `}
                 value={` ${format(range[0].startDate, 'MM/dd/yyyy')} `}
+                //   value={` ${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")} `}
                 readOnly
                 className="inputBox"
                 // now i want to display calender by clicking on the input box...
@@ -154,11 +166,11 @@ export default function DateRangePickerComp() {
                 onClick={() => setOpen((open) => !open)}
                 // now i want to close calender by clicking on the input box... USE EVENT LISTENER IN useEffect
               />
-            </div>
+            </div> */}
 
-            <div ref={refOne}>
-              {/* // now we  want to close this calendar , we can create another state--> open , close */}
-              {/* it will true than show calendar */}
+          {/* <div ref={refOne}>
+              // now we  want to close this calendar , we can create another state--> open , close
+              it will true than show calendar
               {open && (
                 <DateRangePicker
                   onChange={(item) => setRange([item.selection])}
@@ -170,8 +182,8 @@ export default function DateRangePickerComp() {
                   className="calenderElement"
                 />
               )}
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </SimpleCard>
 
         {/* SUBMIT BUTTON ........................................................... */}

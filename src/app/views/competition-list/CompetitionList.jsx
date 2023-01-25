@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import AutocompleteCombo from './Shared/AutocompleteCombo';
 import PaginationTable from './Shared/PaginationTable';
+import SubjectAndDateRecord from '../filter/Shared/SubjectAndDateRecord';
 
 const CompetitionList = () => {
   // -------------FOR BACK BUTTON--------------------
@@ -51,11 +52,12 @@ const CompetitionList = () => {
             Go Back
           </Button>
         </Box>
+        <SubjectAndDateRecord />
+        {/* <SimpleCard > */}
+        {/* <AutocompleteCombo /> */}
+        {/* <SubjectAndDateRecord /> */}
+        {/* </SimpleCard> */}
         <SimpleCard title="COMPETITION - LIST">
-          <AutocompleteCombo />
-          {/* <PaginationTable /> */}
-        </SimpleCard>
-        <SimpleCard>
           <PaginationTable />
         </SimpleCard>
       </Container>

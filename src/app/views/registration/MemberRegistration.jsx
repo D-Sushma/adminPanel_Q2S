@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import AutocompleteCombo from './Shared/AutocompleteCombo';
 import PaginationTable from './Shared/PaginationTable';
+import SubjectAndDateRecord from '../filter/Shared/SubjectAndDateRecord';
 
 // const ContentBox = styled('div')(({ theme }) => ({
 //   margin: '30px',
@@ -83,11 +84,13 @@ const MemberRegistration = () => {
               Go Back
             </Button>
           </Box>
-          <SimpleCard title="MEMBER REGISTRATION">
+          <SubjectAndDateRecord />
+          {/* <SimpleCard >
+            <SubjectAndDateRecord />
             <AutocompleteCombo />
-            {/* <PaginationTable /> */}
-          </SimpleCard>
-          <SimpleCard>
+            <PaginationTable />
+          </SimpleCard> */}
+          <SimpleCard title="MEMBER REGISTRATION">
             <PaginationTable />
           </SimpleCard>
         </Container>
