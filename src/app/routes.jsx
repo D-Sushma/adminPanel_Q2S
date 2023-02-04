@@ -10,6 +10,7 @@ import CompetitionListRoutes from './views/competition-list/CompetitionListRoute
 import MemberRegistrationRoutes from './views/registration/MemberRegistrationRoutes';
 import CompetitionGroupRoutes from './views/competition-group/CompetitionGroupRoutes';
 import FilterRecordRoutes from './views/filter/FilterRecordRoutes';
+import UserTableRoute from './views/user-table/UserTableRoutes';
 
 
 
@@ -21,7 +22,7 @@ const routes = [
         {/* <Registration /> */}
       </AuthGuard>
     ),
-    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, ...MemberRegistrationRoutes, ...CompetitionListRoutes, ...CompetitionGroupRoutes, ...FilterRecordRoutes],
+    children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, ...MemberRegistrationRoutes, ...CompetitionListRoutes, ...CompetitionGroupRoutes, ...FilterRecordRoutes, ...UserTableRoute],
   },
   ...sessionRoutes,
   { path: '/', element: <Navigate to="dashboard/default" /> },
