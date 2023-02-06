@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   Box,
   // Icon,
@@ -10,7 +11,7 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -107,6 +108,26 @@ const subscribarList = [
 ];
 
 const PaginationTable = () => {
+  console.log('inside pagination table');
+  // ----------DB FETCH------------------------------
+  const [users, setUsers] = useState([]);
+  const fetchData = () => {
+    fetch('http://localhost:4000/memberregistration')
+      .then((response) => {
+        console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside data', data);
+        setUsers(data.response);
+      });
+  };
+  console.log('after pagination table');
+  useEffect(() => {
+    fetchData();
+  }, []);
+  // ----------DB FETCH END-------------------------
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -120,40 +141,46 @@ const PaginationTable = () => {
   };
 
   return (
-    <Box width="100%" overflow="auto" >
+    <Box width="100%" overflow="auto">
       {/* // marginLeft="15px" border="1px dotted black" */}
       {/* #f1f8e9 */}
       <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
         <TableHead bgcolor="#e0f7fa">
           <TableRow>
             <TableCell align="center">SNO</TableCell>
-            <TableCell align="center">NAME</TableCell>
+            <TableCell align="center">USER ID</TableCell>
             <TableCell align="center">SUBJECT</TableCell>
             <TableCell align="center">SUBSCRIPTION</TableCell>
             <TableCell align="center">STATUS(ACTIVE/DEACTIVE)</TableCell>
+            <TableCell align="center">UPDATED</TableCell>
             <TableCell align="center">CREATED</TableCell>
-            <TableCell align="center">EXPIRY</TableCell>
+            <TableCell align="center">EXPIRY DATE</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {subscribarList
+          {/* {subscribarList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((subscriber, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{subscriber.id}</TableCell>
-                <TableCell align="center">{subscriber.name}</TableCell>
-                <TableCell align="center">{subscriber.subject}</TableCell>
-                <TableCell align="center">{subscriber.subscription}</TableCell>
-                <TableCell align="center">{subscriber.status}</TableCell>
-                <TableCell align="center">{subscriber.created}</TableCell>
-                <TableCell align="center">{subscriber.expiry}</TableCell>
-                {/* <TableCell align="right">
+            .map((subscriber, index) => ( */}
+          {/* <TableRow key={index}> */}
+          {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((user, index) => (
+            <TableRow key={index}>
+              <TableCell align="center">{user.id}</TableCell>
+              <TableCell align="center">{user.userid}</TableCell>
+              <TableCell align="center">{user.subject}</TableCell>
+              <TableCell align="center">{user.subscription}</TableCell>
+              <TableCell align="center">{user.status}</TableCell>
+              <TableCell align="center">{moment(user.updated_at).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="center">{moment(user.created_at).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="center">{moment(user.expiry_date).format('DD/MM/YYYY')}</TableCell>
+              {/* <TableCell align="right">
                   <IconButton>
                     <Icon color="error">close</Icon>
                   </IconButton>
                 </TableCell> */}
-              </TableRow>
-            ))}
+            </TableRow>
+          ))}
+          {/* ))} */}
         </TableBody>
       </StyledTable>
 
@@ -161,7 +188,8 @@ const PaginationTable = () => {
         page={page}
         component="div"
         rowsPerPage={rowsPerPage}
-        count={subscribarList.length}
+        // count={subscribarList.length}
+        count={users.length}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}
