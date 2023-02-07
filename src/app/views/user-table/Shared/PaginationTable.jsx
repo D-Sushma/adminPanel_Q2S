@@ -166,20 +166,17 @@ const PaginationTable = () => {
             .map((subscriber, index) => ( */}
           {users.length > 0 &&
            users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-           .map((user) => (
-              <TableRow key={user.id}>
+           .map((user, index) => (
+              <TableRow key={index}>
                 <TableCell align="center">{user.id}</TableCell>
                 <TableCell align="center">{user.name}</TableCell>
                 <TableCell align="center">{user.lname}</TableCell>
                 <TableCell align="center">{user.mobile}</TableCell>
                 <TableCell align="center">{user.emailid}</TableCell>
-                <TableCell align="center">{user.status}</TableCell>
+                {user.status === 1 ? <TableCell align="center">Active</TableCell>
+                : user.status === 0 ? <TableCell align="center">Deactive</TableCell>
+                : <TableCell align="center">----</TableCell>}
                 <TableCell align="center">{moment(user.created_at).format('DD/MM/YYYY')}</TableCell>
-                {/* <TableCell align="right">
-                  <IconButton>
-                    <Icon color="error">close</Icon>
-                  </IconButton>
-                </TableCell> */}
               </TableRow>
             ))}
           {/* ))} */}

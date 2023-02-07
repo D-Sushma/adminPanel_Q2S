@@ -1,3 +1,4 @@
+ 
 import moment from 'moment';
 import {
   Box,
@@ -126,6 +127,22 @@ const PaginationTable = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const [join, setJoin] = useState([]);
+  const fetchJoinData = () => {
+    fetch('http://localhost:4000/join')
+      .then((response) => {
+        console.log(' JOIN response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside JOIN data', data);
+        setJoin(data.response);
+      });
+  };
+  useEffect(() => {
+    fetchJoinData();
+  }, []);
   // ----------DB FETCH END-------------------------
 
   const [page, setPage] = useState(0);
@@ -151,7 +168,7 @@ const PaginationTable = () => {
             <TableCell align="center">USER ID</TableCell>
             <TableCell align="center">SUBJECT</TableCell>
             <TableCell align="center">SUBSCRIPTION</TableCell>
-            <TableCell align="center">STATUS(ACTIVE/DEACTIVE)</TableCell>
+            <TableCell align="center">STATUS</TableCell>
             <TableCell align="center">UPDATED</TableCell>
             <TableCell align="center">CREATED</TableCell>
             <TableCell align="center">EXPIRY DATE</TableCell>
@@ -161,15 +178,30 @@ const PaginationTable = () => {
           {/* {subscribarList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => ( */}
-          {/* <TableRow key={index}> */}
+            {/* <TableRow key={index}></TableRow> */}
           {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((user, index) => (
-            <TableRow key={index}>
+          .map((user) => {
+            return(
+            <TableRow>
               <TableCell align="center">{user.id}</TableCell>
               <TableCell align="center">{user.userid}</TableCell>
-              <TableCell align="center">{user.subject}</TableCell>
-              <TableCell align="center">{user.subscription}</TableCell>
-              <TableCell align="center">{user.status}</TableCell>
+
+              {join.map((joinuser)=>{
+                  // console.log(joinuser.name);
+                  <TableCell align="center">{joinuser.name}</TableCell>
+              })}
+
+              {user.subject === 6 ? <TableCell align="center">English</TableCell>
+              : user.subject === 13 ? <TableCell align="center">GK</TableCell>
+              : <TableCell align="center">----</TableCell>}
+             
+              {user.subscription === 1 ? <TableCell align="center">Weekly</TableCell>
+              : <TableCell align="center">{user.subscription}</TableCell>}
+
+              {user.status === 1 ? <TableCell align="center">Active</TableCell>
+              : user.status === 0 ? <TableCell align="center">Deactive</TableCell>
+              : <TableCell align="center">----</TableCell>}
+              
               <TableCell align="center">{moment(user.updated_at).format('DD/MM/YYYY')}</TableCell>
               <TableCell align="center">{moment(user.created_at).format('DD/MM/YYYY')}</TableCell>
               <TableCell align="center">{moment(user.expiry_date).format('DD/MM/YYYY')}</TableCell>
@@ -178,8 +210,8 @@ const PaginationTable = () => {
                     <Icon color="error">close</Icon>
                   </IconButton>
                 </TableCell> */}
-            </TableRow>
-          ))}
+            </TableRow>)
+          })}
           {/* ))} */}
         </TableBody>
       </StyledTable>
