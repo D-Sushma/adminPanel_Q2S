@@ -24,109 +24,109 @@ const StyledTable = styled(Table)(() => ({
   },
 }));
 
-const subscribarList = [
-  {
-    id: 1,
-    name: 'john doe',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'Yes',
-    status: 'close',
-    created: '18 january, 2019',
-    expiry: '18 january, 2019',
-  },
-  {
-    id: 2,
-    name: 'kessy bryan',
-    subject: 'My Fintech LTD.',
-    subscription: 'No',
-    status: 'open',
-    created: '10 january, 2019',
-    expiry: '10 january, 2019',
-  },
-  {
-    id: 3,
-    name: 'kessy bryan',
-    subject: 'My Fintech LTD.',
-    subscription: 'Yes',
-    status: 'open',
-    created: '10 january, 2019',
-    expiry: '10 january, 2019',
-  },
-  {
-    id: 4,
-    name: 'james cassegne',
-    subject: 'Collboy Tech LTD.',
-    status: 'close',
-    subscription: 'No',
-    created: '8 january, 2019',
-    expiry: '8 january, 2019',
-  },
-  {
-    id: 5,
-    name: 'lucy brown',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'Yes',
-    status: 'open',
-    created: '1 january, 2019',
-    expiry: '1 january, 2019',
-  },
-  {
-    id: 6,
-    name: 'lucy brown',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'No',
-    status: 'open',
-    created: '1 january, 2019',
-    expiry: '1 january, 2019',
-  },
-  {
-    id: 7,
-    name: 'lucy brown',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'Yes',
-    status: 'open',
-    created: '1 january, 2019',
-    expiry: '1 january, 2019',
-  },
-  {
-    id: 8,
-    name: 'lucy brown',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'No',
-    status: 'open',
-    created: '1 january, 2019',
-    expiry: '1 january, 2019',
-  },
-  {
-    id: 9,
-    name: 'lucy brown',
-    subject: 'ABC Fintech LTD.',
-    subscription: 'Yes',
-    status: 'open',
-    created: '1 january, 2019',
-    expiry: '1 january, 2019',
-  },
-];
+// const subscribarList = [
+//   {
+//     id: 1,
+//     name: 'john doe',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'Yes',
+//     status: 'close',
+//     created: '18 january, 2019',
+//     expiry: '18 january, 2019',
+//   },
+//   {
+//     id: 2,
+//     name: 'kessy bryan',
+//     subject: 'My Fintech LTD.',
+//     subscription: 'No',
+//     status: 'open',
+//     created: '10 january, 2019',
+//     expiry: '10 january, 2019',
+//   },
+//   {
+//     id: 3,
+//     name: 'kessy bryan',
+//     subject: 'My Fintech LTD.',
+//     subscription: 'Yes',
+//     status: 'open',
+//     created: '10 january, 2019',
+//     expiry: '10 january, 2019',
+//   },
+//   {
+//     id: 4,
+//     name: 'james cassegne',
+//     subject: 'Collboy Tech LTD.',
+//     status: 'close',
+//     subscription: 'No',
+//     created: '8 january, 2019',
+//     expiry: '8 january, 2019',
+//   },
+//   {
+//     id: 5,
+//     name: 'lucy brown',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'Yes',
+//     status: 'open',
+//     created: '1 january, 2019',
+//     expiry: '1 january, 2019',
+//   },
+//   {
+//     id: 6,
+//     name: 'lucy brown',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'No',
+//     status: 'open',
+//     created: '1 january, 2019',
+//     expiry: '1 january, 2019',
+//   },
+//   {
+//     id: 7,
+//     name: 'lucy brown',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'Yes',
+//     status: 'open',
+//     created: '1 january, 2019',
+//     expiry: '1 january, 2019',
+//   },
+//   {
+//     id: 8,
+//     name: 'lucy brown',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'No',
+//     status: 'open',
+//     created: '1 january, 2019',
+//     expiry: '1 january, 2019',
+//   },
+//   {
+//     id: 9,
+//     name: 'lucy brown',
+//     subject: 'ABC Fintech LTD.',
+//     subscription: 'Yes',
+//     status: 'open',
+//     created: '1 january, 2019',
+//     expiry: '1 january, 2019',
+//   },
+// ];
 
 const PaginationTable = () => {
   console.log('inside pagination table');
   // ----------DB FETCH------------------------------
-  const [users, setUsers] = useState([]);
-  const fetchData = () => {
-    fetch('http://localhost:4000/memberregistration')
-      .then((response) => {
-        console.log('response');
-        return response.json();
-      })
-      .then((data) => {
-        console.log('inside data', data);
-        setUsers(data.response);
-      });
-  };
-  console.log('after pagination table');
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const [users, setUsers] = useState([]);
+  // const fetchData = () => {
+  //   fetch('http://localhost:4000/memberregistration')
+  //     .then((response) => {
+  //       console.log('response');
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log('inside data', data);
+  //       setUsers(data.response);
+  //     });
+  // };
+  // console.log('after pagination table');
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const [join, setJoin] = useState([]);
   const fetchJoinData = () => {
@@ -179,32 +179,33 @@ const PaginationTable = () => {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => ( */}
             {/* <TableRow key={index}></TableRow> */}
-          {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((user) => {
+          {join.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((joinuser,index) => {
             return(
-            <TableRow>
-              <TableCell align="center">{user.id}</TableCell>
-              <TableCell align="center">{user.userid}</TableCell>
 
-              {join.map((joinuser)=>{
-                  // console.log(joinuser.name);
+            <TableRow key={index}>
+              <TableCell align="center">{joinuser.id}</TableCell>
+              <TableCell align="center">{joinuser.name+" "+joinuser.lname}</TableCell>
+
+              {/* {join.map((joinuser)=>{
+                  console.log(joinuser);
                   <TableCell align="center">{joinuser.name}</TableCell>
-              })}
+              })} */}
 
-              {user.subject === 6 ? <TableCell align="center">English</TableCell>
-              : user.subject === 13 ? <TableCell align="center">GK</TableCell>
+              {(joinuser.subject) === 6 ? <TableCell align="center">English</TableCell>
+              : (joinuser.subject) === 13 ? <TableCell align="center">GK</TableCell>
               : <TableCell align="center">----</TableCell>}
              
-              {user.subscription === 1 ? <TableCell align="center">Weekly</TableCell>
-              : <TableCell align="center">{user.subscription}</TableCell>}
+              {(joinuser.subscription) === 1 ? <TableCell align="center">Weekly</TableCell>
+              : <TableCell align="center">{joinuser.subscription}</TableCell>}
 
-              {user.status === 1 ? <TableCell align="center">Active</TableCell>
-              : user.status === 0 ? <TableCell align="center">Deactive</TableCell>
+              {(joinuser.status) === 1 ? <TableCell align="center">Active</TableCell>
+              : (joinuser.status) === 0 ? <TableCell align="center">Deactive</TableCell>
               : <TableCell align="center">----</TableCell>}
               
-              <TableCell align="center">{moment(user.updated_at).format('DD/MM/YYYY')}</TableCell>
-              <TableCell align="center">{moment(user.created_at).format('DD/MM/YYYY')}</TableCell>
-              <TableCell align="center">{moment(user.expiry_date).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="center">{moment(joinuser.updated_at).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="center">{moment(joinuser.created_at).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="center">{moment(joinuser.expiry_date).format('DD/MM/YYYY')}</TableCell>
               {/* <TableCell align="right">
                   <IconButton>
                     <Icon color="error">close</Icon>
@@ -221,7 +222,7 @@ const PaginationTable = () => {
         component="div"
         rowsPerPage={rowsPerPage}
         // count={subscribarList.length}
-        count={users.length}
+        count={join.length}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}
