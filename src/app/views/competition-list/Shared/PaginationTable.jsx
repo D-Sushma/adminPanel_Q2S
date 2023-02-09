@@ -141,7 +141,7 @@ const PaginationTable = () => {
       return response.json();
     })
     .then((data)=>{
-      console.log('inside data',data);
+      console.log('inside data f competition list',data);
       setUsers(data.response);
     })
   };
@@ -173,7 +173,7 @@ const PaginationTable = () => {
             <TableCell align="center">SNO</TableCell>
             <TableCell align="center">COMPETITION GROUP NAME</TableCell>
             <TableCell align="center">SUBJECT</TableCell>
-            <TableCell align="center">TOTAL QUESTION</TableCell>
+            {/* <TableCell align="center">TOTAL QUESTION</TableCell> */}
             <TableCell align="center">PLAYER1</TableCell>
             <TableCell align="center">PLAYER2</TableCell>
             <TableCell align="center">TEST-DATE</TableCell>
@@ -184,7 +184,7 @@ const PaginationTable = () => {
             <TableCell align="center">P2 TIME</TableCell> */}
             <TableCell align="center">SLOT START</TableCell>
             <TableCell align="center">SLOT END</TableCell>
-            <TableCell align="center">STATUS</TableCell>
+            {/* <TableCell align="center">STATUS</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -192,23 +192,33 @@ const PaginationTable = () => {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => ( */}
             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((user,index)=>(
+            .map((user,index)=>{
+              let pid = user.pid;
+              console.log("pid", pid);
+              return(
               <TableRow key={index}>
                 <TableCell align="center">{user.id}</TableCell>
-                <TableCell align="center">{user.name}</TableCell>
-                <TableCell align="center">{user.subject_id}</TableCell>
-                <TableCell align="center">{user.total_questions}</TableCell>
-                <TableCell align="center">{user.p1}</TableCell>
-                <TableCell align="center">{user.p2}</TableCell>
+                <TableCell align="center">{user.competition_group_id}</TableCell>
+
+                {(user.subject_id)===6 ? <TableCell align="center">ENGLISH</TableCell>
+                : (user.subject_id)===13 ? <TableCell align="center">GK</TableCell>
+                : <TableCell align="center">----</TableCell>}
+                
+                {/* <TableCell align="center">{user.total_questions}</TableCell> */}
+                <TableCell align="center">{user.p1_name}</TableCell>
+                <TableCell align="center">{user.p2_name}</TableCell>
                 <TableCell align="center">{moment(user.test_date).format('DD/MM/YYYY')}</TableCell>
-                <TableCell align="center">{user.subscription_id}</TableCell>
+
+                {(user.subscription_id)===1 ? <TableCell align="center">Weekly</TableCell>
+                : <TableCell align="center">----</TableCell>}
+                
                 {/* <TableCell align="center">{user.p1_correct_count}</TableCell>
                 <TableCell align="center">{user.p2_correct_count}</TableCell>
                 <TableCell align="center">{user.p1_time_taken}</TableCell>
                 <TableCell align="center">{user.p1_time_taken}</TableCell> */}
                 <TableCell align="center">{user.slot_start}</TableCell>
                 <TableCell align="center">{user.slot_end}</TableCell>
-                <TableCell align="center">{user.status}</TableCell>
+                {/* <TableCell align="center">status</TableCell> */}
 
                 {/* <TableCell align="right">
                   <IconButton>
@@ -216,7 +226,7 @@ const PaginationTable = () => {
                   </IconButton>
                 </TableCell> */}
               </TableRow>
-              ))}
+              )})}
             {/* ))} */}
         </TableBody>
       </StyledTable>

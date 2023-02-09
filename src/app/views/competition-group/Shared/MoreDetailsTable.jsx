@@ -11,7 +11,7 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import { useNavigate } from 'react-router-dom';
 import DialogTransition from './DialogTransition';
@@ -27,115 +27,134 @@ const StyledTable = styled(Table)(() => ({
   },
 }));
 
-const subscribarList = [
-  {
-    id: 1,
-    group_id: 'john doe',
-    total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '18 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'close',
-    result: '---',
-  },
-  {
-    id: 2,
-    group_id: 'kessy bryan',
-    total_competition: 'My Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '10 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-  {
-    id: 3,
-    total_competition: 'My Fintech LTD.',
-    group_id: 'kessy bryan',
-    player1: '---',
-    player2: '---',
-    competition_date: '10 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-  {
-    id: 4,
-    group_id: 'james cassegne',
-    total_competition: 'Collboy Tech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '8 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'close',
-  },
-  {
-    id: 5,
-    group_id: 'lucy brown',
-    total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '1 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-  {
-    id: 6,
-    group_id: 'lucy brown',
-    total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '1 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-  {
-    id: 7,
-    group_id: 'lucy brown',
-    total_competition: 'ABC Fintech LTD.',
-    competition_date: '1 january, 2019',
-    amount: 89000,
-    status: 'open',
-  },
-  {
-    id: 8,
-    group_id: 'lucy brown',
-    total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '1 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-  {
-    id: 9,
-    group_id: 'lucy brown',
-    total_competition: 'ABC Fintech LTD.',
-    player1: '---',
-    player2: '---',
-    competition_date: '1 january, 2019',
-    winner: 'Yes',
-    more_detail: '---',
-    slotEnd: '---',
-    status: 'open',
-  },
-];
+// const subscribarList = [
+//   {
+//     id: 1,
+//     group_id: 'john doe',
+//     total_competition: 'ABC Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '18 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'close',
+//     result: '---',
+//   },
+//   {
+//     id: 2,
+//     group_id: 'kessy bryan',
+//     total_competition: 'My Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '10 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+//   {
+//     id: 3,
+//     total_competition: 'My Fintech LTD.',
+//     group_id: 'kessy bryan',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '10 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+//   {
+//     id: 4,
+//     group_id: 'james cassegne',
+//     total_competition: 'Collboy Tech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '8 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'close',
+//   },
+//   {
+//     id: 5,
+//     group_id: 'lucy brown',
+//     total_competition: 'ABC Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '1 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+//   {
+//     id: 6,
+//     group_id: 'lucy brown',
+//     total_competition: 'ABC Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '1 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+//   {
+//     id: 7,
+//     group_id: 'lucy brown',
+//     total_competition: 'ABC Fintech LTD.',
+//     competition_date: '1 january, 2019',
+//     amount: 89000,
+//     status: 'open',
+//   },
+//   {
+//     id: 8,
+//     group_id: 'lucy brown',
+//     total_competition: 'ABC Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '1 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+//   {
+//     id: 9,
+//     group_id: 'lucy brown',
+//     total_competition: 'ABC Fintech LTD.',
+//     player1: '---',
+//     player2: '---',
+//     competition_date: '1 january, 2019',
+//     winner: 'Yes',
+//     more_detail: '---',
+//     slotEnd: '---',
+//     status: 'open',
+//   },
+// ];
 
 const MoreDetailsTable = () => {
+  // --------------------FETCH DATA--------------------------
+  let [users, setUsers] = useState([]);
+  let fetchData = () => {
+    // fetch('http://localhost:4000/competitionlistdetails')
+    fetch('http://localhost:4000/moredetailstable')
+      .then((response) => {
+        console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside data of more details', data);
+        setUsers(data.response);
+      });
+  };
+  console.log('after pagination table');
+  useEffect(() => {
+    fetchData();
+  }, []);
+  // --------------------END FETCH DATA--------------------------
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -195,8 +214,8 @@ const MoreDetailsTable = () => {
                   <TableCell align="center">SNO</TableCell>
                   <TableCell align="center">PLAYER 1</TableCell>
                   <TableCell align="center">PLAYER 2</TableCell>
-                  <TableCell align="center">MARK PLAYER 1</TableCell>
-                  <TableCell align="center">MARK PLAYER 2</TableCell>
+                  <TableCell align="center">POINT PLAYER 2</TableCell>
+                  <TableCell align="center">POINT PLAYER 1</TableCell>
                   <TableCell align="center">PLAYER 1 TIME</TableCell>
                   <TableCell align="center">PLAYER 2 TIME</TableCell>
                   <TableCell align="center">WINNER</TableCell>
@@ -207,32 +226,37 @@ const MoreDetailsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {subscribarList
+                {/* {subscribarList
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((subscriber, index) => (
-                    <TableRow key={index}>
-                      <TableCell align="center">{subscriber.id}</TableCell>
-                      <TableCell align="center">{subscriber.group_id}</TableCell>
-                      <TableCell align="center">{subscriber.total_competition}</TableCell>
-                      <TableCell align="center">{subscriber.competition_date}</TableCell>
-                      <TableCell align="center">{subscriber.winner}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">{subscriber.more_detail}</TableCell>
-                      <TableCell align="center">
-                        <DialogTransition />
-                      </TableCell>
+                  .map((subscriber, index) => ( */}
+                {users
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((user, index) => {
+                    return (
+                      <TableRow key={index}>
+                        <TableCell align="center">{user.id}</TableCell>
+                        <TableCell align="center">{user.p1}</TableCell>
+                        <TableCell align="center">{user.p1}</TableCell>
+                        <TableCell align="center">{user.p1_correct_count}</TableCell>
+                        <TableCell align="center">{user.p2_correct_count}</TableCell>
+                        <TableCell align="center">{user.p1_time_taken}</TableCell>
+                        <TableCell align="center">{user.p2_time_taken}</TableCell>
+                        <TableCell align="center">{user.winner_id}</TableCell>
+                        <TableCell align="center">{user.slot_start}</TableCell>
+                        <TableCell align="center">{user.slot_end}</TableCell>
+                        <TableCell align="center">{user.is_walk_over}</TableCell>
+                        <TableCell align="center">
+                          <DialogTransition />
+                        </TableCell>
 
-                      {/* <TableCell align="right">
+                        {/* <TableCell align="right">
                   <IconButton>
                     <Icon color="error">close</Icon>
                   </IconButton>
                 </TableCell> */}
-                    </TableRow>
-                  ))}
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </StyledTable>
 
@@ -244,7 +268,7 @@ const MoreDetailsTable = () => {
               page={page}
               component="div"
               rowsPerPage={rowsPerPage}
-              count={subscribarList.length}
+              count={users.length}
               onPageChange={handleChangePage}
               rowsPerPageOptions={[5, 10, 25]}
               onRowsPerPageChange={handleChangeRowsPerPage}

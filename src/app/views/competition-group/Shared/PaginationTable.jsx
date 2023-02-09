@@ -107,13 +107,13 @@ const PaginationTable = () => {
   // ----------DB FETCH------------------------------
   let [users, setUsers  ] = useState([]);
   let fetchData = ()=> {
-    fetch('http://localhost:4000/competitionlistdetails')
+    fetch('http://localhost:4000/competitiongroupdetails')
     .then((response)=>{
       console.log('response');
       return response.json();
     })
     .then((data)=>{
-      console.log('inside data',data);
+      console.log('inside data of competition group',data);
       setUsers(data.response);
     })
   };
@@ -162,8 +162,8 @@ const PaginationTable = () => {
               <TableRow key={index}>
                 <TableCell align="center">{user.id}</TableCell>
                 <TableCell align="center">{user.competition_group_id}</TableCell>
-                <TableCell align="center">{user.total_competition}</TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center">{user.grp_cnt}</TableCell>
+                <TableCell align="center">{moment(user.test_date).format('DD/MM/YYYY')}</TableCell>
                 <TableCell align="center">{user.winner_id}</TableCell>
                 <TableCell align="center">
                   <Button
