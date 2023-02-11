@@ -1,4 +1,6 @@
 import moment from 'moment';
+import useParams  from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   Box,
   // Icon,
@@ -102,7 +104,14 @@ const StyledTable = styled(Table)(() => ({
 //   },
 // ];
 
+
 const PaginationTable = () => {
+  // function MoredetailPage() {
+  //   // moredetailpage====
+  //   // Get the userId param from the URL.
+  //   let { id } = useParams();
+  // }
+
   console.log('inside pagination table');
   // ----------DB FETCH------------------------------
   let [users, setUsers  ] = useState([]);
@@ -158,26 +167,32 @@ const PaginationTable = () => {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => ( */}
             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((user,index)=>(
+            .map((user,index)=>{
+              let cgid = user.competition_group_id;
+              console.log("cgid",cgid);
+              return(
               <TableRow key={index}>
                 <TableCell align="center">{user.id}</TableCell>
                 <TableCell align="center">{user.competition_group_id}</TableCell>
                 <TableCell align="center">{user.grp_cnt}</TableCell>
                 <TableCell align="center">{moment(user.test_date).format('DD/MM/YYYY')}</TableCell>
-                <TableCell align="center">{user.winner_id}</TableCell>
+                <TableCell align="center">{user.winner_name}</TableCell>
                 <TableCell align="center">
+                 
+                <Link to={`/competition-group/MoreDetailsTabl/${user.competition_group_id}`}>
                   <Button
-                    onClick={() => navigate('/competition-group/MoreDetailsTable')}
+                    // onClick={() => navigate('/competition-group/MoreDetailsTable/${user.competition_group_id}', cgid = (cgid) )}
                     color="primary"
                     variant="outlined"
                     sx={{ width: 100, padding: 0, margin: 0 }}
                   >
                     More-Details
                   </Button>
+                  </Link>
                 </TableCell>
 
               </TableRow>
-            ))}
+            )})}
         </TableBody>
       </StyledTable>
 
