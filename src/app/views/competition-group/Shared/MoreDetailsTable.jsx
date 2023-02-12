@@ -1,3 +1,5 @@
+import {useParams}  from 'react-router-dom';
+
 import {
   Box,
   // Icon,
@@ -136,11 +138,14 @@ const StyledTable = styled(Table)(() => ({
 // ];
 
 const MoreDetailsTable = () => {
+  // ===============Get id 
+  const params = useParams();
+  console.log("params",params);
   // --------------------FETCH DATA--------------------------
   let [users, setUsers] = useState([]);
   let fetchData = () => {
     // fetch('http://localhost:4000/competitionlistdetails')
-    fetch('http://localhost:4000/moredetailstable')
+    fetch(`http://localhost:4000/moredetailstable1/${params.cgId}`)
       .then((response) => {
         console.log('response');
         return response.json();

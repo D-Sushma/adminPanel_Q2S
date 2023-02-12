@@ -7,7 +7,7 @@ const MoreDetailsTable = Loadable(lazy(() => import('./Shared/MoreDetailsTable')
 
 const CompetitionListRoute = [
   { path: '/competition-group/CompetitionGroup', element: <CompetitionGroup /> },
-  { path: '/competition-group/MoreDetailsTable', element: <MoreDetailsTable /> },
+  { path: '/competition-group/MoreDetailsTable/:cgId', element: <MoreDetailsTable /> },
 ];
 
 export default CompetitionListRoute;
