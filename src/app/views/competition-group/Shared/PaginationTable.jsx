@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {Link} from 'react-router-dom';
 import {
   Box,
   // Icon,
@@ -172,17 +173,21 @@ const PaginationTable = () => {
                 <TableCell align="center">{user.winner_name}</TableCell>
                 <TableCell align="center">
                  
-                {/* <Link to={`/competition-group/MoreDetailsTabl/${user.competition_group_id}`}> */}
+                {/* <Link to={`/competition-group/MoreDetailsTable/${user.competition_group_id}`}> */}
+                <Link to={{
+                  pathname:`/competition-group/MoreDetailsTable/${user.competition_group_id}`,
+                }}>
                   <Button
                     // onClick={() => navigate('/competition-group/MoreDetailsTable/${user.competition_group_id}', cgid = (cgid) )}
-                    onClick={() => navigate(`/competition-group/MoreDetailsTable/${user.competition_group_id}`)}
+                    // onClick={() => navigate(`/competition-group/MoreDetailsTable/${user.competition_group_id}`)}
+                    // onClick={() => navigate(`/competition-group/MoreDetailsTable`)}
                     color="primary"
                     variant="outlined"
                     sx={{ width: 100, padding: 0, margin: 0 }}
                   >
                     More-Details
                   </Button>
-                  {/* </Link> */}
+                  </Link>
                 </TableCell>
 
               </TableRow>

@@ -16,8 +16,9 @@ import {
 import { useState, useEffect } from 'react';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import { useNavigate } from 'react-router-dom';
-import DialogTransition from './DialogTransition';
+// import DialogTransition from './DialogTra nsition';
 import FullScreenDialog from './FullScreenDialog';
+import { CardGiftcardOutlined } from '@mui/icons-material';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -140,7 +141,7 @@ const StyledTable = styled(Table)(() => ({
 const MoreDetailsTable = () => {
   // ===============Get id 
   const params = useParams();
-  console.log("params",params);
+  // console.log("params",params);
   // --------------------FETCH DATA--------------------------
   let [users, setUsers] = useState([]);
   let fetchData = () => {
@@ -227,7 +228,7 @@ const MoreDetailsTable = () => {
                   <TableCell align="center">SLOT START</TableCell>
                   <TableCell align="center">SLOT END </TableCell>
                   <TableCell align="center">WALK OVER</TableCell>
-                  <TableCell align="center">RESULT</TableCell>
+                  {/* <TableCell align="center">RESULT</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -250,9 +251,9 @@ const MoreDetailsTable = () => {
                         <TableCell align="center">{user.slot_start}</TableCell>
                         <TableCell align="center">{user.slot_end}</TableCell>
                         <TableCell align="center">{user.is_walk_over}</TableCell>
-                        <TableCell align="center">
+                        {/* <TableCell align="center">
                           <DialogTransition />
-                        </TableCell>
+                        </TableCell> */}
 
                         {/* <TableCell align="right">
                   <IconButton>
