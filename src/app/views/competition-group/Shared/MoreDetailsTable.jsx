@@ -145,8 +145,7 @@ const MoreDetailsTable = () => {
   // --------------------FETCH DATA--------------------------
   let [users, setUsers] = useState([]);
   let fetchData = () => {
-    // fetch('http://localhost:4000/competitionlistdetails')
-    fetch(`http://localhost:4000/moredetailstable1/${params.cgId}`)
+    fetch(`http://localhost:4000/moredetailstable/${params.cgId}`)
       .then((response) => {
         console.log('response');
         return response.json();
@@ -218,12 +217,12 @@ const MoreDetailsTable = () => {
               <TableHead bgcolor="#e0f7fa">
                 <TableRow>
                   <TableCell align="center">SNO</TableCell>
-                  <TableCell align="center">PLAYER 1</TableCell>
-                  <TableCell align="center">PLAYER 2</TableCell>
-                  <TableCell align="center">POINT PLAYER 2</TableCell>
-                  <TableCell align="center">POINT PLAYER 1</TableCell>
-                  <TableCell align="center">PLAYER 1 TIME</TableCell>
-                  <TableCell align="center">PLAYER 2 TIME</TableCell>
+                  <TableCell align="center">PLAYER1(P1)</TableCell>
+                  <TableCell align="center">PLAYER2(P2)</TableCell>
+                  <TableCell align="center">POINT P1</TableCell>
+                  <TableCell align="center">POINT P2</TableCell>
+                  <TableCell align="center">P1 TIME</TableCell>
+                  <TableCell align="center">P2 TIME</TableCell>
                   <TableCell align="center">WINNER</TableCell>
                   <TableCell align="center">SLOT START</TableCell>
                   <TableCell align="center">SLOT END </TableCell>
@@ -241,8 +240,8 @@ const MoreDetailsTable = () => {
                     return (
                       <TableRow key={index}>
                         <TableCell align="center">{user.id}</TableCell>
-                        <TableCell align="center">{user.p1}</TableCell>
-                        <TableCell align="center">{user.p1}</TableCell>
+                        <TableCell align="center">{user.p1_name}</TableCell>
+                        <TableCell align="center">{user.p2_name}</TableCell>
                         <TableCell align="center">{user.p1_correct_count}</TableCell>
                         <TableCell align="center">{user.p2_correct_count}</TableCell>
                         <TableCell align="center">{user.p1_time_taken}</TableCell>
