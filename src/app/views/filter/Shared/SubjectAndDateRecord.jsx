@@ -13,7 +13,6 @@ import { addDays } from 'date-fns';
 
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import WeeklyRecord from  './WeeklyRecord'
 // ===================================================================
 // validation---------------BUTTON
 import { Button, Icon, Box } from '@mui/material';
@@ -39,20 +38,46 @@ export default function DateRangePickerComp() {
   let fetchData = () => {
     fetch('http://localhost:4000/subjectrecord')
       .then((response) => {
-        console.log('response');
+        // console.log('response');
         return response.json();
       })
       .then((data) => {
-        console.log('inside data filter section', data);
+        // console.log('inside data filter section', data);
         setSubjectrecord(data.response);
       });
   };
-  console.log('after pagination table');
   useEffect(() => {
     fetchData();
   }, []);
   // ----------DB FETCH END------------------------------
-  
+  // ----------DB FETCH------------------------------
+  const [expiryDate, setExpiryDate ] = useState([]);
+  // let expiryDate = [];
+  const fetchData1 = () => {
+    fetch('http://localhost:4000/memberregistration')
+      .then((response) => {
+        // console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside data subject date record', data);
+        // setUsers(data.response);
+        data.response.forEach((ele) => {
+          let eDate =  moment(ele.expiry_date).format('DD-MM-YYYY');
+          if(!expiryDate.includes(eDate)){
+            setExpiryDate(expiryDate.push(eDate));
+          }
+          // console.log("ele", moment(ele.expiry_date).format('DD-MM-YYYY'));
+        })
+      });
+      console.log('expiryDate',expiryDate);
+  };
+  useEffect(() => {
+    fetchData1();
+  }, []);
+
+
+
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -111,6 +136,7 @@ export default function DateRangePickerComp() {
     }
   };
 
+
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
@@ -129,7 +155,7 @@ export default function DateRangePickerComp() {
                 <ListItemText
                   primary="Record Basis of Subject"
                   secondary={subjectrecord[selectedIndex]}
-                  // secondary={options[selectedIndex]}
+                // secondary={options[selectedIndex]}
                 />
               </ListItem>
             </List>
@@ -165,13 +191,14 @@ export default function DateRangePickerComp() {
           {/* margin="40px 0px 0px 60px" */}
           <Box sx={{ width: 300, height: 20 }}>
             <Box display="flex" border="1px solid gray" justifyContent="space-evenly">
-              <Box>{moment().format('MM/DD/YYYY')}</Box>
-              &nbsp; To &nbsp;
+              {/* <Box>{moment().format('MM/DD/YYYY')}</Box> */}
+              {/* &nbsp; To &nbsp; */}
               {/* <Box border="1px solid gray" padding="3px" width="100px" height="30px" textAlign="center"> */}
-              <Box>{moment().add(7, 'days').format('MM/DD/YYYY')}</Box>
+              <Box>{moment(expiryDate[0], 'YYYY-MM-DD').subtract(6, 'days').format('DD/MM/YYYY')}</Box>
+              <Box>{moment(expiryDate[0], 'YYYY-MM-DD').format('DD/MM/YYYY')}</Box>
             </Box>
+            {expiryDate}
           </Box>
-                <WeeklyRecord/>
           {/* <div className="calendarWrap"> */}
           {/* <div>
               <input
@@ -218,8 +245,8 @@ export default function DateRangePickerComp() {
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-          //   sx={{ ml: 134, mt: 15 }}
-          //   position="fixed"
+        //   sx={{ ml: 134, mt: 15 }}
+        //   position="fixed"
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>

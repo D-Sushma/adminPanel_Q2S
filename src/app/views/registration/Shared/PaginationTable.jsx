@@ -1,5 +1,6 @@
  
 import moment from 'moment';
+import FetchData from 'app/utils/FetchData';
 import {
   Box,
   // Icon,
@@ -142,6 +143,8 @@ const PaginationTable = () => {
   };
   useEffect(() => {
     fetchJoinData();
+    // setJoin(FetchData());
+    // FetchData();
   }, []);
   // ----------DB FETCH END-------------------------
 
