@@ -13,6 +13,7 @@ import { addDays } from 'date-fns';
 
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import WeeklyRecord from  './WeeklyRecord'
 // ===================================================================
 // validation---------------BUTTON
 import { Button, Icon, Box } from '@mui/material';
@@ -33,6 +34,25 @@ const options = [
 ];
 
 export default function DateRangePickerComp() {
+  // ----------DB FETCH------------------------------
+  let [subjectrecord, setSubjectrecord] = useState([]);
+  let fetchData = () => {
+    fetch('http://localhost:4000/subjectrecord')
+      .then((response) => {
+        console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside data filter section', data);
+        setSubjectrecord(data.response);
+      });
+  };
+  console.log('after pagination table');
+  useEffect(() => {
+    fetchData();
+  }, []);
+  // ----------DB FETCH END------------------------------
+  
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -108,7 +128,8 @@ export default function DateRangePickerComp() {
               >
                 <ListItemText
                   primary="Record Basis of Subject"
-                  secondary={options[selectedIndex]}
+                  secondary={subjectrecord[selectedIndex]}
+                  // secondary={options[selectedIndex]}
                 />
               </ListItem>
             </List>
@@ -120,14 +141,19 @@ export default function DateRangePickerComp() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {options.map((option, index) => (
+              {/* {options.map((option, index) => ( */}
+              {subjectrecord.map((option, index) => (
                 <MenuItem
                   key={option}
                   disabled={index === 0}
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
                 >
-                  {option}
+                  {/* {option} */}
+                  GK - {option.subject_record}
+                  <br />
+                  ENGLISH - {option.c2_subject_record}
+                  <br />
                 </MenuItem>
               ))}
             </Menu>
@@ -145,7 +171,7 @@ export default function DateRangePickerComp() {
               <Box>{moment().add(7, 'days').format('MM/DD/YYYY')}</Box>
             </Box>
           </Box>
-
+                <WeeklyRecord/>
           {/* <div className="calendarWrap"> */}
           {/* <div>
               <input

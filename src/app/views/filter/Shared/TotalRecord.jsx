@@ -12,7 +12,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -62,6 +62,24 @@ SimpleDialog.propTypes = {
 };
 
 export default function SimpleDialogDemo() {
+  // ----------DB FETCH------------------------------
+  let [totalrecord, setTotalrecord] = useState([]);
+  let fetchData1 = () => {
+    fetch('http://localhost:4000/totalrecord')
+      .then((response) => {
+        console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log(' total record inside data filter section', data);
+        setTotalrecord(data.response);
+      });
+  };
+  console.log('after pagination table');
+  useEffect(() => {
+    fetchData1();
+  }, []);
+  // ----------DB FETCH END------------------------------
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -85,9 +103,11 @@ export default function SimpleDialogDemo() {
           <br />
           <br />
           
+            {totalrecord.map((totalrecord)=>(
           <Button variant="outlined" color="primary" onClick={() => navigate('/registration/MemberRegistration')} sx={{width:150}}>
-            4
+              {totalrecord.total_record}
           </Button>
+            ))}
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>
