@@ -2,8 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import { SimpleCard } from 'app/components';
 // FOR SUBJECT RECORD.............................................
-import { List, ListItem, ListItemText, Menu, MenuItem } from '@mui/material';
+import { List, ListItem, ListItemText, Menu, MenuItem, Select,Chip, FormHelperText, FormControl, InputLabel } from '@mui/material';
 import { styled } from '@mui/system';
+import AbcIcon from '@mui/icons-material/Abc';
 
 // FOR WEEKLY RECORD IMPORT PACKAGE..................................
 import { useEffect, useRef, useState } from 'react';
@@ -17,7 +18,8 @@ import 'react-date-range/dist/theme/default.css';
 // validation---------------BUTTON
 import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
-
+import { element } from 'prop-types';
+let dropdownData = [];
 // FOR SUBJECT RECORD...................................................
 const MenuRoot = styled('div')(({ theme }) => ({
   width: '100%',
@@ -26,10 +28,13 @@ const MenuRoot = styled('div')(({ theme }) => ({
 }));
 
 const options = [
-  'Show some love to Material-UI',
-  'Show all notification content',
-  'Hide sensitive notification content',
-  'Hide all notification content',
+  'Show Subject With Subject Code ',
+  'GK - 13',
+  'ENGLISH - 6',
+  // 'Show some love to Material-UI',
+  // 'Show all notification content',
+  // 'Hide sensitive notification content',
+  // 'Hide all notification content',
 ];
 
 export default function DateRangePickerComp() {
@@ -51,7 +56,7 @@ export default function DateRangePickerComp() {
   }, []);
   // ----------DB FETCH END------------------------------
   // ----------DB FETCH------------------------------
-  const [expiryDate, setExpiryDate ] = useState([]);
+  const [expiryDate, setExpiryDate] = useState([]);
   // let expiryDate = [];
   const fetchData1 = () => {
     fetch('http://localhost:4000/memberregistration')
@@ -60,22 +65,31 @@ export default function DateRangePickerComp() {
         return response.json();
       })
       .then((data) => {
-        console.log('inside data subject date record', data);
-        // setUsers(data.response);
-        data.response.forEach((ele) => {
-          let eDate =  moment(ele.expiry_date).format('DD-MM-YYYY');
-          if(!expiryDate.includes(eDate)){
-            setExpiryDate(expiryDate.push(eDate));
-          }
+        // console.log('inside data subject date record', data.response.eDate);
+        // console.log('inside data subject date record', data.response.results);
+        // setExpiryDate(data.response.eDate);
+
+        const e_result = data.response.eDate;
+        var data=[];
+        e_result.forEach((ele) => {
+          // console.log('ele', ele)
+          data.push(ele)
+          // console.log('dropdownData', dropdownData)
+          // let eDate = moment(ele.expiry_date).format('DD-MM-YYYY');
+          // if (!expiryDate.includes(eDate)) {
+          //   setExpiryDate(expiryDate.push(eDate));
+          // }
           // console.log("ele", moment(ele.expiry_date).format('DD-MM-YYYY'));
         })
+        dropdownData=data;
+        // console.log('dropdownData', dropdownData)
+
       });
-      console.log('expiryDate',expiryDate);
+    // console.log('expiryDate', expiryDate);
   };
   useEffect(() => {
     fetchData1();
   }, []);
-
 
 
   // FOR SUBJECT RECORD...................................................
@@ -136,6 +150,12 @@ export default function DateRangePickerComp() {
     }
   };
 
+  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+
+
+  const selectionChangeHandler = (event) => {
+    setExpiryDate(event.target.value);
+  };
 
   return (
     <>
@@ -154,8 +174,7 @@ export default function DateRangePickerComp() {
               >
                 <ListItemText
                   primary="Record Basis of Subject"
-                  secondary={subjectrecord[selectedIndex]}
-                // secondary={options[selectedIndex]}
+                  secondary={options[selectedIndex]}
                 />
               </ListItem>
             </List>
@@ -167,19 +186,14 @@ export default function DateRangePickerComp() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {/* {options.map((option, index) => ( */}
-              {subjectrecord.map((option, index) => (
+              {options.map((option, index) => (
                 <MenuItem
                   key={option}
                   disabled={index === 0}
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
                 >
-                  {/* {option} */}
-                  GK - {option.subject_record}
-                  <br />
-                  ENGLISH - {option.c2_subject_record}
-                  <br />
+                  {option}
                 </MenuItem>
               ))}
             </Menu>
@@ -188,19 +202,50 @@ export default function DateRangePickerComp() {
 
         {/* // FOR WEEKLY RECORD..................................................... */}
         <SimpleCard title="WEEKLY">
-          {/* margin="40px 0px 0px 60px" */}
           <Box sx={{ width: 300, height: 20 }}>
             <Box display="flex" border="1px solid gray" justifyContent="space-evenly">
-              {/* <Box>{moment().format('MM/DD/YYYY')}</Box> */}
-              {/* &nbsp; To &nbsp; */}
-              {/* <Box border="1px solid gray" padding="3px" width="100px" height="30px" textAlign="center"> */}
-              <Box>{moment(expiryDate[0], 'YYYY-MM-DD').subtract(6, 'days').format('DD/MM/YYYY')}</Box>
-              <Box>{moment(expiryDate[0], 'YYYY-MM-DD').format('DD/MM/YYYY')}</Box>
+              {/* <Box border="1px solid gray" padding="3px" width="100px" height="30px" textAlign="center"></Box> */}
+              {/* <Box>{moment().format('MM/DD/YYYY')}</Box>
+              &nbsp; To &nbsp;
+              <Box>{moment().add(7, 'days').format('MM/DD/YYYY')}</Box> */}
+              {/* // <Box>{moment(expiryDate, 'YYYY-MM-DD').format('DD/MM/YYYY')}</Box> */}
+              <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
+              &nbsp; To &nbsp;
+              <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box>
+              <Box>
+                {/* <InputLabel><AbcIcon /></InputLabel> */}
+                {/* <Select value={selected} onChange={selectionChangeHandler} > */}
+                {console.log('dropdownData.label', dropdownData)}
+
+                {/* <Select   value={dropdownData}>
+                  <MenuItem value={dropdownData.value}>{expiryDate}</MenuItem>
+                  {/* {console.log('dropdownData', dropdownData)} */}
+                  {/* <MenuItem value={2}>Feb</MenuItem>
+                  <MenuItem value={3}>March</MenuItem>
+                  <MenuItem value={4}>April</MenuItem>
+                  <MenuItem value={5}>May</MenuItem> */}
+                {/* </Select> */} 
+                <Select
+        multiple
+        value={dropdownData}
+        onChange={selectionChangeHandler}
+        renderValue={(dropdownData) => (
+          <div>
+            {dropdownData.map((value) => (<>
+              <Chip key={value} label={value} />
+              {console.log('value', value)}
+           </> ))}
+          </div>
+        )}
+      >
+        <MenuItem value={'Jan'}>{'value'}</MenuItem>
+      </Select>
+              </Box>
             </Box>
-            {expiryDate}
+            {/* {expiryDate} */}
           </Box>
-          {/* <div className="calendarWrap"> */}
-          {/* <div>
+          {/* <div className="calendarWrap">
+          <div>
               <input
                 value={` ${format(range[0].startDate, 'MM/dd/yyyy')} `}
                 //   value={` ${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")} `}
@@ -219,9 +264,9 @@ export default function DateRangePickerComp() {
                 onClick={() => setOpen((open) => !open)}
                 // now i want to close calender by clicking on the input box... USE EVENT LISTENER IN useEffect
               />
-            </div> */}
+            </div>
 
-          {/* <div ref={refOne}>
+          <div ref={refOne}>
               // now we  want to close this calendar , we can create another state--> open , close
               it will true than show calendar
               {open && (
@@ -235,8 +280,8 @@ export default function DateRangePickerComp() {
                   className="calenderElement"
                 />
               )}
-            </div> */}
-          {/* </div> */}
+            </div>
+          </div> */}
         </SimpleCard>
 
         {/* SUBMIT BUTTON ........................................................... */}
