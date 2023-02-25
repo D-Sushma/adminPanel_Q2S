@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { SimpleCard } from 'app/components';
 // FOR SUBJECT RECORD.............................................
-import { List, ListItem, ListItemText, Menu, MenuItem, Select,Chip, FormHelperText, FormControl, InputLabel } from '@mui/material';
+import { List, ListItem, ListItemText, Menu, MenuItem, Select, InputLabel, Input } from '@mui/material';
 import { styled } from '@mui/system';
 import AbcIcon from '@mui/icons-material/Abc';
 
@@ -19,7 +19,7 @@ import 'react-date-range/dist/theme/default.css';
 import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
 import { element } from 'prop-types';
-let dropdownData = [];
+
 // FOR SUBJECT RECORD...................................................
 const MenuRoot = styled('div')(({ theme }) => ({
   width: '100%',
@@ -36,6 +36,13 @@ const options = [
   // 'Hide sensitive notification content',
   // 'Hide all notification content',
 ];
+
+const options1 = [
+  {value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z'},
+  {value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z'},
+  {value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z'}
+];
+const dropdownData = [];
 
 export default function DateRangePickerComp() {
   // ----------DB FETCH------------------------------
@@ -57,36 +64,33 @@ export default function DateRangePickerComp() {
   // ----------DB FETCH END------------------------------
   // ----------DB FETCH------------------------------
   const [expiryDate, setExpiryDate] = useState([]);
-  // let expiryDate = [];
-  const fetchData1 = () => {
-    fetch('http://localhost:4000/memberregistration')
+  const fetchData1 = async () => {
+    await fetch('http://localhost:4000/memberregistration')
       .then((response) => {
         // console.log('response');
         return response.json();
       })
       .then((data) => {
         // console.log('inside data subject date record', data.response.eDate);
-        // console.log('inside data subject date record', data.response.results);
         // setExpiryDate(data.response.eDate);
-
         const e_result = data.response.eDate;
-        var data=[];
+        var data = [];
         e_result.forEach((ele) => {
           // console.log('ele', ele)
           data.push(ele)
-          // console.log('dropdownData', dropdownData)
           // let eDate = moment(ele.expiry_date).format('DD-MM-YYYY');
           // if (!expiryDate.includes(eDate)) {
           //   setExpiryDate(expiryDate.push(eDate));
           // }
           // console.log("ele", moment(ele.expiry_date).format('DD-MM-YYYY'));
         })
-        dropdownData=data;
-        // console.log('dropdownData', dropdownData)
+        // dropdownData = data;
+        dropdownData.push(data)
+        console.log('dropdownData', dropdownData)
 
       });
-    // console.log('expiryDate', expiryDate);
   };
+  // console.log('expiryDate', expiryDate);
   useEffect(() => {
     fetchData1();
   }, []);
@@ -151,10 +155,10 @@ export default function DateRangePickerComp() {
   };
 
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-
-
+  let [selected, setSelected] = useState([]);
   const selectionChangeHandler = (event) => {
     setExpiryDate(event.target.value);
+    console.log('value', event.target.value)
   };
 
   return (
@@ -204,84 +208,74 @@ export default function DateRangePickerComp() {
         <SimpleCard title="WEEKLY">
           <Box sx={{ width: 300, height: 20 }}>
             <Box display="flex" border="1px solid gray" justifyContent="space-evenly">
-              {/* <Box border="1px solid gray" padding="3px" width="100px" height="30px" textAlign="center"></Box> */}
-              {/* <Box>{moment().format('MM/DD/YYYY')}</Box>
-              &nbsp; To &nbsp;
-              <Box>{moment().add(7, 'days').format('MM/DD/YYYY')}</Box> */}
-              {/* // <Box>{moment(expiryDate, 'YYYY-MM-DD').format('DD/MM/YYYY')}</Box> */}
               <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
               &nbsp; To &nbsp;
               <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box>
-              <Box>
+              <Box sx={{ width: 300 }}>
                 {/* <InputLabel><AbcIcon /></InputLabel> */}
                 {/* <Select value={selected} onChange={selectionChangeHandler} > */}
-                {console.log('dropdownData.label', dropdownData)}
-
-                {/* <Select   value={dropdownData}>
-                  <MenuItem value={dropdownData.value}>{expiryDate}</MenuItem>
-                  {/* {console.log('dropdownData', dropdownData)} */}
-                  {/* <MenuItem value={2}>Feb</MenuItem>
+                {/* <Select>
+                  {console.log('dropdownData', dropdownData)}
+                  {expiryDate.map((eDate, i)=>{
+                  <MenuItem key={i} value={eDate.label}>bye</MenuItem>
+                  })} */}
+                {/* <MenuItem value={2}>Feb</MenuItem>
                   <MenuItem value={3}>March</MenuItem>
                   <MenuItem value={4}>April</MenuItem>
                   <MenuItem value={5}>May</MenuItem> */}
-                {/* </Select> */} 
-                <Select
-        multiple
-        value={dropdownData}
-        onChange={selectionChangeHandler}
-        renderValue={(dropdownData) => (
-          <div>
-            {dropdownData.map((value) => (<>
-              <Chip key={value} label={value} />
-              {console.log('value', value)}
-           </> ))}
-          </div>
-        )}
-      >
-        <MenuItem value={'Jan'}>{'value'}</MenuItem>
-      </Select>
+                {/* </Select> */}
+                {/* <Input
+                  type="select"
+                  // id="deliveryCountry"
+                  // name="deliveryCountry"
+                  // onChange={selectionChangeHandler}
+                  // value={selected}
+                >
+                
+                  {expiryDate.map((data, key) => (
+                    <option key={key} value={data.label}>
+                      {data.label}
+                    </option>
+                  ))}
+                </Input> */}
+
+                {/* <Input
+                  type="select"
+                  id="dropdownData.value"
+                  name="dropdownData.value"
+                  onChange={(e) => { selectionChangeHandler(e) }}
+                  value={dropdownData.value}
+                >
+                  {dropdownData.map((data, key) => (
+                    <option key={key} value={data.value}>
+                      {data.value}
+                    </option>
+                  ))}
+                </Input> */}
+
+<select value={expiryDate} onChange={selectionChangeHandler}>
+  {options1.map(item => {
+    
+      return (<option sx={{ width: 500 }} key={item.value} value={item.value}>
+        {console.log('item', item)}
+        {item.text}</option>);
+  })}
+</select>
+
+
+                {/* <Select onChange={console.log('value')} >
+                  {dropdownData?.map(option => {
+                    return (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label ?? option.value}
+                      </MenuItem>
+                    );
+                  })}
+                </Select> */}
+
               </Box>
             </Box>
-            {/* {expiryDate} */}
           </Box>
-          {/* <div className="calendarWrap">
-          <div>
-              <input
-                value={` ${format(range[0].startDate, 'MM/dd/yyyy')} `}
-                //   value={` ${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")} `}
-                readOnly
-                className="inputBox"
-                // now i want to display calender by clicking on the input box...
-                onClick={() => setOpen((open) => !open)}
-                // now i want to close calender by clicking on the input box... USE EVENT LISTENER IN useEffect
-              />
-              To
-              <input
-                value={` ${format(range[0].endDate, 'MM/dd/yyyy')} `}
-                readOnly
-                className="inputBox"
-                // now i want to display calender by clicking on the input box...
-                onClick={() => setOpen((open) => !open)}
-                // now i want to close calender by clicking on the input box... USE EVENT LISTENER IN useEffect
-              />
-            </div>
-
-          <div ref={refOne}>
-              // now we  want to close this calendar , we can create another state--> open , close
-              it will true than show calendar
-              {open && (
-                <DateRangePicker
-                  onChange={(item) => setRange([item.selection])}
-                  editableDateInputs={true}
-                  moveRangeOnFirstSelection={false}
-                  ranges={range}
-                  months={2}
-                  direction="vertical"
-                  className="calenderElement"
-                />
-              )}
-            </div>
-          </div> */}
         </SimpleCard>
 
         {/* SUBMIT BUTTON ........................................................... */}
