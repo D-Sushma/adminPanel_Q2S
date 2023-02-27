@@ -21,6 +21,7 @@ export default function FilterRecord() {
   // ...............FOR BREADCRUMB CONNTAINER COMPONENT.........................
   const Container = styled('div')(({ theme }) => ({
     margin: '30px',
+    height:"50%",
     [theme.breakpoints.down('sm')]: { margin: '16px' },
     '& .breadcrumb': {
       marginBottom: '30px',

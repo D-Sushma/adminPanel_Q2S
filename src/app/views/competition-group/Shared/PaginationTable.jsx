@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Box,
   // Icon,
@@ -108,25 +108,25 @@ const PaginationTable = () => {
 
   console.log('inside pagination table');
   // ----------DB FETCH------------------------------
-  let [users, setUsers  ] = useState([]);
-  let fetchData = ()=> {
+  let [users, setUsers] = useState([]);
+  let fetchData = () => {
     fetch('http://localhost:4000/competitiongroupdetails')
-    .then((response)=>{
-      console.log('response');
-      return response.json();
-    })
-    .then((data)=>{
-      console.log('inside data of competition group',data);
-      setUsers(data.response);
-    })
+      .then((response) => {
+        console.log('response');
+        return response.json();
+      })
+      .then((data) => {
+        console.log('inside data of competition group', data);
+        setUsers(data.response);
+      })
   };
   console.log('after pagination table');
-  useEffect(()=>{
+  useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
   // ----------DB FETCH END------------------------------
   // -------------FOR BACK BUTTON--------------------
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -160,38 +160,39 @@ const PaginationTable = () => {
           {/* {subscribarList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((subscriber, index) => ( */}
-            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((user,index)=>{
+          {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((user, index) => {
               // let cgid = user.competition_group_id;
               // console.log("cgid",cgid);
-              return(
-              <TableRow key={index}>
-                <TableCell align="center">{user.id}</TableCell>
-                <TableCell align="center">{user.competition_group_id}</TableCell>
-                <TableCell align="center">{user.grp_cnt}</TableCell>
-                <TableCell align="center">{moment(user.test_date).format('DD/MM/YYYY')}</TableCell>
-                <TableCell align="center">{user.winner_name}</TableCell>
-                <TableCell align="center">
-                 
-                {/* <Link to={`/competition-group/MoreDetailsTable/${user.competition_group_id}`}> */}
-                <Link to={{
-                  pathname:`/competition-group/MoreDetailsTable/${user.competition_group_id}`,
-                }}>
-                  <Button
-                    // onClick={() => navigate('/competition-group/MoreDetailsTable/${user.competition_group_id}', cgid = (cgid) )}
-                    // onClick={() => navigate(`/competition-group/MoreDetailsTable/${user.competition_group_id}`)}
-                    // onClick={() => navigate(`/competition-group/MoreDetailsTable`)}
-                    color="primary"
-                    variant="outlined"
-                    sx={{ width: 100, padding: 0, margin: 0 }}
-                  >
-                    More-Details
-                  </Button>
-                  </Link>
-                </TableCell>
+              return (
+                <TableRow key={index}>
+                  <TableCell align="center">{user.id}</TableCell>
+                  <TableCell align="center">{user.competition_group_id}</TableCell>
+                  <TableCell align="center">{user.grp_cnt}</TableCell>
+                  <TableCell align="center">{moment(user.test_date).format('DD/MM/YYYY')}</TableCell>
+                  <TableCell align="center">{user.winner_name}</TableCell>
+                  <TableCell align="center">
 
-              </TableRow>
-            )})}
+                    {/* <Link to={`/competition-group/MoreDetailsTable/${user.competition_group_id}`}> */}
+                    <Link to={{
+                      pathname: `/competition-group/MoreDetailsTable/${user.competition_group_id}`,
+                    }}>
+                      <Button
+                        // onClick={() => navigate('/competition-group/MoreDetailsTable/${user.competition_group_id}', cgid = (cgid) )}
+                        // onClick={() => navigate(`/competition-group/MoreDetailsTable/${user.competition_group_id}`)}
+                        // onClick={() => navigate(`/competition-group/MoreDetailsTable`)}
+                        color="primary"
+                        variant="outlined"
+                        sx={{ width: 100, padding: 0, margin: 0 }}
+                      >
+                        More-Details
+                      </Button>
+                    </Link>
+                  </TableCell>
+
+                </TableRow>
+              )
+            })}
         </TableBody>
       </StyledTable>
 
