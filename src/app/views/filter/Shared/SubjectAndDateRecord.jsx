@@ -20,20 +20,6 @@ import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
 import { element } from 'prop-types';
 
-// {/* NEW CRETAE DROPDOWN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-const options2 = [
-  { value: 'green', label: 'Green' },
-  { value: 'blue', label: 'Blue' },
-  { value: 'red', label: 'Red' },
-  { value: 'yellow', label: 'Yellow' },
-  { value: 'orange', label: 'Orange' },
-  { value: 'pink', label: 'Pink' },
-  { value: 'purple', label: 'Purple' },
-  { value: 'gray', label: 'Gray' }
-];
-
-
-
 // FOR SUBJECT RECORD...................................................
 const MenuRoot = styled('div')(({ theme }) => ({
   width: '100%',
@@ -50,13 +36,6 @@ const options = [
   // 'Hide sensitive notification content',
   // 'Hide all notification content',
 ];
-
-const options1 = [
-  { value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z' },
-  { value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z' },
-  { value: '2022-10-01T18:30:00.000Z', label: '2022-10-01T18:30:00.000Z' }
-];
-const dropdownData = [];
 
 export default function DateRangePickerComp() {
   // ----------DB FETCH------------------------------
@@ -85,29 +64,24 @@ export default function DateRangePickerComp() {
         return response.json();
       })
       .then((data) => {
-        // console.log('inside data subject date record', data.response.eDate);
-        // setExpiryDate(data.response.eDate);
-        const e_result = data.response.eDate;
-        var data = [];
-        e_result.forEach((ele) => {
-          // console.log('ele', ele)
-          data.push(ele)
+        console.log('inside data subject date record', data.response.eDate);
+        setExpiryDate(data.response.eDate);
           // let eDate = moment(ele.expiry_date).format('DD-MM-YYYY');
           // if (!expiryDate.includes(eDate)) {
           //   setExpiryDate(expiryDate.push(eDate));
           // }
-          // console.log("ele", moment(ele.expiry_date).format('DD-MM-YYYY'));
-        })
-        // dropdownData = data;
-        dropdownData.push(data)
-        console.log('dropdownData', dropdownData)
-
       });
   };
   // console.log('expiryDate', expiryDate);
   useEffect(() => {
     fetchData1();
   }, []);
+
+// ===============FOR SELECT OPTION IN WEEKLY RECORD======
+let [selected, setSelected] = useState([]);
+const selectionChangeHandler = (event) => {
+  setSelected(event.target.value);
+};
 
 
   // FOR SUBJECT RECORD...................................................
@@ -168,12 +142,7 @@ export default function DateRangePickerComp() {
     }
   };
 
-  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-  let [selected, setSelected] = useState([]);
-  const selectionChangeHandler = (event) => {
-    setExpiryDate(event.target.value);
-    console.log('value', event.target.value)
-  };
+  
 
   return (
     <>
@@ -221,51 +190,46 @@ export default function DateRangePickerComp() {
 
         {/* // FOR WEEKLY RECORD..................................................... */}
         <SimpleCard title="WEEKLY">
-          <Box sx={{ width: 300, height: 20 }}>
+          <Box sx={{ width: 800, height: 400 }}>
             <Box display="flex" border="1px solid gray" justifyContent="space-evenly">
               <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
               &nbsp; To &nbsp;
-              <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box>
-              <Box >
-                {/* <InputLabel><AbcIcon /></InputLabel> */}
-                {/* <Select value={selected} onChange={selectionChangeHandler} > */}
-                {/* <Select>
-                  {console.log('dropdownData', dropdownData)}
-                  {expiryDate.map((eDate, i)=>{
-                  <MenuItem key={i} value={eDate.label}>bye</MenuItem>
-                  })} */}
-                {/* <MenuItem value={2}>Feb</MenuItem>
-                  <MenuItem value={3}>March</MenuItem>
-                  <MenuItem value={4}>April</MenuItem>
-                  <MenuItem value={5}>May</MenuItem> */}
-                {/* </Select> */}
-
-
-                <select value={expiryDate} onChange={selectionChangeHandler}>
-                  {options1.map(item => {
-
-                    return (<option key={item.value} value={item.value}>
-                      {/* {console.log('item', item)} */}
-                      {item.text}</option>);
+              <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box> 
+               <Box >
+                
+                <Select value={selected} onChange={selectionChangeHandler} >
+                  {expiryDate.map((eDate, i) => {
+                    <MenuItem key={eDate.value} >{eDate.label}</MenuItem>
                   })}
-                </select>
-                {/* <Select onChange={console.log('value')} >
-                  {dropdownData?.map(option => {
-                    return (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label ?? option.value}
-                      </MenuItem>
-                    );
-                  })}
-                </Select> */}
-
+                </Select>
               </Box>
             </Box>
-          </Box>
+             {/* NEW CRETAE DROPDOWN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+             <div className="dropdown-container" style={{ width: "30%", height: "50%", textAlign: "left", border: "1px solid #ccc", position: "relative", borderRadius: "5px" }}>
+                  <div className="dropdown-input" style={{ padding: "5px", display: "flex", alignItems: "center", justifyContent: "space-between", userSelect: "none" }}>
+                    <div className="dropdown-selected-value" placeholder='select....'>select...</div>
+                    <div className="dropdown-tools">
+                      <div className="dropdown-tool">
+                        <svg height="20" width="20" viewBox="0 0 20 20">
+                          <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="dropdown-menu" style={{ position: "absolute", width: "100%", border: "1px solid #ccc", maxHeight: "150px", backgroundColor: "#fff", overflow: "auto" }} >
+                    {expiryDate.map((option) => (
+                      <div key={option.value} className="dropdown-item" style={{ padding: "5px", cursor: "pointer" }}>
+                        {option.label}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+          </Box> 
+            
         </SimpleCard>
 
         {/* NEW CRETAE DROPDOWN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <div className="dropdown-container" style={{ width: "30%", height: "50%", textAlign: "left", border: "1px solid #ccc", position: "relative", borderRadius: "5px" }}>
+        {/* <div className="dropdown-container" style={{ width: "30%", height: "50%", textAlign: "left", border: "1px solid #ccc", position: "relative", borderRadius: "5px" }}>
           <div className="dropdown-input" style={{ padding: "5px", display: "flex", alignItems: "center", justifyContent: "space-between", userSelect: "none" }}>
             <div className="dropdown-selected-value" placeholder='select....'>select...</div>
             <div className="dropdown-tools">
@@ -277,18 +241,13 @@ export default function DateRangePickerComp() {
             </div>
           </div>
           <div className="dropdown-menu" style={{ position: "absolute", width: "100%", border: "1px solid #ccc", maxHeight: "150px", backgroundColor: "#fff", overflow: "auto" }} >
-            {options2.map((option) => (
+            {expiryDate.map((option) => (
               <div key={option.value} className="dropdown-item" style={{ padding: "5px", cursor: "pointer" }}>
                 {option.label}
               </div>
             ))}
-            {/* {dropdownData.map((option) => (
-              <div key={option.value} className="dropdown-item" style={{ padding: "5px", cursor: "pointer" }}>
-                {option.label}
-              </div>
-            ))} */}
           </div>
-        </div>
+        </div> */}
 
 
         {/* SUBMIT BUTTON ........................................................... */}
