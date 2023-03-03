@@ -110,6 +110,21 @@ export default function DateRangePickerComp() {
     setAnchorEl(null);
   }
 
+  // FOR WEEKLY RECORD BASIS OF EXPIRY DATE...................................................
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+  const [selectedIndex1, setSelectedIndex1] = React.useState(1);
+
+  function handleClickListItem1(event) {
+    setAnchorEl1(event.currentTarget);
+  }
+  function handleMenuItemClick1(event, index) {
+    setSelectedIndex1(index);
+    setAnchorEl1(null);
+  }
+  function handleClose1() {
+    setAnchorEl1(null);
+  }
+
   // FOR WEEKLY RECORD........................................................
   // date state
   const [range, setRange] = useState([
@@ -158,7 +173,7 @@ export default function DateRangePickerComp() {
       <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
 
         {/* // FOR SUBJECT RECORD................................................... */}
-        {/* <SimpleCard title="GK/ENGLISH">
+        <SimpleCard title="GK/ENGLISH">
           <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
@@ -195,7 +210,7 @@ export default function DateRangePickerComp() {
               ))}
             </Menu>
           </MenuRoot>
-        </SimpleCard> */}
+        </SimpleCard>
 
         <SimpleCard title="Weekly">
           <MenuRoot sx={{ width: 300, height: 20 }}>
@@ -205,66 +220,67 @@ export default function DateRangePickerComp() {
                 aria-haspopup="true"
                 aria-controls="lock-menu1"
                 aria-label="When device is locked"
-                onClick={handleClickListItem}
+                onClick={handleClickListItem1}
                 sx={{ width: 250, marginTop: [-3], padding: 0 }}
               >
                 <ListItemText
-                  primary="Record Basis of Subject"
-                  secondary={dropdownData[selectedIndex]}
+                  primary="Weekly Record Basis of Expiry Date"
+                  secondary={dropdownData[selectedIndex1]}
                 />
               </ListItem>
             </List>
-
-            <Menu
-              id="lock-menu1"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {dropdownData.map((option, index) => (
-                <MenuItem
-                  key={option}
-                  // key={moment(option).format('DD-MM-YYYY')}
-                  disabled={index === 0}
-                  selected={index === selectedIndex}
-                  onClick={(event) => handleMenuItemClick(event, index)}
-                >
-                  {/* {option} */}
-                  {moment(option).format('DD-MM-YYYY')}
-                </MenuItem>
-              ))}
-            </Menu>
+              <Menu
+              sx={{ height: 400 }}
+                id="lock-menu1"
+                anchorEl={anchorEl1}
+                keepMounted
+                open={Boolean(anchorEl1)}
+                onClose={handleClose1}
+              >
+                {dropdownData.map((option, index) => (
+                  <MenuItem
+                    key={option}
+                    // key={moment(option).format('DD-MM-YYYY')}
+                    // disabled={index === 0}
+                    // selected={index === selectedIndex1}
+                    selected={index === 0}
+                    onClick={(event) => handleMenuItemClick1(event, index)}
+                  >
+                    {option}
+                    {/* {moment(option).format('DD-MM-YYYY')} */}
+                  </MenuItem>
+                ))}
+              </Menu>
           </MenuRoot>
         </SimpleCard>
 
         {/* // FOR WEEKLY RECORD..................................................... */}
-        <SimpleCard title="WEEKLY">
+        {/* <SimpleCard title="WEEKLY">
           <Box sx={{ width: 300, height: 50 }}>
-            <Box display="flex" border="1px solid white" justifyContent="space-evenly">
-              {/* <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
+            <Box display="flex" border="1px solid white" justifyContent="space-evenly"> */}
+        {/* <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
               &nbsp; To &nbsp;
               <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box> */}
-              <Box>
+        {/* <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ marginTop: -0.5 }}>Weekly Date</InputLabel>
-                  {/* <Select value={selected} onChange={selectionChangeHandler} > */}
-                  <Select>
-                    {/* {expiryDate.map((eDate, i) => (
+                  <InputLabel sx={{ marginTop: -0.5 }}>Weekly Date</InputLabel> */}
+        {/* <Select value={selected} onChange={selectionChangeHandler} > */}
+        {/* <Select> */}
+        {/* {expiryDate.map((eDate, i) => (
                       <MenuItem value={eDate.value} >
                         {moment(eDate.label).subtract(6,'days').format('DD-MM-YYYY')}
                         {' '} TO {' '}
                         {moment(eDate.label).format('DD-MM-YYYY')}</MenuItem>
                     ))} */}
-                    {dropdownData.map((eDate, i) => (
-                    <MenuItem key={eDate}>{moment(eDate).format('DD-MM-YYYY')}</MenuItem>
-                    ))} 
-                  </Select>
-                </FormControl>
+        {/* {dropdownData.map((eDate, i) => (
+                    <MenuItem key={eDate}>{eDate}</MenuItem>
+                    ))}  */}
+        {/* </Select> */}
+        {/* </FormControl>
               </Box>
             </Box>
           </Box>
-        </SimpleCard>
+        </SimpleCard> */}
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button

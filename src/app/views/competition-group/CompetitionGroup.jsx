@@ -47,9 +47,11 @@ const CompetitionList = () => {
           <AutocompleteCombo />
           <SubjectAndDateRecord />
         </SimpleCard> */}
-        <SimpleCard title="COMPETITION - GROUP">
-          <PaginationTable />
-        </SimpleCard>
+        <Box sx={{ mt: 1 }}>
+          <SimpleCard title="COMPETITION - GROUP">
+            <PaginationTable />
+          </SimpleCard>
+        </Box>
       </Container>
     </>
   );

@@ -47,7 +47,7 @@ const CompetitionList = () => {
             color="primary"
             variant="outlined"
             onClick={() => navigate(-1)}
-            // sx={{ mt: 2, mb: 2, ml: 2 }}
+          // sx={{ mt: 2, mb: 2, ml: 2 }}
           >
             Go Back
           </Button>
@@ -57,9 +57,11 @@ const CompetitionList = () => {
         {/* <AutocompleteCombo /> */}
         {/* <SubjectAndDateRecord /> */}
         {/* </SimpleCard> */}
-        <SimpleCard title="COMPETITION - LIST">
-          <PaginationTable />
-        </SimpleCard>
+        <Box sx={{mt:1}}>
+          <SimpleCard title="COMPETITION - LIST">
+            <PaginationTable />
+          </SimpleCard>
+        </Box>
       </Container>
 
       {/* <Layout1/> */}

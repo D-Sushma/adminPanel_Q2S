@@ -79,7 +79,7 @@ const MemberRegistration = () => {
               color="primary"
               variant="outlined"
               onClick={() => navigate(-1)}
-              // sx={{ mt: 2, mb: 2, ml: 2 }}
+            // sx={{ mt: 2, mb: 2, ml: 2 }}
             >
               Go Back
             </Button>
@@ -90,9 +90,11 @@ const MemberRegistration = () => {
             <AutocompleteCombo />
             <PaginationTable />
           </SimpleCard> */}
-          <SimpleCard title="MEMBER REGISTRATION">
-            <PaginationTable />
-          </SimpleCard>
+          <Box sx={{ mt: 1 }}>
+            <SimpleCard title="MEMBER REGISTRATION">
+              <PaginationTable />
+            </SimpleCard>
+          </Box>
         </Container>
         {/* </ContentBox> */}
       </Fragment>
