@@ -1,3 +1,5 @@
+import {useParams}  from 'react-router-dom';
+
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box } from '@mui/material';
@@ -62,10 +64,13 @@ SimpleDialog.propTypes = {
 };
 
 export default function SimpleDialogDemo() {
+  // ===============Get id 
+  const params = useParams();
+
   // ----------DB FETCH------------------------------
   let [totalrecord, setTotalrecord] = useState([]);
   let fetchData1 = () => {
-    fetch('http://localhost:4000/totalrecord')
+    fetch(`http://localhost:4000/totalrecord/${params.trId}`)
       .then((response) => {
         console.log('response');
         return response.json();
@@ -103,11 +108,18 @@ export default function SimpleDialogDemo() {
           <br />
           <br />
           
-            {totalrecord.map((totalrecord)=>(
-          <Button variant="outlined" color="primary" onClick={() => navigate('/registration/MemberRegistration')} sx={{width:150}}>
-              {totalrecord.total_record}
+            {/* {totalrecord.map((totalrecord)=>( */}
+          <Button 
+          variant="outlined" color="primary" 
+          sx={{width:150}}
+          // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
+          onClick={() => navigate(`/filter/TotalRecordDetails`)} 
+          >
+              {/* {totalrecord.total_record} */}
+              {/* {totalrecord.expiry_date} */}
+              Hello
           </Button>
-            ))}
+            {/* ))} */}
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>

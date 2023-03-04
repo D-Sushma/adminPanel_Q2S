@@ -19,6 +19,7 @@ import 'react-date-range/dist/theme/default.css';
 import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
 import { element } from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 // FOR SUBJECT RECORD...................................................
 const MenuRoot = styled('div')(({ theme }) => ({
@@ -112,7 +113,8 @@ export default function DateRangePickerComp() {
 
   // FOR WEEKLY RECORD BASIS OF EXPIRY DATE...................................................
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-  const [selectedIndex1, setSelectedIndex1] = React.useState(1);
+  // const [selectedIndex1, setSelectedIndex1] = React.useState(1);
+  const [selectedIndex1, setSelectedIndex1] = React.useState(0);
 
   function handleClickListItem1(event) {
     setAnchorEl1(event.currentTarget);
@@ -167,6 +169,9 @@ export default function DateRangePickerComp() {
       setOpen(false);
     }
   };
+
+  // -------------FOR BACK BUTTON--------------------
+  const navigate = useNavigate();
 
   return (
     <>
@@ -240,7 +245,6 @@ export default function DateRangePickerComp() {
                 {dropdownData.map((option, index) => (
                   <MenuItem
                     key={option}
-                    // key={moment(option).format('DD-MM-YYYY')}
                     // disabled={index === 0}
                     // selected={index === selectedIndex1}
                     selected={index === 0}
@@ -290,6 +294,7 @@ export default function DateRangePickerComp() {
           sx={{ width: 100, height: 40 }}
         //   sx={{ ml: 134, mt: 15 }}
         //   position="fixed"
+        onClick={() => navigate('../registration/MemberRegistration')}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>
