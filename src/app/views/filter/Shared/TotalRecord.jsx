@@ -1,4 +1,4 @@
-import {useParams}  from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
@@ -63,28 +63,10 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string,
 };
 
-export default function SimpleDialogDemo() {
+export default function SimpleDialogDemo({ regRecord }) {
   // ===============Get id 
   const params = useParams();
 
-  // ----------DB FETCH------------------------------
-  let [totalrecord, setTotalrecord] = useState([]);
-  let fetchData1 = () => {
-    fetch(`http://localhost:4000/totalrecord/${params.trId}`)
-      .then((response) => {
-        console.log('response');
-        return response.json();
-      })
-      .then((data) => {
-        console.log(' total record inside data filter section', data);
-        setTotalrecord(data.response);
-      });
-  };
-  console.log('after pagination table');
-  useEffect(() => {
-    fetchData1();
-  }, []);
-  // ----------DB FETCH END------------------------------
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -107,19 +89,15 @@ export default function SimpleDialogDemo() {
           Total Registration
           <br />
           <br />
-          
-            {/* {totalrecord.map((totalrecord)=>( */}
-          <Button 
-          variant="outlined" color="primary" 
-          sx={{width:150}}
-          // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
-          onClick={() => navigate(`/filter/TotalRecordDetails`)} 
+
+          <Button
+            variant="outlined" color="primary"
+            sx={{ width: 150 }} 
+            // onClick={() => navigate(`/filter/TotalRecordDetails`)}
           >
-              {/* {totalrecord.total_record} */}
-              {/* {totalrecord.expiry_date} */}
-              Hello
+            Hello {regRecord.length}
           </Button>
-            {/* ))} */}
+          {/* ))} */}
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import SubjectRecord from './Shared/SubjectRecord';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import { styled, Button, Box } from '@mui/material';
@@ -15,13 +15,15 @@ import TotalRecord from './Shared/TotalRecord';
 // import { Span } from 'app/components/Typography';
 
 export default function FilterRecord() {
+  const [regRecord, setRegRecord] = useState([]);
+
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
   // ...............FOR BREADCRUMB CONNTAINER COMPONENT.........................
   const Container = styled('div')(({ theme }) => ({
     margin: '30px',
-    height:"50%",
+    height: '50%',
     [theme.breakpoints.down('sm')]: { margin: '16px' },
     '& .breadcrumb': {
       marginBottom: '30px',
@@ -41,18 +43,18 @@ export default function FilterRecord() {
             color="primary"
             variant="outlined"
             onClick={() => navigate(-1)}
-            // sx={{ mt: 2, mb: 2, ml: 2 }}
+          // sx={{ mt: 2, mb: 2, ml: 2 }}
           >
             Go Back
           </Button>
         </Box>
 
         <SimpleCard>
-          <SubjectAndDateRecord />
+          <SubjectAndDateRecord setRegRecord={setRegRecord} />
         </SimpleCard>
         <Box sx={{ mt: 1 }}>
           <SimpleCard>
-            <TotalRecord />
+            <TotalRecord regRecord={regRecord} />
           </SimpleCard>
         </Box>
 

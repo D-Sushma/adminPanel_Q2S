@@ -38,23 +38,24 @@ const options = [
   // 'Hide all notification content',
 ];
 
-export default function DateRangePickerComp() {
+export default function DateRangePickerComp({setRegRecord}) {
+  
   // ----------DB FETCH------------------------------
-  let [subjectrecord, setSubjectrecord] = useState([]);
-  let fetchData = () => {
-    fetch('http://localhost:4000/subjectrecord')
+  let fetchRegRecord = (date) => {
+    fetch(`http://localhost:4000/registration/?date=${date}`)
       .then((response) => {
         // console.log('response');
         return response.json();
       })
       .then((data) => {
-        // console.log('inside data filter section', data);
-        setSubjectrecord(data.response);
+        console.log('registration inside data filter section', data);
+        // console.log('Object.values(obj).flat().length', Object.values(data.response).flat().length)
+        setRegRecord(data.response);
       });
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchRegRecord();
+  // }, []);
   // ----------DB FETCH END------------------------------
   // ----------DB FETCH------------------------------
   const [dropdownData, setdropdownData] = useState([]);
@@ -70,7 +71,7 @@ export default function DateRangePickerComp() {
         let expiry = [];
         e_result.forEach((ele) => {
           expiry.push(ele.label);
-          console.log('expiry', expiry);
+          // console.log('expiry', expiry);
         })
         setdropdownData(expiry);
         // dropdownData.push(expiry);
@@ -294,7 +295,8 @@ export default function DateRangePickerComp() {
           sx={{ width: 100, height: 40 }}
         //   sx={{ ml: 134, mt: 15 }}
         //   position="fixed"
-        onClick={() => navigate('../registration/MemberRegistration')}
+        // onClick={() => setRegRecord("sushma")}
+        onClick={() => fetchRegRecord(anchorEl1)}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>
