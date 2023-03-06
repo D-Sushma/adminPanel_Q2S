@@ -30,27 +30,11 @@ const PaginationTable = () => {
   // ===============Get id 
   const params = useParams();
 
-  // ----------DB FETCH------------------------------
-  // const [join, setJoin] = useState([]);
-  // const fetchJoinData = () => {
-  //   fetch('http://localhost:4000/join')
-  //     .then((response) => {
-  //       console.log(' JOIN response');
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log('inside JOIN data', data);
-  //       setJoin(data.response);
-  //     });
-  // };
-  // useEffect(() => {
-  //   fetchJoinData();
-  // }, []);
   // ----------DB FETCH END-------------------------
   let [registration, setRegistration] = useState([]);
   let fetchRegRecord = () => {
-    // fetch('http://localhost:4000/registration')
-    fetch(`http://localhost:4000/registrationUser/${params.trId}`)
+    // fetch(`http://localhost:4000/registrationUser/${params.trId}`)
+    fetch('http://localhost:4000/registration')
       .then((response) => {
         return response.json();
       })

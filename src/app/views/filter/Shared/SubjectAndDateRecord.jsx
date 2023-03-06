@@ -28,34 +28,18 @@ const MenuRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const options = [
-  'Show Subject With Subject Code ',
-  'GK - 13',
-  'ENGLISH - 6',
-  // 'Show some love to Material-UI',
-  // 'Show all notification content',
-  // 'Hide sensitive notification content',
-  // 'Hide all notification content',
+const options = [//['GK - 13', 13], ['ENGLISH - 6', 6]];
+  {
+    label: 'GK - 13',
+    value: 13,
+  },
+  {
+    label: 'ENGLISH - 6',
+    value: 13,
+  },
 ];
-export default function DateRangePickerComp({setRegRecord}) {
-  // ----------DB FETCH------------------------------
-  let [registration, setRegistration] = useState([]);
-  let fetchRegRecord = () => {
-    fetch('http://localhost:4000/registration')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log('registration inside data filter section', data.response.length);
-        var passData = data.response.length;
-        setRegistration(passData);
-        setRegRecord(passData)
-      });
-  };
-  // useEffect(() => {
-  //   fetchRegRecord();
-  // }, []);
-  // ----------DB FETCH END------------------------------
+
+export default function DateRangePickerComp({ setRegRecord }) {
   // ----------DB FETCH------------------------------
   const [dropdownData, setdropdownData] = useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
@@ -65,7 +49,7 @@ export default function DateRangePickerComp({setRegRecord}) {
         return response.json();
       })
       .then((data) => {
-        console.log('inside data subject date record', data.response.eDate);
+        console.log('inside data subject date record', data.response);
         const e_result = data.response.eDate;
         let expiry = [];
         e_result.forEach((ele) => {
@@ -85,12 +69,19 @@ export default function DateRangePickerComp({setRegRecord}) {
   }, []);
 
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-  let [selected, setSelected] = useState([]);
+  let [weeklyDate, setWeeklyDate] = useState([]);
   const selectionChangeHandler = (event) => {
-    setSelected(event.target.value);
+    setWeeklyDate(event.target.value);
+    console.log('event.target.value', event.target.value)
+    // console.log('selected', selected)
   };
-
-
+  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+  let [subjectId, setSubjectId] = useState([]);
+  const selectionOptionChangeHandler = (event) => {
+    setSubjectId(event.target.value);
+    console.log('event.target.value', event.target.value)
+    // console.log('selected', selected)
+  };
 
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -169,12 +160,25 @@ export default function DateRangePickerComp({setRegRecord}) {
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
+  // =====get details============
+  let getDetails = () => {
+    console.log("###reached get details--->", expiryDate);
+    console.log(subjectId, weeklyDate);
+    expiryDate.forEach((data) => {
+      console.log(data.details.subjectId, data.details.date);
+      if (data.details.subjectId == subjectId && data.details.date == weeklyDate) {
+        setRegRecord(data.details);
+        console.log('data.details', data)
+      }
+    })
+  }
+
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
 
         {/* // FOR SUBJECT RECORD................................................... */}
-        <SimpleCard title="GK/ENGLISH">
+        {/* <SimpleCard title="GK/ENGLISH">
           <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
@@ -211,9 +215,9 @@ export default function DateRangePickerComp({setRegRecord}) {
               ))}
             </Menu>
           </MenuRoot>
-        </SimpleCard>
+        </SimpleCard> */}
 
-        <SimpleCard title="Weekly">
+        {/* <SimpleCard title="Weekly">
           <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
@@ -251,35 +255,48 @@ export default function DateRangePickerComp({setRegRecord}) {
                 ))}
               </Menu>
           </MenuRoot>
-        </SimpleCard>
+        </SimpleCard> */}
 
-        {/* // FOR WEEKLY RECORD..................................................... */}
-        {/* <SimpleCard title="WEEKLY">
+        <SimpleCard title="GK/ENGLISH">
           <Box sx={{ width: 300, height: 50 }}>
-            <Box display="flex" border="1px solid white" justifyContent="space-evenly"> */}
-        {/* <Box>{moment(expiryDate[0]).subtract(6, 'days').format('DD/MM/YYYY')}</Box>
-              &nbsp; To &nbsp;
-              <Box>{moment(expiryDate[0]).format('DD/MM/YYYY')}</Box> */}
-        {/* <Box>
+            <Box display="flex" border="1px solid white" justifyContent="space-evenly">
+              <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ marginTop: -0.5 }}>Weekly Date</InputLabel> */}
-        {/* <Select value={selected} onChange={selectionChangeHandler} > */}
-        {/* <Select> */}
-        {/* {expiryDate.map((eDate, i) => (
-                      <MenuItem value={eDate.value} >
-                        {moment(eDate.label).subtract(6,'days').format('DD-MM-YYYY')}
-                        {' '} TO {' '}
-                        {moment(eDate.label).format('DD-MM-YYYY')}</MenuItem>
-                    ))} */}
-        {/* {dropdownData.map((eDate, i) => (
-                    <MenuItem key={eDate}>{eDate}</MenuItem>
-                    ))}  */}
-        {/* </Select> */}
-        {/* </FormControl>
+                  <InputLabel sx={{ marginTop: -0.5 }}>Gk-13/ENGLISH-6</InputLabel>
+                  <Select value={subjectId} onChange={selectionOptionChangeHandler} >
+                    {options.map((option, index) => (
+                      <MenuItem value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
             </Box>
           </Box>
-        </SimpleCard> */}
+        </SimpleCard>
+        {/* // FOR WEEKLY RECORD..................................................... */}
+        <SimpleCard title="WEEKLY">
+          <Box sx={{ width: 300, height: 50 }}>
+            <Box display="flex" border="1px solid white" justifyContent="space-evenly">
+              <Box>
+                <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
+                  <InputLabel sx={{ marginTop: -0.5 }}>Weekly Date</InputLabel>
+                  <Select value={weeklyDate} onChange={selectionChangeHandler} >
+                    {expiryDate.map((eDate, i) => (
+                      <MenuItem value={eDate.label.split(' ')[2].trim()}>
+                        {eDate.label}
+                      </MenuItem>
+                    ))}
+                    {/* {dropdownData.map((eDate, i) => (
+                    <MenuItem key={eDate}>{eDate}</MenuItem>
+                    ))}  */}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Box>
+          </Box>
+        </SimpleCard>
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button
@@ -287,15 +304,14 @@ export default function DateRangePickerComp({setRegRecord}) {
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-        //   sx={{ ml: 134, mt: 15 }}
-        //   position="fixed"
-        // onClick={() => setRegRecord("sushma")}
-        onClick={() => fetchRegRecord()}
+          //   sx={{ ml: 134, mt: 15 }}
+          //   position="fixed"
+          onClick={() => getDetails()}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>
         </Button>
-      </Box>
+      </Box >
     </>
   );
 }

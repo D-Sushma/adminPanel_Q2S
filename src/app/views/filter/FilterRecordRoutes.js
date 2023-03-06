@@ -12,8 +12,8 @@ const TotalRecordDetails = Loadable(lazy(() => import('./Shared/TotalRecordDetai
 
 const FilterRecordRoute = [
   { path: '/filter/FilterRecord', element: <FilterRecord />, auth: authRoles.admin },
-  // { path: '/filter/TotalRecordDetails', element: <TotalRecordDetails /> },
-  { path: '/filter/TotalRecordDetails/:tRecord', element: <TotalRecordDetails /> },
+  { path: '/filter/TotalRecordDetails', element: <TotalRecordDetails /> },
+  // { path: '/filter/TotalRecordDetails/:tRecord', element: <TotalRecordDetails /> },
 ];
 
 export default FilterRecordRoute;
