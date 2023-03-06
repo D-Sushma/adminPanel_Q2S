@@ -37,20 +37,19 @@ const options = [
   // 'Hide sensitive notification content',
   // 'Hide all notification content',
 ];
-
 export default function DateRangePickerComp({setRegRecord}) {
-  
   // ----------DB FETCH------------------------------
-  let fetchRegRecord = (date) => {
-    fetch(`http://localhost:4000/registration/?date=${date}`)
+  let [registration, setRegistration] = useState([]);
+  let fetchRegRecord = () => {
+    fetch('http://localhost:4000/registration')
       .then((response) => {
-        // console.log('response');
         return response.json();
       })
       .then((data) => {
-        console.log('registration inside data filter section', data);
-        // console.log('Object.values(obj).flat().length', Object.values(data.response).flat().length)
-        setRegRecord(data.response);
+        console.log('registration inside data filter section', data.response.length);
+        var passData = data.response.length;
+        setRegistration(passData);
+        setRegRecord(passData)
       });
   };
   // useEffect(() => {
@@ -78,10 +77,6 @@ export default function DateRangePickerComp({setRegRecord}) {
         console.log('dropdownData', dropdownData);
         // ====================<- OR ->=============================
         setExpiryDate(data.response.eDate);
-        // let eDate = moment(ele.expiry_date).format('DD-MM-YYYY');
-        // if (!expiryDate.includes(eDate)) {
-        //   setExpiryDate(expiryDate.push(eDate));
-        // }
       });
   };
   // console.log('expiryDate', expiryDate);
@@ -252,7 +247,6 @@ export default function DateRangePickerComp({setRegRecord}) {
                     onClick={(event) => handleMenuItemClick1(event, index)}
                   >
                     {option}
-                    {/* {moment(option).format('DD-MM-YYYY')} */}
                   </MenuItem>
                 ))}
               </Menu>
@@ -296,7 +290,7 @@ export default function DateRangePickerComp({setRegRecord}) {
         //   sx={{ ml: 134, mt: 15 }}
         //   position="fixed"
         // onClick={() => setRegRecord("sushma")}
-        onClick={() => fetchRegRecord(anchorEl1)}
+        onClick={() => fetchRegRecord()}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>

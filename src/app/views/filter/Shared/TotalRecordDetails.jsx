@@ -1,7 +1,9 @@
+import {useParams}  from 'react-router-dom';
+
+import moment from 'moment';
 import {
   Box,
-  Icon,
-  IconButton,
+  Button,
   styled,
   Table,
   TableBody,
@@ -9,86 +11,74 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-} from "@mui/material";
-import { useState } from "react";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Breadcrumb, SimpleCard } from 'app/components';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTable = styled(Table)(() => ({
-  whiteSpace: "pre",
-  "& thead": {
-    "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
+  whiteSpace: 'pre',
+  '& thead': {
+    '& tr': { '& th': { paddingLeft: 0, paddingRight: 0 } },
   },
-  "& tbody": {
-    "& tr": { "& td": { paddingLeft: 0, textTransform: "capitalize" } },
+  '& tbody': {
+    '& tr': { '& td': { paddingLeft: 0, textTransform: 'capitalize' } },
   },
 }));
 
-const subscribarList = [
-  {
-    name: "john doe",
-    date: "18 january, 2019",
-    amount: 1000,
-    status: "close",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "kessy bryan",
-    date: "10 january, 2019",
-    amount: 9000,
-    status: "open",
-    company: "My Fintech LTD.",
-  },
-  {
-    name: "kessy bryan",
-    date: "10 january, 2019",
-    amount: 9000,
-    status: "open",
-    company: "My Fintech LTD.",
-  },
-  {
-    name: "james cassegne",
-    date: "8 january, 2019",
-    amount: 5000,
-    status: "close",
-    company: "Collboy Tech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-];
-
 const PaginationTable = () => {
+  // ===============Get id 
+  const params = useParams();
+
+  // ----------DB FETCH------------------------------
+  // const [join, setJoin] = useState([]);
+  // const fetchJoinData = () => {
+  //   fetch('http://localhost:4000/join')
+  //     .then((response) => {
+  //       console.log(' JOIN response');
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log('inside JOIN data', data);
+  //       setJoin(data.response);
+  //     });
+  // };
+  // useEffect(() => {
+  //   fetchJoinData();
+  // }, []);
+  // ----------DB FETCH END-------------------------
+  let [registration, setRegistration] = useState([]);
+  let fetchRegRecord = () => {
+    // fetch('http://localhost:4000/registration')
+    fetch(`http://localhost:4000/registrationUser/${params.trId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('registration inside data Total Record Details', data);
+        // var passData = data.response;
+        setRegistration(data.response);
+      });
+  };
+  useEffect(() => {
+    fetchRegRecord();
+  }, []);
+  // ----------DB FETCH END------------------------------
+
+  // -------------FOR BACK BUTTON--------------------
+  const navigate = useNavigate();
+
+  // ...............FOR BREADCRUMB CONNTAINER COMPONENT.........................
+  const Container = styled('div')(({ theme }) => ({
+    margin: '30px',
+    [theme.breakpoints.down('sm')]: { margin: '16px' },
+    '& .breadcrumb': {
+      marginBottom: '30px',
+      [theme.breakpoints.down('sm')]: { marginBottom: '16px' },
+    },
+  }));
+
+  //  ........................FOR PAGINATION......................................
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -102,45 +92,85 @@ const PaginationTable = () => {
   };
 
   return (
-    <Box width="100%" overflow="auto">
-      <StyledTable>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="center">Company</TableCell>
-            <TableCell align="center">Start Date</TableCell>
-            <TableCell align="center">Status</TableCell>
-            <TableCell align="center">Amount</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {subscribarList
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((subscriber, index) => (
-              <TableRow key={index}>
-                <TableCell align="left">1</TableCell>
-                <TableCell align="center">2</TableCell>
-                <TableCell align="center">3</TableCell>
-                <TableCell align="center">4</TableCell>
-                <TableCell align="center">5</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </StyledTable>
+    <>
+      <Container>
+        <Box className="breadcrumb" display="flex" justifyContent="space-between">
+          <Breadcrumb
+            routeSegments={[{ name: 'Registration', path: '/registration' }, { name: 'Table' }]}
+          />
+          {/* // -------------FOR BACK BUTTON-------------------- */}
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={() => navigate(-1)}
+          >
+            Go Back
+          </Button>
+        </Box>
+      </Container>
+      <Box sx={{ mt: 1 }}>
+        <SimpleCard title="MEMBER REGISTRATION">
 
-      <TablePagination
-        sx={{ px: 2 }}
-        page={page}
-        component="div"
-        rowsPerPage={rowsPerPage}
-        count={subscribarList.length}
-        onPageChange={handleChangePage}
-        rowsPerPageOptions={[5, 10, 25]}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        nextIconButtonProps={{ "aria-label": "Next Page" }}
-        backIconButtonProps={{ "aria-label": "Previous Page" }}
-      />
-    </Box>
+          <Box width="100%" overflow="auto">
+            <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
+              <TableHead bgcolor="#e0f7fa">
+                <TableRow>
+                  <TableCell align="center">SNO</TableCell>
+                  <TableCell align="center">USER ID</TableCell>
+                  <TableCell align="center">SUBJECT</TableCell>
+                  <TableCell align="center">SUBSCRIPTION</TableCell>
+                  <TableCell align="center">STATUS</TableCell>
+                  <TableCell align="center">UPDATED</TableCell>
+                  <TableCell align="center">CREATED</TableCell>
+                  <TableCell align="center">EXPIRY DATE</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+
+                {registration.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((joinuser, index) => {
+                    return (
+
+                      <TableRow key={index}>
+                        <TableCell align="center">{joinuser.id}</TableCell>
+                        {/* <TableCell align="center">{joinuser.name + " " + joinuser.lname}</TableCell> */}
+                        <TableCell align="center">{joinuser.userid}</TableCell>
+
+                        {(joinuser.subject) === 6 ? <TableCell align="center">English</TableCell>
+                          : (joinuser.subject) === 13 ? <TableCell align="center">GK</TableCell>
+                            : <TableCell align="center">----</TableCell>}
+
+                        {(joinuser.subscription) === 1 ? <TableCell align="center">Weekly</TableCell>
+                          : <TableCell align="center">{joinuser.subscription}</TableCell>}
+
+                        {(joinuser.status) === 1 ? <TableCell align="center">Active</TableCell>
+                          : (joinuser.status) === 0 ? <TableCell align="center">Deactive</TableCell>
+                            : <TableCell align="center">----</TableCell>}
+
+                        <TableCell align="center">{moment(joinuser.updated_at).format('DD/MM/YYYY')}</TableCell>
+                        <TableCell align="center">{moment(joinuser.created_at).format('DD/MM/YYYY')}</TableCell>
+                        <TableCell align="center">{moment(joinuser.expiry_date).format('DD/MM/YYYY')}</TableCell>
+                      </TableRow>)
+                  })}
+              </TableBody>
+            </StyledTable>
+
+            <TablePagination
+              page={page}
+              component="div"
+              rowsPerPage={rowsPerPage}
+              count={registration.length}
+              onPageChange={handleChangePage}
+              rowsPerPageOptions={[5, 10, 25]}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+              backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+            />
+          </Box>
+
+        </SimpleCard>
+      </Box>
+    </>
   );
 };
 

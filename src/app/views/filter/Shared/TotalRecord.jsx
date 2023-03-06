@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box } from '@mui/material';
@@ -63,9 +61,7 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string,
 };
 
-export default function SimpleDialogDemo({ regRecord }) {
-  // ===============Get id 
-  const params = useParams();
+export default function SimpleDialogDemo({regRecord}) {
 
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
@@ -89,15 +85,15 @@ export default function SimpleDialogDemo({ regRecord }) {
           Total Registration
           <br />
           <br />
-
-          <Button
-            variant="outlined" color="primary"
-            sx={{ width: 150 }} 
-            // onClick={() => navigate(`/filter/TotalRecordDetails`)}
+          
+          <Button 
+          variant="outlined" color="primary" 
+          sx={{width:150}}
+          // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
+          onClick={() => navigate(`/filter/TotalRecordDetails`)} 
           >
-            Hello {regRecord.length}
+              Hello {regRecord}
           </Button>
-          {/* ))} */}
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>
