@@ -1,44 +1,45 @@
 import React from 'react';
-import moment from 'moment';
 import { SimpleCard } from 'app/components';
 // FOR SUBJECT RECORD.............................................
 import { List, ListItem, ListItemText, Menu, MenuItem, Select, InputLabel, Input, FormControl } from '@mui/material';
 import { styled } from '@mui/system';
-import AbcIcon from '@mui/icons-material/Abc';
-
-// FOR WEEKLY RECORD IMPORT PACKAGE..................................
-import { useEffect, useRef, useState } from 'react';
-import { DateRangePicker } from 'react-date-range';
-import format from 'date-fns/format';
-import { addDays } from 'date-fns';
-
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-// ===================================================================
+import { useEffect, useState } from 'react';
 // validation---------------BUTTON
 import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
-import { element } from 'prop-types';
+// const options = [//['GK - 13', 13], ['ENGLISH - 6', 6]];
+//   {
+//     label: 'GK - 13',
+//     value: 13,
+//   },
+//   {
+//     label: 'ENGLISH - 6',
+//     value: 6,
+//   },
+// ];
 import { useNavigate } from 'react-router-dom';
 
-// FOR SUBJECT RECORD...................................................
+// const options = [
+//   {
+//     label: 'GK - 13',
+//     value: 13,
+//   },
+//   {
+//     label: 'ENGLISH - 6',
+//     value: 6,
+//   },
+// ];
+const options = [
+  'Show Record Basis of Subject',
+  'GK - 13',
+  'ENGLISH - 6',
+];
+// style for mMenuRoot tag................................................
 const MenuRoot = styled('div')(({ theme }) => ({
   width: '100%',
   maxWidth: 360,
   backgroundColor: theme.palette.background.paper,
 }));
-
-const options = [//['GK - 13', 13], ['ENGLISH - 6', 6]];
-  {
-    label: 'GK - 13',
-    value: 13,
-  },
-  {
-    label: 'ENGLISH - 6',
-    value: 13,
-  },
-];
-
 export default function DateRangePickerComp({ setRegRecord }) {
   // ----------DB FETCH------------------------------
   const [dropdownData, setdropdownData] = useState([]);
@@ -68,21 +69,6 @@ export default function DateRangePickerComp({ setRegRecord }) {
     fetchData1();
   }, []);
 
-  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-  let [weeklyDate, setWeeklyDate] = useState([]);
-  const selectionChangeHandler = (event) => {
-    setWeeklyDate(event.target.value);
-    console.log('event.target.value', event.target.value)
-    // console.log('selected', selected)
-  };
-  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-  let [subjectId, setSubjectId] = useState([]);
-  const selectionOptionChangeHandler = (event) => {
-    setSubjectId(event.target.value);
-    console.log('event.target.value', event.target.value)
-    // console.log('selected', selected)
-  };
-
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -100,7 +86,6 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
   // FOR WEEKLY RECORD BASIS OF EXPIRY DATE...................................................
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-  // const [selectedIndex1, setSelectedIndex1] = React.useState(1);
   const [selectedIndex1, setSelectedIndex1] = React.useState(0);
 
   function handleClickListItem1(event) {
@@ -114,71 +99,44 @@ export default function DateRangePickerComp({ setRegRecord }) {
     setAnchorEl1(null);
   }
 
-  // FOR WEEKLY RECORD........................................................
-  // date state
-  const [range, setRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: 'selection',
-    },
-  ]);
-
-  //   open close --> (true)= display
-  const [open, setOpen] = useState(false);
-
-  //   now to detect outside click we will have to use useRef
-  // get the target element to toggle
-  const refOne = useRef(null);
-
-  //   if will refresh the the page on load i want to display the date here on page load as well
-  // ---> use useEffect Hook
-  useEffect(() => {
-    // set current date on component load with the current date
-    // -----------CLOSE calender by clicking
-    document.addEventListener('keydown', hideOnEscape, true);
-    document.addEventListener('click', hideOnClickOutside, true);
-  }, []);
-
-  //   hide dropdown on ESC press
-  const hideOnEscape = (e) => {
-    // console.log(e.key);
-    if (e.key === 'Escape') {
-      setOpen(false);
-    }
-  };
-
-  // Hide on outside click
-  const hideOnClickOutside = (e) => {
-    // console.log(refOne.current);
-    // console.log(e.target);
-    if (refOne.current && !refOne.current.contains(e.target)) {
-      setOpen(false);
-    }
-  };
-
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
-  // =====get details============
-  let getDetails = () => {
-    console.log("###reached get details--->", expiryDate);
-    console.log(subjectId, weeklyDate);
-    expiryDate.forEach((data) => {
-      console.log(data.details.subjectId, data.details.date);
-      if (data.details.subjectId == subjectId && data.details.date == weeklyDate) {
-        setRegRecord(data.details);
-        console.log('data.details', data)
-      }
-    })
-  }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+  // let [weeklyDate, setWeeklyDate] = useState([]);
+  // const selectionChangeHandler = (event) => {
+  //   setWeeklyDate(event.target.value);
+  //   console.log('event.target.value', event.target.value)
+  //   // console.log('selected', selected)
+  // };
+  // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+  // let [subjectId, setSubjectId] = useState([]);
+  // const selectionOptionChangeHandler = (event) => {
+  //   setSubjectId(event.target.value);
+  //   console.log('event.target.value', event.target.value)
+  //   // console.log('selected', selected)
+  // };
+
+  // =====get details CLICK ON SUBMIT BUTTON (subject && weekly record)==========
+  // let getDetails = () => {
+  //   console.log("###reached get details--->", expiryDate);
+  //   console.log(subjectId, weeklyDate);
+  //   expiryDate.forEach((data) => {
+  //     console.log(data.details.subjectId, data.details.date);
+  //     if (data.details.subjectId == subjectId && data.details.date == weeklyDate) {
+  //       setRegRecord(data.details);
+  //       console.log('data.details', data)
+  //     }
+  //   })
+  // }
 
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
 
         {/* // FOR SUBJECT RECORD................................................... */}
-        {/* <SimpleCard title="GK/ENGLISH">
+        <SimpleCard title="GK/ENGLISH">
           <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
@@ -206,18 +164,20 @@ export default function DateRangePickerComp({ setRegRecord }) {
               {options.map((option, index) => (
                 <MenuItem
                   key={option}
+                  // key={option.value}
                   disabled={index === 0}
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
                 >
                   {option}
+                  {/* {option.label} */}
                 </MenuItem>
               ))}
             </Menu>
           </MenuRoot>
-        </SimpleCard> */}
+        </SimpleCard>
 
-        {/* <SimpleCard title="Weekly">
+        <SimpleCard title="Weekly">
           <MenuRoot sx={{ width: 300, height: 20 }}>
             <List component="nav" aria-label="Device settings">
               <ListItem
@@ -234,30 +194,30 @@ export default function DateRangePickerComp({ setRegRecord }) {
                 />
               </ListItem>
             </List>
-              <Menu
+            <Menu
               sx={{ height: 400 }}
-                id="lock-menu1"
-                anchorEl={anchorEl1}
-                keepMounted
-                open={Boolean(anchorEl1)}
-                onClose={handleClose1}
-              >
-                {dropdownData.map((option, index) => (
-                  <MenuItem
-                    key={option}
-                    // disabled={index === 0}
-                    // selected={index === selectedIndex1}
-                    selected={index === 0}
-                    onClick={(event) => handleMenuItemClick1(event, index)}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
+              id="lock-menu1"
+              anchorEl={anchorEl1}
+              keepMounted
+              open={Boolean(anchorEl1)}
+              onClose={handleClose1}
+            >
+              {dropdownData.map((option, index) => (
+                <MenuItem
+                  key={option}
+                  selected={index === 0}
+                  onClick={(event) => handleMenuItemClick1(event, index)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
           </MenuRoot>
-        </SimpleCard> */}
+        </SimpleCard>
 
-        <SimpleCard title="GK/ENGLISH">
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* // FOR SUBJECT RECORD................................................... */}
+        {/* <SimpleCard title="GK/ENGLISH">
           <Box sx={{ width: 300, height: 50 }}>
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
@@ -274,9 +234,9 @@ export default function DateRangePickerComp({ setRegRecord }) {
               </Box>
             </Box>
           </Box>
-        </SimpleCard>
+        </SimpleCard> */}
         {/* // FOR WEEKLY RECORD..................................................... */}
-        <SimpleCard title="WEEKLY">
+        {/* <SimpleCard title="WEEKLY">
           <Box sx={{ width: 300, height: 50 }}>
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
@@ -288,25 +248,25 @@ export default function DateRangePickerComp({ setRegRecord }) {
                         {eDate.label}
                       </MenuItem>
                     ))}
-                    {/* {dropdownData.map((eDate, i) => (
+                    {dropdownData.map((eDate, i) => (
                     <MenuItem key={eDate}>{eDate}</MenuItem>
-                    ))}  */}
+                    ))} 
                   </Select>
                 </FormControl>
               </Box>
             </Box>
           </Box>
-        </SimpleCard>
+        </SimpleCard> */}
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button
+          // onClick={() => getDetails()}
           color="primary"
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-          //   sx={{ ml: 134, mt: 15 }}
-          //   position="fixed"
-          onClick={() => getDetails()}
+          onClick={() => setRegRecord("sushma")}
+          // onClick={() => fetchData1()}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>

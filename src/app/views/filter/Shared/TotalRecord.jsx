@@ -10,7 +10,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-// import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -81,7 +80,6 @@ export default function SimpleDialogDemo({regRecord}) {
     <>
       <Box display="flex" justifyContent="space-evenly">
         <Box>
-          {/* <Typography variant="subtitle1">Selected: {selectedValue}</Typography> */}
           Total Registration
           <br />
           <br />
@@ -92,12 +90,12 @@ export default function SimpleDialogDemo({regRecord}) {
           // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
           onClick={() => navigate('/filter/TotalRecordDetails')} 
           >
-              Hello {regRecord.count}
+              Hello {regRecord.length}
+              {/* Hello {regRecord.count} */}
           </Button>
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>
-          {/* <Typography variant="subtitle1">Selected: {selectedValue}</Typography> */}
           Total Competition
           <br />
           <br />
