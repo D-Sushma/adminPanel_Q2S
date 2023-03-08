@@ -90,13 +90,14 @@ export default function SimpleDialogDemo({regRecord}) {
           // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
           onClick={() => navigate('/filter/TotalRecordDetails')} 
           >
-              Hello {regRecord.length}
               {/* Hello {regRecord.count} */}
+              Hello {regRecord.count ? regRecord.count : "-"} 
           </Button>
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
         <Box>
           Total Competition
+          .JKL
           <br />
           <br />
           <Button variant="outlined" color="primary" onClick={handleClickOpen}>
