@@ -94,7 +94,6 @@ export default function DateRangePickerComp({ setRegRecord }) {
   const selectionChangeHandler = (event) => {
     setWeeklyDate(event.target.value);
     console.log('event.target.value', event.target.value)
-    // console.log('selected', selected)
   };
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
   let [subjectId, setSubjectId] = useState('');
@@ -210,7 +209,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ background:"white", px: 0.5 }}>Gk-13/ENGLISH-6</InputLabel>
+                  <InputLabel sx={{ background:"white", px: 0.5 }}>Select Subject Code...</InputLabel>
                   <Select value={subjectId} onChange={selectionOptionChangeHandler} >
                     {options.map((option, index) => (
                       <MenuItem value={option.value}>
@@ -229,7 +228,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ background:"white", px: 0.5 }}>Weekly Date</InputLabel>
+                  <InputLabel sx={{ background:"white", px: 0.5 }}>Select Weekly Date...</InputLabel>
                   <Select value={weeklyDate} onChange={selectionChangeHandler} >
                     {expiryDate.map((eDate, i) => (
                       <MenuItem value={eDate.label.split(' ')[2].trim()}>
@@ -248,12 +247,11 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button
-
           color="primary"
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-          disabled = {!subjectId || !weeklyDate}
+          // disabled = {!subjectId || !weeklyDate}
           onClick={() => getDetails()}
         >
           <Icon>send</Icon>

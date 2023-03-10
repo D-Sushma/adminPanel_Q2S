@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -87,8 +87,8 @@ export default function SimpleDialogDemo({regRecord}) {
           <Button 
           variant="outlined" color="primary" 
           sx={{width:150}}
-          // onClick={() => navigate(`/filter/TotalRecordDetails/${totalrecord.expiry_date}`)} 
-          onClick={() => navigate('/filter/TotalRecordDetails')} 
+          // onClick={() => navigate('/filter/TotalRecordDetails')} 
+          onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.date}`)} 
           >
               {/* Hello {regRecord.count} */}
               Hello {regRecord.count ? regRecord.count : "-"} 
@@ -97,7 +97,6 @@ export default function SimpleDialogDemo({regRecord}) {
         </Box>
         <Box>
           Total Competition
-          .JKL
           <br />
           <br />
           <Button variant="outlined" color="primary" onClick={handleClickOpen}>

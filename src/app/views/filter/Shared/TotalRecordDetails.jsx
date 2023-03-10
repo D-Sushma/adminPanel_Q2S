@@ -33,13 +33,13 @@ const PaginationTable = () => {
   // ----------DB FETCH END-------------------------
   let [registration, setRegistration] = useState([]);
   let fetchRegRecord = () => {
-    // fetch(`http://localhost:4000/registrationUser/${params.trId}`)
-    fetch('http://localhost:4000/registration')
+    // fetch('http://localhost:4000/registration')
+    fetch(`http://localhost:4000/totalrecord/${params.sId}/${params.dateRecord}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log('registration inside data Total Record Details', data);
+        console.log('Total record inside data Total Total Record Details', data);
         // var passData = data.response;
         setRegistration(data.response);
       });
