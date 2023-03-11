@@ -31,17 +31,17 @@ const PaginationTable = () => {
   const params = useParams();
 
   // ----------DB FETCH END-------------------------
-  let [registration, setRegistration] = useState([]);
+  let [totalRegistration, setTotalRegistration] = useState([]);
   let fetchRegRecord = () => {
     // fetch('http://localhost:4000/registration')
-    fetch(`http://localhost:4000/totalrecord/${params.sId}/${params.dateRecord}`)
+    fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log('Total record inside data Total Total Record Details', data);
+        console.log('Total record inside data Total  Record Details', data);
         // var passData = data.response;
-        setRegistration(data.response);
+        setTotalRegistration(data.response);
       });
   };
   useEffect(() => {
@@ -111,7 +111,7 @@ const PaginationTable = () => {
               </TableHead>
               <TableBody>
 
-                {registration.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                {totalRegistration.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((joinuser, index) => {
                     return (
 
@@ -143,7 +143,7 @@ const PaginationTable = () => {
               page={page}
               component="div"
               rowsPerPage={rowsPerPage}
-              count={registration.length}
+              count={totalRegistration.length}
               onPageChange={handleChangePage}
               rowsPerPageOptions={[5, 10, 25]}
               onRowsPerPageChange={handleChangeRowsPerPage}
