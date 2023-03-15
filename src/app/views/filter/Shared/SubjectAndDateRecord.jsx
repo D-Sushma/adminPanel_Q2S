@@ -31,23 +31,23 @@ export default function DateRangePickerComp({ setRegRecord }) {
   const [dropdownData, setdropdownData] = useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
   const fetchData1 = async () => {
-    await fetch('http://localhost:4000/memberregistration')
+    await fetch('http://localhost:4000/member-registration')
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log('inside data subject date record', data.response);
-        const e_result = data.response.eDate;
-        let expiry = [];
-        e_result.forEach((ele) => {
-          expiry.push(ele.label);
-          // console.log('expiry', expiry);
-        })
-        setdropdownData(expiry);
-        // dropdownData.push(expiry);
-        console.log('dropdownData', dropdownData);
-        // ====================<- OR ->=============================
-        setExpiryDate(data.response.eDate);
+        // const e_result = data.response.eDate;
+        // let expiry = [];
+        // e_result.forEach((ele) => {
+        //   expiry.push(ele.label);
+        //   // console.log('expiry', expiry);
+        // })
+        // setdropdownData(expiry);
+        // // dropdownData.push(expiry);
+        // console.log('dropdownData', dropdownData);
+        // // ====================<- OR ->=============================
+        setExpiryDate(data.response.dates);
       });
   };
   // console.log('expiryDate', expiryDate);
@@ -209,7 +209,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ background:"white", px: 0.5 }}>Select Subject Code...</InputLabel>
+                  <InputLabel sx={{ background: "white", px: 0.5 }}>Select Subject Code...</InputLabel>
                   <Select value={subjectId} onChange={selectionOptionChangeHandler} >
                     {options.map((option, index) => (
                       <MenuItem value={option.value}>
@@ -228,11 +228,11 @@ export default function DateRangePickerComp({ setRegRecord }) {
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
-                  <InputLabel sx={{ background:"white", px: 0.5 }}>Select Weekly Date...</InputLabel>
+                  <InputLabel sx={{ background: "white", px: 0.5 }}>Select Weekly Date...</InputLabel>
                   <Select value={weeklyDate} onChange={selectionChangeHandler} >
                     {expiryDate.map((eDate, i) => (
-                      <MenuItem value={eDate.label.split(' ')[2].trim()}>
-                        {eDate.label}
+                      <MenuItem value={eDate.expiryDate}>
+                        {eDate.startDate} TO {eDate.expiryDate}
                       </MenuItem>
                     ))}
                     {dropdownData.map((eDate, i) => (
