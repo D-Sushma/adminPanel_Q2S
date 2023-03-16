@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { SimpleCard } from 'app/components';
 // FOR SUBJECT RECORD.............................................
 import { List, ListItem, ListItemText, Menu, MenuItem, Select, InputLabel, Input, FormControl } from '@mui/material';
@@ -27,8 +28,8 @@ const MenuRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export default function DateRangePickerComp({ setRegRecord }) {
-  // ----------DB FETCH------------------------------
-  const [dropdownData, setdropdownData] = useState([]);
+  // ----------DB FETCH-----------------------------
+  // const [dropdownData, setdropdownData]= useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
   const fetchData1 = async () => {
     await fetch('http://localhost:4000/member-registration')
@@ -37,24 +38,59 @@ export default function DateRangePickerComp({ setRegRecord }) {
       })
       .then((data) => {
         console.log('inside data subject date record', data.response);
-        // const e_result = data.response.eDate;
+        setExpiryDate(data.response.dates);
+        // ====================<- OR ->=============================
+        // const e_result = data.response.dates;
         // let expiry = [];
         // e_result.forEach((ele) => {
-        //   expiry.push(ele.label);
+        //   expiry.push(ele.expiryDate);
         //   // console.log('expiry', expiry);
         // })
         // setdropdownData(expiry);
         // // dropdownData.push(expiry);
-        // console.log('dropdownData', dropdownData);
-        // // ====================<- OR ->=============================
-        setExpiryDate(data.response.dates);
+        // // console.log('dropdownData', dropdownData);
       });
   };
+  // console.log('dropdownData', dropdownData);
   // console.log('expiryDate', expiryDate);
   useEffect(() => {
     fetchData1();
   }, []);
+  // .......................................................
+  const [submitData, setSubmitData] = useState([]);
+  const fetchSubmitData = async () => {
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
+      var raw = JSON.stringify({
+        expiry_date: week_date,
+        subject_id: subject_id,
+      })
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      console.log('raw', raw);
+      await fetch('http://localhost:4000/submit-data', requestOptions)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Get SUBMIT data', data);
+          setSubmitData(data.response);
+          // setRegRecord(data.response);
+        });
+    } catch (error) {
+      console.log('error', error)
+    }
+
+  };
+  useEffect(() => {
+    // fetchSubmitData();
+  }, []);
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -90,32 +126,49 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+  let [week_date, setWeek_date] = useState('');
   let [weeklyDate, setWeeklyDate] = useState('');
   const selectionChangeHandler = (event) => {
     setWeeklyDate(event.target.value);
+   // var date = event.target.value;
+  //  var n_date = moment(date).format("YYYY-MM-DD");
+    setWeek_date("2022-10-16");
     console.log('event.target.value', event.target.value)
+    // console.log('date', date);
+    // console.log('n_date', n_date);
   };
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
+  let [subject_id, setSubject_id] = useState('');
   let [subjectId, setSubjectId] = useState('');
   const selectionOptionChangeHandler = (event) => {
     setSubjectId(event.target.value);
+    setSubject_id(event.target.value);
     console.log('event.target.value', event.target.value)
     // console.log('selected', selected)
   };
 
   // =====get details CLICK ON SUBMIT BUTTON (subject && weekly record)==========
-  let getDetails = () => {
-    // setRegRecord({count : 0});
-    setRegRecord('');
-    console.log("###reached get details--->", expiryDate);
+  // let getDetails = () => {
+  //   // setRegRecord({count : 0});
+  //   setRegRecord('');
+  //   console.log("###reached get details--->", expiryDate);
+  //   console.log(subjectId, weeklyDate);
+  //   expiryDate.forEach((data) => {
+  //     // console.log(data.details.subjectId, data.details.date);
+  //     if (data.details.subjectId === subjectId && data.details.date === weeklyDate) {
+  //       setRegRecord(data.details);
+  //       console.log('data.details', data)
+  //     }
+  //   })
+  // }
+
+  let getValues = () => {
     console.log(subjectId, weeklyDate);
-    expiryDate.forEach((data) => {
-      // console.log(data.details.subjectId, data.details.date);
-      if (data.details.subjectId === subjectId && data.details.date === weeklyDate) {
-        setRegRecord(data.details);
-        console.log('data.details', data)
-      }
-    })
+
+    // submitData.forEach((data) => {
+    //   console.log('data', data)
+    //   setRegRecord(data);
+    // })
   }
 
   return (
@@ -235,9 +288,9 @@ export default function DateRangePickerComp({ setRegRecord }) {
                         {eDate.startDate} TO {eDate.expiryDate}
                       </MenuItem>
                     ))}
-                    {dropdownData.map((eDate, i) => (
+                    {/* {dropdownData.map((eDate, i) => (
                       <MenuItem key={eDate}>{eDate}</MenuItem>
-                    ))}
+                    ))} */}
                   </Select>
                 </FormControl>
               </Box>
@@ -247,16 +300,19 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button
+          // disabled = {!subjectId || !weeklyDate}
+          // onClick={() => getDetails()}
           color="primary"
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-          // disabled = {!subjectId || !weeklyDate}
-          onClick={() => getDetails()}
+          // onClick={() => getValues()}
+          onClick={() => fetchSubmitData()}
         >
           <Icon>send</Icon>
           <Span sx={{ pl: 1, textTransform: 'capitalize' }}>Submit</Span>
         </Button>
+
       </Box >
     </>
   );
