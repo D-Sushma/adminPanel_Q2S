@@ -60,7 +60,7 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string,
 };
 
-export default function SimpleDialogDemo({regRecord}) {
+export default function SimpleDialogDemo({ regRecord }) {
 
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
@@ -83,15 +83,15 @@ export default function SimpleDialogDemo({regRecord}) {
           Total Registration
           <br />
           <br />
-          
-          <Button 
-          variant="outlined" color="primary" 
-          sx={{width:150}}
-          // onClick={() => navigate('/filter/TotalRecordDetails')} 
-          onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.date}`)} 
+
+          <Button
+            variant="outlined" color="primary"
+            sx={{ width: 150 }}
+            // onClick={() => navigate('/filter/TotalRecordDetails')} 
+            onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.date}`)}
           >
-              {/* Hello {regRecord.count} */}
-              Hello {regRecord.count ? regRecord.count : "-"} 
+            {/* Hello {regRecord.count} */}
+             {regRecord ? regRecord.length : "-"}
           </Button>
           <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>

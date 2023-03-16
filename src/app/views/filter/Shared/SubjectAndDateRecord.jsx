@@ -65,7 +65,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
       var raw = JSON.stringify({
         expiry_date: week_date,
-        subject_id: subject_id,
+        subject_id: subjectId,
       })
       var requestOptions = {
         method: 'POST',
@@ -80,8 +80,8 @@ export default function DateRangePickerComp({ setRegRecord }) {
         })
         .then((data) => {
           console.log('Get SUBMIT data', data);
-          setSubmitData(data.response);
-          // setRegRecord(data.response);
+          // setSubmitData(data.response);
+          setRegRecord(data.results);
         });
     } catch (error) {
       console.log('error', error)
@@ -130,21 +130,17 @@ export default function DateRangePickerComp({ setRegRecord }) {
   let [weeklyDate, setWeeklyDate] = useState('');
   const selectionChangeHandler = (event) => {
     setWeeklyDate(event.target.value);
-   // var date = event.target.value;
-  //  var n_date = moment(date).format("YYYY-MM-DD");
-    setWeek_date("2022-10-16");
-    console.log('event.target.value', event.target.value)
-    // console.log('date', date);
-    // console.log('n_date', n_date);
+    setWeek_date(moment(event.target.value, 'DD-MM-YYYY').format('YYYY-MM-DD'));
+    // setWeek_date("2022-10-16");
+    console.log('event.target.value', event.target.value, week_date, weeklyDate)
   };
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
-  let [subject_id, setSubject_id] = useState('');
+  // let [subject_id, setSubject_id] = useState('');
   let [subjectId, setSubjectId] = useState('');
   const selectionOptionChangeHandler = (event) => {
     setSubjectId(event.target.value);
-    setSubject_id(event.target.value);
+    // setSubject_id(event.target.value);
     console.log('event.target.value', event.target.value)
-    // console.log('selected', selected)
   };
 
   // =====get details CLICK ON SUBMIT BUTTON (subject && weekly record)==========
