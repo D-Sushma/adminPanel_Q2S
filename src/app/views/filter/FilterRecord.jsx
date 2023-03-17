@@ -7,7 +7,8 @@ import TotalRecord from './Shared/TotalRecord';
 
 // for data pssing into sibling......
 export default function FilterRecord() {
-  const [regRecord, setRegRecord] = useState([]);
+  // const [regRecord, setRegRecord] = useState([]);
+  const [regRecord, setRegRecord] = useState('');
 
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();

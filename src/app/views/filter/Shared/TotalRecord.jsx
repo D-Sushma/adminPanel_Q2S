@@ -1,80 +1,41 @@
-import AddIcon from '@mui/icons-material/Add';
-import PersonIcon from '@mui/icons-material/Person';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import { blue } from '@mui/material/colors';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import Slide from '@mui/material/Slide';
+import Toolbar from '@mui/material/Toolbar';
+import { useTheme } from '@mui/system';
+import { H6 } from 'app/components/Typography';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-function SimpleDialog(props) {
-  const { onClose, selectedValue, ...other } = props;
 
-  function handleClose() {
-    onClose(selectedValue);
-  }
-  function handleListItemClick(value) {
-    onClose(value);
-  }
-
-  return (
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" {...other}>
-      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-      <List>
-        {emails.map((email) => (
-          <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-            <ListItemAvatar>
-              <Avatar sx={{ backgroundColor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={email} />
-          </ListItem>
-        ))}
-
-        <ListItem button onClick={() => handleListItemClick('addAccount')}>
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="add account" />
-        </ListItem>
-      </List>
-    </Dialog>
-  );
-}
-
-SimpleDialog.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string,
-};
-
-export default function SimpleDialogDemo({ regRecord }) {
+export default function FullScreenDialog({ regRecord }) {
 
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
+  // FULL SCREEN--------------------------------
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-  const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('user02@gmail.com');
-
-  const handleClickOpen = () => setOpen(true);
-
-  const handleClose = (value) => {
+  function handleClickOpen() {
+    setOpen(true);
+  }
+  function handleClose() {
     setOpen(false);
-    setSelectedValue(value);
-  };
+  }
+
 
   return (
     <>
@@ -83,27 +44,60 @@ export default function SimpleDialogDemo({ regRecord }) {
           Total Registration
           <br />
           <br />
-
           <Button
             variant="outlined" color="primary"
             sx={{ width: 150 }}
             // onClick={() => navigate('/filter/TotalRecordDetails')} 
-            onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.date}`)}
+            onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
             {/* Hello {regRecord.count} */}
-             {regRecord ? regRecord.length : "-"}
+            {regRecord ? regRecord.totalReg.length : "-"}
           </Button>
-          <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
         </Box>
-        <Box>
+        {/* <Box>
           Total Competition
           <br />
           <br />
-          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-            Open simple dialog
+          <Button variant="outlined" color="primary" sx={{ width: 150 }} >
+            {regRecord ? regRecord.totalComp.length : "-"}
           </Button>
-          <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+        </Box> */}
+
+        <Box>
+        Total Competition
+          <br />
+          <br />
+          <Button variant="outlined" color="primary" sx={{ width: 150 }} onClick={handleClickOpen}>
+          {regRecord ? regRecord.totalComp.length : "-"}
+          </Button>
+
+          <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <AppBar sx={{ position: 'relative' }}>
+              <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="Close">
+                  <CloseIcon />
+                </IconButton>
+                <H6 sx={{ flex: 1, marginLeft: theme.spacing(2) }}>Sound</H6>
+                <Button color="inherit" onClick={handleClose}>
+                  save
+                </Button>
+              </Toolbar>
+            </AppBar>
+
+            <List>
+              <ListItem button>
+                <ListItemText primary="Phone ringtone" secondary="Titania" />
+              </ListItem>
+
+              <Divider />
+
+              <ListItem button>
+                <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+              </ListItem>
+            </List>
+          </Dialog>
         </Box>
+
       </Box>
     </>
   );

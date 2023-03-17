@@ -80,8 +80,8 @@ export default function DateRangePickerComp({ setRegRecord }) {
         })
         .then((data) => {
           console.log('Get SUBMIT data', data);
-          // setSubmitData(data.response);
-          setRegRecord(data.results);
+          // setSubmitData(data.results);
+          setRegRecord(data);
         });
     } catch (error) {
       console.log('error', error)
@@ -296,12 +296,12 @@ export default function DateRangePickerComp({ setRegRecord }) {
 
         {/* SUBMIT BUTTON ........................................................... */}
         <Button
-          // disabled = {!subjectId || !weeklyDate}
-          // onClick={() => getDetails()}
           color="primary"
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
+          disabled = {!subjectId || !weeklyDate}
+          // onClick={() => getDetails()}
           // onClick={() => getValues()}
           onClick={() => fetchSubmitData()}
         >
