@@ -1,4 +1,5 @@
 import {useParams}  from 'react-router-dom';
+import ItemStore from '../../../utils/store';
 
 import moment from 'moment';
 import {
@@ -75,8 +76,18 @@ const PaginationTable = () => {
     setPage(0);
   };
 
+  useEffect(() => {
+   list()
+  }, [])
+  
+
+ const list = ItemStore((state) => state.items)
+ console.log('list', list)
+ console.log('list.length', list.length)
+
   return (
     <>
+     {/* <h1>{bears} around here ...</h1> */}
       <Container>
         <Box className="breadcrumb" display="flex" justifyContent="space-between">
           <Breadcrumb

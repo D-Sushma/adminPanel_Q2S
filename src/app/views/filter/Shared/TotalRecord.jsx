@@ -14,6 +14,7 @@ import { useTheme } from '@mui/system';
 import { H6 } from 'app/components/Typography';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ItemStore from '../../../utils/store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -37,9 +38,20 @@ export default function FullScreenDialog({ regRecord }) {
   }
 
 
+//   const increasePopulation = useBearStore((state) => state.increasePopulation)
+// console.log('increasePopulation', increasePopulation)
+
+const addItem = ItemStore((state) => state.addItem);
+  
+  const myItems = (paramtr) => {
+    addItem({'item': paramtr})
+    console.log('paramtr', paramtr)
+  }
+
   return (
     <>
       <Box display="flex" justifyContent="space-evenly">
+        <Button onClick={() => myItems('hello')}>click me</Button>
         <Box>
           Total Registration
           <br />
@@ -47,8 +59,9 @@ export default function FullScreenDialog({ regRecord }) {
           <Button
             variant="outlined" color="primary"
             sx={{ width: 150 }}
-            // onClick={() => navigate('/filter/TotalRecordDetails')} 
-            onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
+            onClick={() => navigate('/filter/TotalRecordDetails')} 
+            // onClick={(i) => myItems(i)}
+            // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
             {/* Hello {regRecord.count} */}
             {regRecord ? regRecord.totalReg.length : "-"}
