@@ -38,13 +38,10 @@ export default function FullScreenDialog({ regRecord }) {
   }
 
 
-//   const increasePopulation = useBearStore((state) => state.increasePopulation)
-// console.log('increasePopulation', increasePopulation)
-
 const addItem = ItemStore((state) => state.addItem);
   
   const myItems = (paramtr) => {
-    addItem({'item': paramtr})
+    addItem({'items': paramtr})
     console.log('paramtr', paramtr)
   }
 
@@ -63,7 +60,6 @@ const addItem = ItemStore((state) => state.addItem);
             // onClick={(i) => myItems(i)}
             // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {/* Hello {regRecord.count} */}
             {regRecord ? regRecord.totalReg.length : "-"}
           </Button>
         </Box>

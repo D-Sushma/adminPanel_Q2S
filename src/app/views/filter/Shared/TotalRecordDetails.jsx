@@ -1,5 +1,6 @@
-import {useParams}  from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ItemStore from '../../../utils/store';
+import useStore from 'app/utils/store';
 
 import moment from 'moment';
 import {
@@ -34,8 +35,8 @@ const PaginationTable = () => {
   // ----------DB FETCH END-------------------------
   let [totalRegistration, setTotalRegistration] = useState([]);
   let fetchRegRecord = () => {
-    // fetch('http://localhost:4000/registration')
-    fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
+    fetch('http://localhost:4000/registration')
+    // fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
       .then((response) => {
         return response.json();
       })
@@ -75,19 +76,25 @@ const PaginationTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  // ---------------------------------------------------------
+  // useEffect(() => {
+  //  list()
+  // }, [])
 
-  useEffect(() => {
-   list()
-  }, [])
-  
-
- const list = ItemStore((state) => state.items)
- console.log('list', list)
- console.log('list.length', list.length)
+   const list = ItemStore((state) => state.items)
+   console.log('list', list)
+   console.log('list.length', list.length)
+  // -----------------------------
+  // to use state , if need to bind with DOM element
+  const getItems = useStore((state) => state.items);
+  const addItems = useStore(state => state.addItems);
+  const subtractItems = useStore(state => state.subtractItems);
+  const addItemsBy = useStore(state => state.addItemsBy);
+  const subtractItemsBy = useStore(state => state.subtractItemsBy);
+  const reset = useStore((state) => state.reset);
 
   return (
     <>
-     {/* <h1>{bears} around here ...</h1> */}
       <Container>
         <Box className="breadcrumb" display="flex" justifyContent="space-between">
           <Breadcrumb
@@ -103,6 +110,14 @@ const PaginationTable = () => {
           </Button>
         </Box>
       </Container>
+
+      <h1>{getItems} people have cast their votes</h1>
+      <button onClick={addItems}> increase vote</button>
+      <button onClick={subtractItems}> delete vote</button>
+      <button onClick={() => addItemsBy(10)}> increase vote by 10 </button>
+      <button onClick={() => subtractItemsBy(10)}> delete vote by 10</button>
+      <button onClick={reset}> reset vote </button>
+
       <Box sx={{ mt: 1 }}>
         <SimpleCard title="MEMBER REGISTRATION">
 
