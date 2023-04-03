@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function FullScreenDialog({ regRecord }) {
-
+  console.log('regRecord', regRecord.totalReg)
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -38,12 +38,13 @@ export default function FullScreenDialog({ regRecord }) {
   }
 
 
-const addItem = ItemStore((state) => state.addItem);
-  
+  const addItem = ItemStore((state) => state.addItem);
+
   const myItems = (paramtr) => {
-    addItem({'items': paramtr})
+    addItem({ 'items': paramtr })
     console.log('paramtr', paramtr)
   }
+
 
   return (
     <>
@@ -56,9 +57,10 @@ const addItem = ItemStore((state) => state.addItem);
           <Button
             variant="outlined" color="primary"
             sx={{ width: 150 }}
-            onClick={() => navigate('/filter/TotalRecordDetails')} 
-            // onClick={(i) => myItems(i)}
-            // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
+            // onClick={() => navigate('/filter/TotalRecordDetails')} 
+            onClick={() => navigate('/filter/TotalRegistrationDetails', { state: regRecord.totalReg })}
+          // onClick={(i) => myItems(i)}
+          // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
             {regRecord ? regRecord.totalReg.length : "-"}
           </Button>
@@ -73,11 +75,11 @@ const addItem = ItemStore((state) => state.addItem);
         </Box> */}
 
         <Box>
-        Total Competition
+          Total Competition
           <br />
           <br />
-          <Button variant="outlined" color="primary" sx={{ width: 150 }} onClick={handleClickOpen}>
-          {regRecord ? regRecord.totalComp.length : "-"}
+          <Button variant="outlined" color="primary" sx={{ width: 150 }} onClick={() => navigate('filter/TotalCompetitionDetails', { state: regRecord.totalComp })}>
+            {regRecord ? regRecord.totalComp.length : "-"}
           </Button>
 
           <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

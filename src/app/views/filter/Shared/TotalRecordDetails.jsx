@@ -16,7 +16,8 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Breadcrumb, SimpleCard } from 'app/components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -36,7 +37,7 @@ const PaginationTable = () => {
   let [totalRegistration, setTotalRegistration] = useState([]);
   let fetchRegRecord = () => {
     fetch('http://localhost:4000/registration')
-    // fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
+      // fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
       .then((response) => {
         return response.json();
       })
@@ -81,9 +82,9 @@ const PaginationTable = () => {
   //  list()
   // }, [])
 
-   const list = ItemStore((state) => state.items)
-   console.log('list', list)
-   console.log('list.length', list.length)
+  const list = ItemStore((state) => state.items)
+  console.log('list', list)
+  console.log('list.length', list.length)
   // -----------------------------
   // to use state , if need to bind with DOM element
   const getItems = useStore((state) => state.items);
@@ -93,6 +94,13 @@ const PaginationTable = () => {
   const subtractItemsBy = useStore(state => state.subtractItemsBy);
   const reset = useStore((state) => state.reset);
 
+  // ---------------------By useLocation we get  prop from totalRecord
+  const { state } = useLocation();
+  // const { subid, date } = state;
+  console.log('state', state)
+  // console.log('subid', subid)
+  // console.log('date', date)
+  // ------------------------------------
   return (
     <>
       <Container>
@@ -117,7 +125,9 @@ const PaginationTable = () => {
       <button onClick={() => addItemsBy(10)}> increase vote by 10 </button>
       <button onClick={() => subtractItemsBy(10)}> delete vote by 10</button>
       <button onClick={reset}> reset vote </button>
-
+      {/* --------------------------useLocation---------------------- */}
+      {/* {state.map((ele, i) => (<h1 key={i}>{ele.id}</h1>))} */}
+      {/* ----------------------------------------------------------- */}
       <Box sx={{ mt: 1 }}>
         <SimpleCard title="MEMBER REGISTRATION">
 
@@ -137,7 +147,9 @@ const PaginationTable = () => {
               </TableHead>
               <TableBody>
 
-                {totalRegistration.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                {/* {totalRegistration.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((joinuser, index) => { */}
+                {state.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((joinuser, index) => {
                     return (
 
@@ -169,7 +181,7 @@ const PaginationTable = () => {
               page={page}
               component="div"
               rowsPerPage={rowsPerPage}
-              count={totalRegistration.length}
+              count={state.length}
               onPageChange={handleChangePage}
               rowsPerPageOptions={[5, 10, 25]}
               onRowsPerPageChange={handleChangeRowsPerPage}
