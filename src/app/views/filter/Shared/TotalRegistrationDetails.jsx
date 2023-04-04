@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
-import ItemStore from '../../../utils/store';
-import useStore from 'app/utils/store';
+// import ItemStore from '../../../utils/store';
+// import useStore from 'app/utils/store';
 
 import moment from 'moment';
 import {
@@ -30,21 +29,16 @@ const StyledTable = styled(Table)(() => ({
 }));
 
 const PaginationTable = () => {
-  // ===============Get id 
-  const params = useParams();
-
   // ----------DB FETCH END-------------------------
   let [totalRegistration, setTotalRegistration] = useState([]);
   let fetchRegRecord = () => {
     fetch('http://localhost:4000/registration')
-      // fetch(`http://localhost:4000/totalRegistration/${params.sId}/${params.dateRecord}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log('Total record inside data Total  Record Details', data);
-        // var passData = data.response;
-        setTotalRegistration(data.response);
+       setTotalRegistration(data.response);
       });
   };
   useEffect(() => {
@@ -77,22 +71,22 @@ const PaginationTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  // ---------------------------------------------------------
+  // --------------------------prev-------------------------------
   // useEffect(() => {
   //  list()
   // }, [])
 
-  const list = ItemStore((state) => state.items)
-  console.log('list', list)
-  console.log('list.length', list.length)
+  // const list = ItemStore((state) => state.items)
+  // console.log('list', list)
+  // console.log('list.length', list.length)
   // -----------------------------
-  // to use state , if need to bind with DOM element
-  const getItems = useStore((state) => state.items);
-  const addItems = useStore(state => state.addItems);
-  const subtractItems = useStore(state => state.subtractItems);
-  const addItemsBy = useStore(state => state.addItemsBy);
-  const subtractItemsBy = useStore(state => state.subtractItemsBy);
-  const reset = useStore((state) => state.reset);
+  // //to use state , if need to bind with DOM element
+  // const getItems = useStore((state) => state.items);
+  // const addItems = useStore(state => state.addItems);
+  // const subtractItems = useStore(state => state.subtractItems);
+  // const addItemsBy = useStore(state => state.addItemsBy);
+  // const subtractItemsBy = useStore(state => state.subtractItemsBy);
+  // const reset = useStore((state) => state.reset);
 
   // ---------------------By useLocation we get  prop from totalRecord
   const { state } = useLocation();
@@ -119,12 +113,12 @@ const PaginationTable = () => {
         </Box>
       </Container>
 
-      <h1>{getItems} people have cast their votes</h1>
+      {/* <h1>{getItems} people have cast their votes</h1>
       <button onClick={addItems}> increase vote</button>
       <button onClick={subtractItems}> delete vote</button>
       <button onClick={() => addItemsBy(10)}> increase vote by 10 </button>
       <button onClick={() => subtractItemsBy(10)}> delete vote by 10</button>
-      <button onClick={reset}> reset vote </button>
+      <button onClick={reset}> reset vote </button> */}
       {/* --------------------------useLocation---------------------- */}
       {/* {state.map((ele, i) => (<h1 key={i}>{ele.id}</h1>))} */}
       {/* ----------------------------------------------------------- */}

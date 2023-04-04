@@ -1,9 +1,13 @@
 import { create } from "zustand";
 
-const ItemStore = create((set) => ({
+// STEP -> 1 go subjectAndDateRecord and import ItemStore and use it
+const ItemStore = create((set, get) => ({
   // items:0,
   items: [],
-  addItem: ({item}) => set((state) => ({items: [...state.items,{item}] })),
+  // sub_id: [],
+  // ex_date: [],
+  //length:[],
+  addItem: ({ item, sub_id, ex_date, reg_length, comp_length }) => set((state) => ({ items: [...state.items, { item, sub_id, ex_date, reg_length, comp_length}] })),
 }))
 
 export default ItemStore;

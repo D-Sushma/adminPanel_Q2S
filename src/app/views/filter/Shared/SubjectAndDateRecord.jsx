@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
 import { useNavigate } from 'react-router-dom';
+import ItemStore from '../../../utils/store';
 const options = [//['GK - 13', 13], ['ENGLISH - 6', 6]];
   {
     label: 'GK - 13',
@@ -59,6 +60,8 @@ export default function DateRangePickerComp({ setRegRecord }) {
   // .......................................................
   const [submitData, setSubmitData] = useState([]);
   const fetchSubmitData = async () => {
+    // STEP-> 4
+    await myItems();
     try {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -82,12 +85,16 @@ export default function DateRangePickerComp({ setRegRecord }) {
           console.log('Get SUBMIT data', data);
           // setSubmitData(data.results);
           setRegRecord(data);
+          console.log('data', data)
+          myItems(data.totalReg, data.totalComp);
         });
     } catch (error) {
       console.log('error', error)
     }
 
   };
+
+
   useEffect(() => {
     // fetchSubmitData();
   }, []);
@@ -133,6 +140,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
     setWeek_date(moment(event.target.value, 'DD-MM-YYYY').format('YYYY-MM-DD'));
     // setWeek_date("2022-10-16");
     console.log('event.target.value', event.target.value, week_date, weeklyDate)
+
   };
   // ===============FOR SELECT OPTION IN WEEKLY RECORD======
   // let [subject_id, setSubject_id] = useState('');
@@ -141,6 +149,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
     setSubjectId(event.target.value);
     // setSubject_id(event.target.value);
     console.log('event.target.value', event.target.value)
+
   };
 
   // =====get details CLICK ON SUBMIT BUTTON (subject && weekly record)==========
@@ -166,6 +175,42 @@ export default function DateRangePickerComp({ setRegRecord }) {
     //   setRegRecord(data);
     // })
   }
+
+  // STEP-> 2 store addItem-------------
+  const addItem = ItemStore((state) => state.addItem);
+  // STEP-> 3 set current updated value--------
+  const myItems = (totalReg, totalComp) => {
+    // STEP-> 5
+    if (totalReg && totalComp) {
+      addItem({ 'reg_length': totalReg.length, 'comp_length': totalComp })
+      console.log('additems', { 'reg_length': totalReg.length, 'comp_length': totalComp })
+    }
+    else {
+      addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
+      console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
+    }
+
+  }
+  // STEP-> 7 ----- set in state....
+  const state = ItemStore()
+  console.log('state', state.items[0])
+
+  // STEP-> 8-----get value-----
+  const getdata = () => {
+    const data = state.items;
+    var subid;
+    var exdate;
+    data?.forEach(o => {
+      console.log('o', o.sub_id)
+      subid = o.sub_id;
+      exdate = o.ex_date;
+    });
+    setSubjectId(subid);
+    setWeeklyDate(exdate);
+  }
+  useEffect(() => {
+    getdata();
+  }, [])
 
   return (
     <>
@@ -259,7 +304,8 @@ export default function DateRangePickerComp({ setRegRecord }) {
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Subject Code...</InputLabel>
-                  <Select value={subjectId} onChange={selectionOptionChangeHandler} >
+                  {/* STEP-> 6 */}
+                  <Select value={subjectId} onChange={(e) => selectionOptionChangeHandler(e)} >
                     {options.map((option, index) => (
                       <MenuItem value={option.value}>
                         {option.label}
@@ -278,6 +324,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Weekly Date...</InputLabel>
+                  {/* STEP->6 */}
                   <Select value={weeklyDate} onChange={(e) => selectionChangeHandler(e)} >
                     {expiryDate.map((eDate, i) => (
                       <MenuItem value={eDate.expiryDate}>

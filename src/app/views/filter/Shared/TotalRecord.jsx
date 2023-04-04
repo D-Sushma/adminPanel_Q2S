@@ -12,7 +12,7 @@ import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/system';
 import { H6 } from 'app/components/Typography';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemStore from '../../../utils/store';
 
@@ -37,19 +37,46 @@ export default function FullScreenDialog({ regRecord }) {
     setOpen(false);
   }
 
+  // --------------------------previous try-----------
+  // const addItem = ItemStore((state) => state.addItem);
 
-  const addItem = ItemStore((state) => state.addItem);
+  // const myItems = (paramtr) => {
+  //   addItem({ 'items': paramtr })
+  //   console.log('paramtr', paramtr)
+  // }
 
-  const myItems = (paramtr) => {
-    addItem({ 'items': paramtr })
-    console.log('paramtr', paramtr)
-  }
+  // useEffect(() => {
+  //   myItems();
+  // }, [])
 
+
+  // const addItem = ItemStore((state) => state.addItem)
+  // const myItems = () => {
+  //   addItem({ 'reg_length': regRecord.totalReg.length, 'comp_length': regRecord.totalComp.length })
+  //   console.log('additems', { 'reg_length': regRecord.totalReg.length, 'comp_length': regRecord.totalComp.length })
+  // }
+
+  // const state = ItemStore()
+  // console.log('state totalRecord', state)
+  // -----------------------------tried here---------
+  // const state = ItemStore()
+  // console.log('state', state.items[0])
+  // const getdata = () => {
+  //   const data = state.items;
+  //   data?.forEach(o => {
+  //     console.log('o', o.sub_id)
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   getdata();
+  // }, [])
+  // console.log('state.addItem[0].sub_id', state.addItem[0].sub_id)
 
   return (
     <>
       <Box display="flex" justifyContent="space-evenly">
-        <Button onClick={() => myItems('hello')}>click me</Button>
+        {/* <Button onClick={() => myItems('hello')}>click me</Button> */}
         <Box>
           Total Registration
           <br />
@@ -62,7 +89,7 @@ export default function FullScreenDialog({ regRecord }) {
           // onClick={(i) => myItems(i)}
           // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {regRecord ? regRecord.totalReg.length : "-"}
+            {/* {regRecord ? regRecord.totalReg.length : "-"} */}
           </Button>
         </Box>
         {/* <Box>
