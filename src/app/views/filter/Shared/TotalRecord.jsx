@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function FullScreenDialog({ regRecord }) {
-  console.log('regRecord', regRecord.totalReg)
+  console.log('regRecord', regRecord)
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -78,7 +78,9 @@ export default function FullScreenDialog({ regRecord }) {
           Total Competition
           <br />
           <br />
-          <Button variant="outlined" color="primary" sx={{ width: 150 }} onClick={() => navigate('filter/TotalCompetitionDetails', { state: regRecord.totalComp })}>
+          <Button variant="outlined" color="primary" sx={{ width: 150 }}
+            onClick={() => navigate('/filter/TotalCompetitionDetails', { state: regRecord.totalComp })}
+          >
             {regRecord ? regRecord.totalComp.length : "-"}
           </Button>
 
@@ -109,7 +111,7 @@ export default function FullScreenDialog({ regRecord }) {
           </Dialog>
         </Box>
 
-      </Box>
+      </Box >
     </>
   );
 }

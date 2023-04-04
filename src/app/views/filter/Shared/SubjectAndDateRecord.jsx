@@ -278,7 +278,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Weekly Date...</InputLabel>
-                  <Select value={weeklyDate} onChange={selectionChangeHandler} >
+                  <Select value={weeklyDate} onChange={(e) => selectionChangeHandler(e)} >
                     {expiryDate.map((eDate, i) => (
                       <MenuItem value={eDate.expiryDate}>
                         {eDate.startDate} TO {eDate.expiryDate}
@@ -300,7 +300,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
           variant="contained"
           type="submit"
           sx={{ width: 100, height: 40 }}
-          disabled = {!subjectId || !weeklyDate}
+          disabled={!subjectId || !weeklyDate}
           // onClick={() => getDetails()}
           // onClick={() => getValues()}
           onClick={() => fetchSubmitData()}

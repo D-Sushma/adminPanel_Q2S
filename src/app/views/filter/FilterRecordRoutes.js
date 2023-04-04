@@ -8,12 +8,12 @@ import { authRoles } from '../../auth/authRoles';
 // =------------- OR--------------------------------
 
 import FilterRecord from "./FilterRecord"
-const TotalRecordDetails = Loadable(lazy(() => import('./Shared/TotalRecordDetails')));
+const TotalRegistrationDetails = Loadable(lazy(() => import('./Shared/TotalRegistrationDetails')));
 const TotalCompetitionDetails = Loadable(lazy(() => import('./Shared/TotalCompetitionDetails')));
 
 const FilterRecordRoute = [
   { path: '/filter/FilterRecord', element: <FilterRecord />, auth: authRoles.admin },
-  { path: '/filter/TotalRecordDetails', element: <TotalRecordDetails /> },
+  { path: '/filter/TotalRegistrationDetails', element: <TotalRegistrationDetails /> },
   // { path: '/filter/TotalRecordDetails/:sId/:dateRecord', element: <TotalRecordDetails /> },
   { path: '/filter/TotalCompetitionDetails', element: <TotalCompetitionDetails /> },
 ];

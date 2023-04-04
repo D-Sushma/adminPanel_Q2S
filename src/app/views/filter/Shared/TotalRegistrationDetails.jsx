@@ -129,7 +129,7 @@ const PaginationTable = () => {
       {/* {state.map((ele, i) => (<h1 key={i}>{ele.id}</h1>))} */}
       {/* ----------------------------------------------------------- */}
       <Box sx={{ mt: 1 }}>
-        <SimpleCard title="MEMBER REGISTRATION">
+        <SimpleCard title="TOTAL MEMBER REGISTRATION">
 
           <Box width="100%" overflow="auto">
             <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
