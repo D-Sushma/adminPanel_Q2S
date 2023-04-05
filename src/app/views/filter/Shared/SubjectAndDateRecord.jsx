@@ -60,7 +60,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
   // .......................................................
   const [submitData, setSubmitData] = useState([]);
   const fetchSubmitData = async () => {
-    // STEP-> 4
+    // STEP-> 4.......
     await myItems();
     try {
       var myHeaders = new Headers();
@@ -86,7 +86,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
           // setSubmitData(data.results);
           setRegRecord(data);
           console.log('data', data)
-          myItems(data.totalReg, data.totalComp);
+          // myItems(data.totalReg, data.totalComp);
         });
     } catch (error) {
       console.log('error', error)
@@ -176,26 +176,27 @@ export default function DateRangePickerComp({ setRegRecord }) {
     // })
   }
 
-  // STEP-> 2 store addItem-------------
+  // STEP-> 2... store addItem-------------
   const addItem = ItemStore((state) => state.addItem);
-  // STEP-> 3 set current updated value--------
+  // STEP-> 3... set current updated value--------
   const myItems = (totalReg, totalComp) => {
-    // STEP-> 5
-    if (totalReg && totalComp) {
-      addItem({ 'reg_length': totalReg.length, 'comp_length': totalComp })
-      console.log('additems', { 'reg_length': totalReg.length, 'comp_length': totalComp })
-    }
-    else {
-      addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
-      console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
-    }
-
+    // STEP-> 5....
+    addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
+    console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
+    // if (totalReg && totalComp) {
+    //   addItem({ 'reg_length': totalReg.length, 'comp_length': totalComp })
+    //   console.log('additems', { 'reg_length': totalReg.length, 'comp_length': totalComp })
+    // }
+    // else {
+    //   addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
+    //   console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
+    // }
   }
-  // STEP-> 7 ----- set in state....
+  // STEP-> 7... ----- set in state....
   const state = ItemStore()
   console.log('state', state.items[0])
 
-  // STEP-> 8-----get value-----
+  // STEP-> 8... -----get value-----
   const getdata = () => {
     const data = state.items;
     var subid;
@@ -304,7 +305,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Subject Code...</InputLabel>
-                  {/* STEP-> 6 */}
+                  {/* STEP-> 6.... */}
                   <Select value={subjectId} onChange={(e) => selectionOptionChangeHandler(e)} >
                     {options.map((option, index) => (
                       <MenuItem value={option.value}>
@@ -324,7 +325,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Weekly Date...</InputLabel>
-                  {/* STEP->6 */}
+                  {/* STEP->6.... */}
                   <Select value={weeklyDate} onChange={(e) => selectionChangeHandler(e)} >
                     {expiryDate.map((eDate, i) => (
                       <MenuItem value={eDate.expiryDate}>

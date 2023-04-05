@@ -14,7 +14,7 @@ import { useTheme } from '@mui/system';
 import { H6 } from 'app/components/Typography';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ItemStore from '../../../utils/store';
+// import ItemStore from '../../../utils/store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -89,7 +89,7 @@ export default function FullScreenDialog({ regRecord }) {
           // onClick={(i) => myItems(i)}
           // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {/* {regRecord ? regRecord.totalReg.length : "-"} */}
+            {regRecord ? regRecord.totalReg.length : "-"}
           </Button>
         </Box>
         {/* <Box>

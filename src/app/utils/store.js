@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-// STEP -> 1 go subjectAndDateRecord and import ItemStore and use it
+// STEP -> 1... go subjectAndDateRecord and import ItemStore and use it
 const ItemStore = create((set, get) => ({
   // items:0,
   items: [],
