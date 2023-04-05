@@ -12,9 +12,9 @@ import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/system';
 import { H6 } from 'app/components/Typography';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import ItemStore from '../../../utils/store';
+import ItemStore from '../../../utils/store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -36,6 +36,25 @@ export default function FullScreenDialog({ regRecord }) {
   function handleClose() {
     setOpen(false);
   }
+  // --------------------------get data-----
+  // let [regL, setRegL] = useState('');
+  // let [compL, setCompL] = useState('');
+  // const get_data = () => {
+  //   const data = regRecord;
+  //   var RL;
+  //   var CL;
+  //   data?.forEach(o => {
+  //     console.log('o.....', o)
+  //     RL = o.totalReg;
+  //     CL = o.totalComp;
+  //   });
+  //   setRegL(RL);
+  //   setCompL(CL);
+  // }
+  // useEffect(() => {
+  //   get_data();
+  // }, [])
+
 
   // --------------------------previous try-----------
   // const addItem = ItemStore((state) => state.addItem);
@@ -50,21 +69,30 @@ export default function FullScreenDialog({ regRecord }) {
   // }, [])
 
 
-  // const addItem = ItemStore((state) => state.addItem)
+
+
+
+  // const state = ItemStore()
+  // console.log('state', state.items)
+
+  // const data = state.items;
+
+
+
   // const myItems = () => {
-  //   addItem({ 'reg_length': regRecord.totalReg.length, 'comp_length': regRecord.totalComp.length })
-  //   console.log('additems', { 'reg_length': regRecord.totalReg.length, 'comp_length': regRecord.totalComp.length })
+  //   addItem({ 'reg_length': reg_length, 'comp_length': comp_length })
+  //   console.log('additems', { 'reg_length': reg_length, 'comp_length': comp_length })
   // }
 
   // const state = ItemStore()
   // console.log('state totalRecord', state)
   // -----------------------------tried here---------
   // const state = ItemStore()
-  // console.log('state', state.items[0])
+  // console.log('state_get', state.items)
   // const getdata = () => {
   //   const data = state.items;
-  //   data?.forEach(o => {
-  //     console.log('o', o.sub_id)
+  //   data?.forEach(element => {
+  //     console.log('element', element)
   //   });
   // }
 

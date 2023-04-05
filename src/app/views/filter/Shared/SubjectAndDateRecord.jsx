@@ -81,23 +81,30 @@ export default function DateRangePickerComp({ setRegRecord }) {
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
+        .then(async (data) => {
           console.log('Get SUBMIT data', data);
           // setSubmitData(data.results);
           setRegRecord(data);
           console.log('data', data)
-          // myItems(data.totalReg, data.totalComp);
+          await myItem2(data)
         });
     } catch (error) {
       console.log('error', error)
     }
 
   };
-
-
   useEffect(() => {
     // fetchSubmitData();
   }, []);
+
+  // --------------------for totalRecord. .......
+  const addItem1 = ItemStore((state) => state.addItem1)
+
+  const myItem2 = (data) => {
+    addItem1({ 'reg_length': data.totalReg, 'comp_length': data.totalComp })
+    console.log('addItem1', { 'reg_length': data.totalReg, 'comp_length': data.totalComp })
+  }
+
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -181,16 +188,10 @@ export default function DateRangePickerComp({ setRegRecord }) {
   // STEP-> 3... set current updated value--------
   const myItems = (totalReg, totalComp) => {
     // STEP-> 5....
+
     addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
     console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
-    // if (totalReg && totalComp) {
-    //   addItem({ 'reg_length': totalReg.length, 'comp_length': totalComp })
-    //   console.log('additems', { 'reg_length': totalReg.length, 'comp_length': totalComp })
-    // }
-    // else {
-    //   addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
-    //   console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
-    // }
+
   }
   // STEP-> 7... ----- set in state....
   const state = ItemStore()

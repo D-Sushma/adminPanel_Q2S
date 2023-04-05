@@ -6,8 +6,9 @@ const ItemStore = create((set, get) => ({
   items: [],
   // sub_id: [],
   // ex_date: [],
-  //length:[],
-  addItem: ({ item, sub_id, ex_date, reg_length, comp_length }) => set((state) => ({ items: [...state.items, { item, sub_id, ex_date, reg_length, comp_length}] })),
+  lengths: [],
+  addItem: ({ item, sub_id, ex_date }) => set((state) => ({ items: [...state.items, { item, sub_id, ex_date }] })),
+  addItem1: ({ reg_length, comp_length }) => set((state) => ({ lengths: [...state.lengths, { reg_length, comp_length }] })),
 }))
 
 export default ItemStore;
