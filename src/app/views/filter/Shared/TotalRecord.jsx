@@ -22,7 +22,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function FullScreenDialog({ regRecord }) {
-  console.log('regRecord', regRecord)
+  // console.log('regRecord', regRecord)
+
   // -------------FOR BACK BUTTON--------------------
   const navigate = useNavigate();
 
@@ -36,25 +37,31 @@ export default function FullScreenDialog({ regRecord }) {
   function handleClose() {
     setOpen(false);
   }
-  // --------------------------get data-----
-  // let [regL, setRegL] = useState('');
-  // let [compL, setCompL] = useState('');
-  // const get_data = () => {
-  //   const data = regRecord;
-  //   var RL;
-  //   var CL;
-  //   data?.forEach(o => {
-  //     console.log('o.....', o)
-  //     RL = o.totalReg;
-  //     CL = o.totalComp;
-  //   });
-  //   setRegL(RL);
-  //   setCompL(CL);
-  // }
-  // useEffect(() => {
-  //   get_data();
-  // }, [])
+  // ---------------------------------------------------------------------
+  const [comp, setComp] = useState('')
+  const [reg, setReg] = useState('')
+  const addItem1 = ItemStore((state) => state.addItem1);
+  addItem1({ 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
+  console.log('addItems1', { 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
 
+  const state = ItemStore((set) => set.items1)
+  console.log('state for items1', state)
+  const getTotalData = () => {
+    const totalData = state;
+    var TComp;
+    var TReg;
+    totalData?.forEach(obj => {
+      console.log('obj-------->>>>', obj)
+      TComp = obj.comp_length;
+      TReg = obj.reg_length;
+      console.log('TComp, TReg', TComp, TReg)
+    });
+    // setComp(TComp);
+    // setReg(TReg);
+  }
+  useEffect(() => {
+    getTotalData();
+  }, [])
 
   // --------------------------previous try-----------
   // const addItem = ItemStore((state) => state.addItem);
@@ -68,17 +75,6 @@ export default function FullScreenDialog({ regRecord }) {
   //   myItems();
   // }, [])
 
-
-
-
-
-  // const state = ItemStore()
-  // console.log('state', state.items)
-
-  // const data = state.items;
-
-
-
   // const myItems = () => {
   //   addItem({ 'reg_length': reg_length, 'comp_length': comp_length })
   //   console.log('additems', { 'reg_length': reg_length, 'comp_length': comp_length })
@@ -86,20 +82,6 @@ export default function FullScreenDialog({ regRecord }) {
 
   // const state = ItemStore()
   // console.log('state totalRecord', state)
-  // -----------------------------tried here---------
-  // const state = ItemStore()
-  // console.log('state_get', state.items)
-  // const getdata = () => {
-  //   const data = state.items;
-  //   data?.forEach(element => {
-  //     console.log('element', element)
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   getdata();
-  // }, [])
-  // console.log('state.addItem[0].sub_id', state.addItem[0].sub_id)
 
   return (
     <>
@@ -109,6 +91,7 @@ export default function FullScreenDialog({ regRecord }) {
           Total Registration
           <br />
           <br />
+
           <Button
             variant="outlined" color="primary"
             sx={{ width: 150 }}
@@ -117,7 +100,9 @@ export default function FullScreenDialog({ regRecord }) {
           // onClick={(i) => myItems(i)}
           // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {regRecord ? regRecord.totalReg.length : "-"}
+            {/* {reg.length} */}
+            {"-"}
+            {/* {regRecord ? regRecord.totalReg.length : "-"} */}
           </Button>
         </Box>
         {/* <Box>
@@ -136,7 +121,9 @@ export default function FullScreenDialog({ regRecord }) {
           <Button variant="outlined" color="primary" sx={{ width: 150 }}
             onClick={() => navigate('/filter/TotalCompetitionDetails', { state: regRecord.totalComp })}
           >
-            {regRecord ? regRecord.totalComp.length : "-"}
+            {/* {comp.length} */}
+            {"-"}
+            {/* {regRecord ? regRecord.totalComp.length : "-"} */}
           </Button>
 
           <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

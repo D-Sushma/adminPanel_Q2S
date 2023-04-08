@@ -23,7 +23,7 @@ const StyledTable = styled(Table)(() => ({
     },
 }));
 
-const MoreDetailsTable = () => {
+const TotalCompetitionDetails = () => {
     // -------------FOR BACK BUTTON--------------------
     const navigate = useNavigate();
 
@@ -135,4 +135,4 @@ const MoreDetailsTable = () => {
     );
 };
 
-export default MoreDetailsTable;
+export default TotalCompetitionDetails;

@@ -28,7 +28,7 @@ const StyledTable = styled(Table)(() => ({
   },
 }));
 
-const PaginationTable = () => {
+const TotalRegistrationDetails = () => {
   // ----------DB FETCH END-------------------------
   let [totalRegistration, setTotalRegistration] = useState([]);
   let fetchRegRecord = () => {
@@ -38,7 +38,7 @@ const PaginationTable = () => {
       })
       .then((data) => {
         console.log('Total record inside data Total  Record Details', data);
-       setTotalRegistration(data.response);
+        setTotalRegistration(data.response);
       });
   };
   useEffect(() => {
@@ -190,4 +190,4 @@ const PaginationTable = () => {
   );
 };
 
-export default PaginationTable;
+export default TotalRegistrationDetails;

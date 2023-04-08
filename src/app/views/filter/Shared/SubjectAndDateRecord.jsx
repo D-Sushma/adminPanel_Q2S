@@ -28,7 +28,7 @@ const MenuRoot = styled('div')(({ theme }) => ({
   maxWidth: 360,
   backgroundColor: theme.palette.background.paper,
 }));
-export default function DateRangePickerComp({ setRegRecord }) {
+export default function SubjectAndDateRecord({ setRegRecord }) {
   // ----------DB FETCH-----------------------------
   // const [dropdownData, setdropdownData]= useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
@@ -59,6 +59,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
   }, []);
   // .......................................................
   const [submitData, setSubmitData] = useState([]);
+  const [regData, setRegData] = useState('')
   const fetchSubmitData = async () => {
     // STEP-> 4.......
     await myItems();
@@ -86,7 +87,9 @@ export default function DateRangePickerComp({ setRegRecord }) {
           // setSubmitData(data.results);
           setRegRecord(data);
           console.log('data', data)
-          await myItem2(data)
+          setRegData(data)
+          // await myItem2_r(data.totalReg)
+          // await myItem2_c(data.totalComp)
         });
     } catch (error) {
       console.log('error', error)
@@ -98,12 +101,36 @@ export default function DateRangePickerComp({ setRegRecord }) {
   }, []);
 
   // --------------------for totalRecord. .......
-  const addItem1 = ItemStore((state) => state.addItem1)
+  // const addItem1 = ItemStore((state) => state.addItem1)
 
-  const myItem2 = (data) => {
-    addItem1({ 'reg_length': data.totalReg, 'comp_length': data.totalComp })
-    console.log('addItem1', { 'reg_length': data.totalReg, 'comp_length': data.totalComp })
-  }
+  // const myItem2_r = async (data) => {
+  //   addItem1({ 'reg_length': data })
+  //   console.log('addItem1', { 'reg_length': data })
+
+  //   await getData2_r();
+  // }
+
+  // const addItem2 = ItemStore((state) => state.addItem2)
+
+  // const myItem2_c = async (data) => {
+  //   addItem2({ 'comp_length': data })
+  //   console.log('addItem2', { 'comp_length': data })
+
+  //   await getData2_c();
+  // }
+
+  // const state1 = ItemStore()
+  // console.log('state1', state1.length_r)
+  // console.log('state1_c', state1.length_c)
+  // const getData2_r = () => {
+  //   var lData_r = state1.length_r;
+  //   console.log('lData_r---->', lData_r)
+  // }
+
+  // const getData2_c = () => {
+  //   var lData_c = state1.length_c;
+  //   console.log('lData_c---->', lData_c)
+  // }
 
   // FOR SUBJECT RECORD...................................................
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -182,16 +209,14 @@ export default function DateRangePickerComp({ setRegRecord }) {
     //   setRegRecord(data);
     // })
   }
-
+  // ---------------------------------------------------------------------
   // STEP-> 2... store addItem-------------
   const addItem = ItemStore((state) => state.addItem);
   // STEP-> 3... set current updated value--------
-  const myItems = (totalReg, totalComp) => {
+  const myItems = () => {
     // STEP-> 5....
-
     addItem({ 'sub_id': subjectId, 'ex_date': weeklyDate })
     console.log('additems', { 'sub_id': subjectId, 'ex_date': weeklyDate })
-
   }
   // STEP-> 7... ----- set in state....
   const state = ItemStore()
@@ -309,7 +334,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
                   {/* STEP-> 6.... */}
                   <Select value={subjectId} onChange={(e) => selectionOptionChangeHandler(e)} >
                     {options.map((option, index) => (
-                      <MenuItem value={option.value}>
+                      <MenuItem value={option.value} key={index}>
                         {option.label}
                       </MenuItem>
                     ))}
@@ -329,7 +354,7 @@ export default function DateRangePickerComp({ setRegRecord }) {
                   {/* STEP->6.... */}
                   <Select value={weeklyDate} onChange={(e) => selectionChangeHandler(e)} >
                     {expiryDate.map((eDate, i) => (
-                      <MenuItem value={eDate.expiryDate}>
+                      <MenuItem value={eDate.expiryDate} key={i}>
                         {eDate.startDate} TO {eDate.expiryDate}
                       </MenuItem>
                     ))}
