@@ -40,48 +40,16 @@ export default function FullScreenDialog({ regRecord }) {
   // ---------------------------------------------------------------------
   const [comp, setComp] = useState('')
   const [reg, setReg] = useState('')
-  const addItem1 = ItemStore((state) => state.addItem1);
-  addItem1({ 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
-  console.log('addItems1', { 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
+  // const addItem1 = ItemStore((state) => state.addItem1);
+  // addItem1({ 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
+  // console.log('addItems1', { 'reg_length': regRecord.totalReg, 'comp_length': regRecord.totalComp })
 
-  const state = ItemStore((set) => set.items1)
-  console.log('state for items1', state)
-  const getTotalData = () => {
-    const totalData = state;
-    var TComp;
-    var TReg;
-    totalData?.forEach(obj => {
-      console.log('obj-------->>>>', obj)
-      TComp = obj.comp_length;
-      TReg = obj.reg_length;
-      console.log('TComp, TReg', TComp, TReg)
-    });
-    // setComp(TComp);
-    // setReg(TReg);
-  }
-  useEffect(() => {
-    getTotalData();
-  }, [])
+  // step3-->> get data ----------for Total Record......
+  const { value_r, value_c } = ItemStore();
 
-  // --------------------------previous try-----------
-  // const addItem = ItemStore((state) => state.addItem);
+  console.log('value_r.length', value_r.length)
+  console.log('value_c.length', value_c.length)
 
-  // const myItems = (paramtr) => {
-  //   addItem({ 'items': paramtr })
-  //   console.log('paramtr', paramtr)
-  // }
-
-  // useEffect(() => {
-  //   myItems();
-  // }, [])
-
-  // const myItems = () => {
-  //   addItem({ 'reg_length': reg_length, 'comp_length': comp_length })
-  //   console.log('additems', { 'reg_length': reg_length, 'comp_length': comp_length })
-  // }
-
-  // const state = ItemStore()
-  // console.log('state totalRecord', state)
 
   return (
     <>
@@ -100,8 +68,8 @@ export default function FullScreenDialog({ regRecord }) {
           // onClick={(i) => myItems(i)}
           // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {/* {reg.length} */}
-            {"-"}
+            {value_r.length}
+            {/* {"-"} */}
             {/* {regRecord ? regRecord.totalReg.length : "-"} */}
           </Button>
         </Box>
@@ -121,8 +89,8 @@ export default function FullScreenDialog({ regRecord }) {
           <Button variant="outlined" color="primary" sx={{ width: 150 }}
             onClick={() => navigate('/filter/TotalCompetitionDetails', { state: regRecord.totalComp })}
           >
-            {/* {comp.length} */}
-            {"-"}
+            {value_c.length}
+            {/* {"-"} */}
             {/* {regRecord ? regRecord.totalComp.length : "-"} */}
           </Button>
 

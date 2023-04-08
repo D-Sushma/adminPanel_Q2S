@@ -10,7 +10,9 @@ import { Button, Icon, Box } from '@mui/material';
 import { Span } from 'app/components/Typography';
 import { useNavigate } from 'react-router-dom';
 import ItemStore from '../../../utils/store';
-const options = [//['GK - 13', 13], ['ENGLISH - 6', 6]];
+
+// ------------------------------------
+const options = [
   {
     label: 'GK - 13',
     value: 13,
@@ -88,6 +90,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
           setRegRecord(data);
           console.log('data', data)
           setRegData(data)
+          await add1(data.totalReg);
+          await add2(data.totalComp);
           // await myItem2_r(data.totalReg)
           // await myItem2_c(data.totalComp)
         });
@@ -99,6 +103,21 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
   useEffect(() => {
     // fetchSubmitData();
   }, []);
+
+  // step2-->> store data that we want--------for Total Record......go totalRecord
+  const increaseValueR = ItemStore((state) => state.increaseValueR);
+  const increaseValueC = ItemStore((state) => state.increaseValueC);
+
+  const add1 = async (data) => {
+    await increaseValueR({ 'value_r': data })
+    console.log('value_r======>>>', data)
+  }
+
+  const add2 = async (data) => {
+    await increaseValueC({ 'value_c': data })
+    console.log('value_c=====>>>', data)
+  }
+
 
   // --------------------for totalRecord. .......
   // const addItem1 = ItemStore((state) => state.addItem1)
@@ -325,8 +344,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
 
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* // FOR SUBJECT RECORD................................................... */}
-        <SimpleCard title="GK/ENGLISH">
-          <Box sx={{ width: 300, height: 50 }}>
+        <SimpleCard title="GK/ENGLISH" >
+          <Box sx={{ width: 300, height: 50, backgroundColor: "white" }}>
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
@@ -346,7 +365,7 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
         </SimpleCard>
         {/* // FOR WEEKLY RECORD..................................................... */}
         <SimpleCard title="WEEKLY">
-          <Box sx={{ width: 300, height: 50 }}>
+          <Box sx={{ width: 300, height: 50, backgroundColor: "white" }}>
             <Box display="flex" border="1px solid white" justifyContent="space-evenly">
               <Box>
                 <FormControl sx={{ width: 300, marginTop: 0, marginLeft: 0 }}>
