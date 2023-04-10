@@ -5,12 +5,16 @@ const ItemStore = create((set, get) => ({
   // items:0,
   items: [],
   items1: [],
+  //ERROR SOLVE --> after goBack when again click submit btn than show null(0) result on totalRecord section bcz its refresh. 
+  // step A---> so instead setExpiryDate useState we use from the store ... make expiryDate var & go subjectAndDateRecord....
+  expiryDate: [],
   // sub_id: [],
   // ex_date: [],
   // length_r: [],
   // length_c: [],
   addItem: ({ sub_id, ex_date }) => set((state) => ({ items: [...state.items, { sub_id, ex_date }] })),
   addItem1: ({ reg_length, comp_length }) => set((state1) => ({ items1: [...state1.items1, { reg_length, comp_length }] })),
+  addExpiryDate: ({ expiry_date }) => set((state) => ({ expiryDate: [...state.expiryDate, { expiry_date }] })),
   // addItem1: ({ reg_length }) => set((state) => ({ length_r: [state.length_r, [{ reg_length }]] })),
   // addItem2: ({ comp_length }) => set((state) => ({ length_c: [state.length_c, { comp_length }] })),
 

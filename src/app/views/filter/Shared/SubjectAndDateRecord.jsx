@@ -31,17 +31,21 @@ const MenuRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export default function SubjectAndDateRecord({ setRegRecord }) {
+  //step B----->
+  const addExpiryDate = ItemStore((state) => state.addExpiryDate)
   // ----------DB FETCH-----------------------------
   // const [dropdownData, setdropdownData]= useState([]);
-  const [expiryDate, setExpiryDate] = useState([]);
+  // const [expiryDate, setExpiryDate] = useState([]);
   const fetchData1 = async () => {
     await fetch('http://localhost:4000/member-registration')
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log('inside data subject date record', data.response);
-        setExpiryDate(data.response.dates);
+        //step C----->
+        await addExpiryDate({ 'expiry_date': data.response.dates });
+        // setExpiryDate(data.response.dates);
         // ====================<- OR ->=============================
         // const e_result = data.response.dates;
         // let expiry = [];
@@ -59,6 +63,10 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
   useEffect(() => {
     fetchData1();
   }, []);
+
+  //step D ----->
+  const { expiryDate } = ItemStore();
+  console.log('expiryDate========>>>', expiryDate);
   // .......................................................
   const [submitData, setSubmitData] = useState([]);
   const [regData, setRegData] = useState('')
@@ -255,6 +263,7 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
     setWeeklyDate(exdate);
   }
   useEffect(() => {
+    // fetchData1();
     getdata();
   }, [])
 
@@ -372,7 +381,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
                   <InputLabel sx={{ background: "white", px: 0.5 }}>Select Weekly Date...</InputLabel>
                   {/* STEP->6.... */}
                   <Select value={weeklyDate} onChange={(e) => selectionChangeHandler(e)} >
-                    {expiryDate.map((eDate, i) => (
+                    {/* //step E -----> */}
+                    {expiryDate[0]?.expiry_date?.map((eDate, i) => (
                       <MenuItem value={eDate.expiryDate} key={i}>
                         {eDate.startDate} TO {eDate.expiryDate}
                       </MenuItem>
