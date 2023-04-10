@@ -64,12 +64,13 @@ export default function FullScreenDialog({ regRecord }) {
             variant="outlined" color="primary"
             sx={{ width: 150 }}
             // onClick={() => navigate('/filter/TotalRecordDetails')} 
-            onClick={() => navigate('/filter/TotalRegistrationDetails', { state: regRecord.totalReg })}
+            // -->>> SOLVE ERROR =-> AFTER GO bACK BUTTON AGAIN CLICK ON THIS BUTTON THAN SHOW EMPTY PAGE 
+            // onClick={() => navigate('/filter/TotalRegistrationDetails', { state: regRecord.totalReg })}
+            onClick={() => navigate('/filter/TotalRegistrationDetails', { state: value_r })}
           // onClick={(i) => myItems(i)}
           // onClick={() => navigate(`/filter/TotalRecordDetails/${regRecord.subjectId}/${regRecord.dates}`)}
           >
-            {value_r.length}
-            {/* {"-"} */}
+            {value_r ? value_r.length : "-"}
             {/* {regRecord ? regRecord.totalReg.length : "-"} */}
           </Button>
         </Box>
@@ -87,10 +88,10 @@ export default function FullScreenDialog({ regRecord }) {
           <br />
           <br />
           <Button variant="outlined" color="primary" sx={{ width: 150 }}
-            onClick={() => navigate('/filter/TotalCompetitionDetails', { state: regRecord.totalComp })}
+            // onClick={() => navigate('/filter/TotalCompetitionDetails', { state: regRecord.totalComp })}
+            onClick={() => navigate('/filter/TotalCompetitionDetails', { state: value_c })}
           >
-            {value_c.length}
-            {/* {"-"} */}
+            {value_c ? value_c.length : "-"}
             {/* {regRecord ? regRecord.totalComp.length : "-"} */}
           </Button>
 
