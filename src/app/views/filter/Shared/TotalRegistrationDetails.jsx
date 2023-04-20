@@ -150,7 +150,7 @@ const TotalRegistrationDetails = () => {
                       <TableRow key={index}>
                         <TableCell align="center">{joinuser.id}</TableCell>
                         {/* <TableCell align="center">{joinuser.name + " " + joinuser.lname}</TableCell> */}
-                        <TableCell align="center">{joinuser.userid}</TableCell>
+                        <TableCell align="center">{joinuser.userid_name}</TableCell>
 
                         {(joinuser.subject) === 6 ? <TableCell align="center">English</TableCell>
                           : (joinuser.subject) === 13 ? <TableCell align="center">GK</TableCell>

@@ -1,4 +1,4 @@
-import {useParams}  from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 import {
   Box,
@@ -12,21 +12,21 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-} from '@mui/material';
-import { useState, useEffect } from 'react';
-import { Breadcrumb, SimpleCard } from 'app/components';
-import { useNavigate } from 'react-router-dom';
+} from "@mui/material";
+import { useState, useEffect } from "react";
+import { Breadcrumb, SimpleCard } from "app/components";
+import { useNavigate } from "react-router-dom";
 // import DialogTransition from './DialogTra nsition';
-import FullScreenDialog from './FullScreenDialog';
-import { CardGiftcardOutlined } from '@mui/icons-material';
+import FullScreenDialog from "./FullScreenDialog";
+import { CardGiftcardOutlined } from "@mui/icons-material";
 
 const StyledTable = styled(Table)(() => ({
-  whiteSpace: 'pre',
-  '& thead': {
-    '& tr': { '& th': { paddingLeft: 0, paddingRight: 0 } },
+  whiteSpace: "pre",
+  "& thead": {
+    "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
   },
-  '& tbody': {
-    '& tr': { '& td': { paddingLeft: 0, textTransform: 'capitalize' } },
+  "& tbody": {
+    "& tr": { "& td": { paddingLeft: 0, textTransform: "capitalize" } },
   },
 }));
 
@@ -139,7 +139,7 @@ const StyledTable = styled(Table)(() => ({
 // ];
 
 const MoreDetailsTable = () => {
-  // ===============Get id 
+  // ===============Get id
   const params = useParams();
   // console.log("params",params);
   // --------------------FETCH DATA--------------------------
@@ -147,15 +147,15 @@ const MoreDetailsTable = () => {
   let fetchData = () => {
     fetch(`http://localhost:4000/moredetailstable/${params.cgId}`)
       .then((response) => {
-        console.log('response');
+        console.log("response");
         return response.json();
       })
       .then((data) => {
-        console.log('inside data of more details', data);
+        console.log("inside data of more details", data);
         setUsers(data.response);
       });
   };
-  console.log('after pagination table');
+  console.log("after pagination table");
   useEffect(() => {
     fetchData();
   }, []);
@@ -164,12 +164,12 @@ const MoreDetailsTable = () => {
   const navigate = useNavigate();
 
   // ...............FOR BREADCRUMB CONNTAINER COMPONENT.........................
-  const Container = styled('div')(({ theme }) => ({
-    margin: '30px',
-    [theme.breakpoints.down('sm')]: { margin: '16px' },
-    '& .breadcrumb': {
-      marginBottom: '30px',
-      [theme.breakpoints.down('sm')]: { marginBottom: '16px' },
+  const Container = styled("div")(({ theme }) => ({
+    margin: "30px",
+    [theme.breakpoints.down("sm")]: { margin: "16px" },
+    "& .breadcrumb": {
+      marginBottom: "30px",
+      [theme.breakpoints.down("sm")]: { marginBottom: "16px" },
     },
   }));
 
@@ -188,11 +188,15 @@ const MoreDetailsTable = () => {
   return (
     <>
       <Container>
-        <Box className="breadcrumb" display="flex" justifyContent="space-between">
+        <Box
+          className="breadcrumb"
+          display="flex"
+          justifyContent="space-between"
+        >
           <Breadcrumb
             routeSegments={[
-              { name: 'More Details Table', path: '/Cpmpetition-Group' },
-              { name: 'Table' },
+              { name: "More Details Table", path: "/Cpmpetition-Group" },
+              { name: "Table" },
             ]}
           />
           <Box display="flex">
@@ -213,7 +217,7 @@ const MoreDetailsTable = () => {
 
         <SimpleCard title="More Details Table">
           <Box width="100%" overflow="auto">
-            <StyledTable sx={{ tableLayout: 'auto' }} bgcolor="#fafafa">
+            <StyledTable sx={{ tableLayout: "auto" }} bgcolor="#fafafa">
               <TableHead bgcolor="#e0f7fa">
                 <TableRow>
                   <TableCell align="center">SNO</TableCell>
@@ -242,14 +246,31 @@ const MoreDetailsTable = () => {
                         <TableCell align="center">{user.id}</TableCell>
                         <TableCell align="center">{user.p1_name}</TableCell>
                         <TableCell align="center">{user.p2_name}</TableCell>
-                        <TableCell align="center">{user.p1_correct_count}</TableCell>
-                        <TableCell align="center">{user.p2_correct_count}</TableCell>
-                        <TableCell align="center">{user.p1_time_taken}</TableCell>
-                        <TableCell align="center">{user.p2_time_taken}</TableCell>
-                        <TableCell align="center">{user.winner_id}</TableCell>
+                        <TableCell align="center">
+                          {user.p1_correct_count}
+                        </TableCell>
+                        <TableCell align="center">
+                          {user.p2_correct_count}
+                        </TableCell>
+                        <TableCell align="center">
+                          {user.p1_time_taken}
+                        </TableCell>
+                        <TableCell align="center">
+                          {user.p2_time_taken}
+                        </TableCell>
+                        {/* <TableCell align="center">{user.winner_id}</TableCell> */}
+                        {user.winner_id === user.p1 ? (
+                          <TableCell align="center">{user.p1_name}</TableCell>
+                        ) : user.winner_id === user.p2 ? (
+                          <TableCell align="center">{user.p2_name}</TableCell>
+                        ) : (
+                          <TableCell align="center">0</TableCell>
+                        )}
                         <TableCell align="center">{user.slot_start}</TableCell>
                         <TableCell align="center">{user.slot_end}</TableCell>
-                        <TableCell align="center">{user.is_walk_over}</TableCell>
+                        <TableCell align="center">
+                          {user.is_walk_over}
+                        </TableCell>
                         {/* <TableCell align="center">
                           <DialogTransition />
                         </TableCell> */}
@@ -277,8 +298,8 @@ const MoreDetailsTable = () => {
               onPageChange={handleChangePage}
               rowsPerPageOptions={[5, 10, 25]}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              nextIconButtonProps={{ 'aria-label': 'Next Page' }}
-              backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+              nextIconButtonProps={{ "aria-label": "Next Page" }}
+              backIconButtonProps={{ "aria-label": "Previous Page" }}
             />
           </Box>
         </SimpleCard>
