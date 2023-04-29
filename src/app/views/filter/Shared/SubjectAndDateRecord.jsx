@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import { SimpleCard } from 'app/components';
+// **  1..for loader - CircularProgress--> not use in submit fun
+import { CircularProgress } from '@mui/material';
 // FOR SUBJECT RECORD.............................................
 import { List, ListItem, ListItemText, Menu, MenuItem, Select, InputLabel, Input, FormControl } from '@mui/material';
 import { styled } from '@mui/system';
@@ -31,12 +33,16 @@ const MenuRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export default function SubjectAndDateRecord({ setRegRecord }) {
+  // **  2..for loader - CircularProgress
+  const [loading, setLoading] = useState(true)
   //step B----->
   const addExpiryDate = ItemStore((state) => state.addExpiryDate)
   // ----------DB FETCH-----------------------------
   // const [dropdownData, setdropdownData]= useState([]);
   // const [expiryDate, setExpiryDate] = useState([]);
   const fetchData1 = async () => {
+    // **  4..for loader - CircularProgress
+    setLoading(true)
     await fetch('http://localhost:4000/member-registration')
       .then((response) => {
         return response.json();
@@ -46,6 +52,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
         //step C----->
         await addExpiryDate({ 'expiry_date': data.response.dates });
         // setExpiryDate(data.response.dates);
+        // **  4..for loader - CircularProgress
+        setLoading(false)
         // ====================<- OR ->=============================
         // const e_result = data.response.dates;
         // let expiry = [];
@@ -57,6 +65,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
         // // dropdownData.push(expiry);
         // // console.log('dropdownData', dropdownData);
       });
+    // **  4..for loader - CircularProgress
+    setLoading(false)
   };
   // console.log('dropdownData', dropdownData);
   // console.log('expiryDate', expiryDate);
@@ -254,6 +264,8 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
 
   // STEP-> 8... -----get value-----
   const getData = () => {
+    // **  5..for loader - CircularProgress
+    setLoading(true)
     const data = state.items;
     var subId;
     var exDate;
@@ -264,13 +276,18 @@ export default function SubjectAndDateRecord({ setRegRecord }) {
     });
     setSubjectId(subId);
     setWeeklyDate(exDate);
+    // **  5..for loader - CircularProgress
+    setLoading(false)
   }
   useEffect(() => {
     // fetchData1();
     getData();
   }, [])
 
-  return (
+  // **  3..for loader - CircularProgress than set it in multiple fun
+  return loading ? (
+    <CircularProgress />
+  ) : (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0px">
 
